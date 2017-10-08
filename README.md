@@ -108,7 +108,7 @@ import org.apache.spark.SparkContext
 scala> val sc = new SparkContext(conf)
 sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@71ea9c44
 
-scala> sc.textFile("/home/asus/source_code/github/124938/hadoop-training/hadoop-hive-assignment/README.md").count
+scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 
 ~~~
