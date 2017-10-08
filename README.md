@@ -1,7 +1,11 @@
 ## Spark - Introduction
-* Spark was introduced by Apache Software Foundation for speeding up the Hadoop computational computing software process.
-* As against a common belief, Spark is not a modified version of Hadoop and is not, really, dependent on Hadoop because it has its own cluster management. Hadoop is just one of the ways to implement Spark.
-* It is rapidly becoming the compute engine of choice for big data.
+* As against a common belief... 
+  * Spark is NOT a modified version of Hadoop 
+  * Spark is NOT really dependent on Hadoop because it has its own cluster management (Hadoop is just one of the ways to implement Spark)
+  * Spark is NOT programming language
+* What is Spark?
+  * Apache Spark is a cluster computing platform designed to be fast and general-purpose
+  * Spark provides API to create distributed application for processing data in distributed fashion
 * **Evolution:**
   * Spark is one of Hadoop’s sub project developed in 2009 in UC Berkeley’s AMPLab by Matei Zaharia.
   * It was Open Sourced in 2010 under a BSD license.
@@ -16,7 +20,26 @@
   * _Advanced Analytics_
     * Spark not only supports ‘Map’ and ‘reduce’. 
     * It also supports SQL queries, Streaming data, Machine learning (ML), and Graph algorithms.
-    
+
+## Spark - Modules
+
+![Alt text](spark-modules.png?raw=true "Spark Modules")
+
+* **Spark Core**
+  * Spark Core contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems, and more.
+  * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
+* **Spark SQL**
+  * Spark SQL is Spark’s package for working with structured data. 
+  * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
+* **Spark Streaming**
+  * Spark Streaming is a Spark component that enables processing of live streams of data.
+* **MLlib**
+  * Spark comes with a library containing common machine learning (ML) functionality, called MLlib
+  * MLlib provides multiple types of machine learning algorithms, including classification, regression, clustering, and collaborative filtering, as well as supporting functionality such as model evaluation and data import.
+* **GraphX**
+  * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
+  * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
+  
 ## Spark - Setting up development environment
 * **Pre-Requisite**
   * 64 bit OD
@@ -110,5 +133,6 @@ sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@71ea9c44
 
 scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
-
 ~~~
+
+## Spark - Architecture
