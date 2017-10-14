@@ -116,14 +116,14 @@ scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 ~~~
 
-## Spark - Architecture
+## Spark - Stack
 
-![Alt text](spark-architecture.jpg?raw=true "Spark Architecture")
+![Alt text](spark-stack-diagram.png?raw=true "Spark Stack")
 
 * **Spark Core**
-  * Spark Core contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems, and more.
+  * Heart of the Spark architecture is core engine of Spark, commonly referred as spark-core, which forms the foundation of this powerful architecture.
+  * Spark core provides services such as managing the memory pool, scheduling of tasks on the cluster, recovering failed jobs, and providing support to work with a wide variety of storage systems such as HDFS, S3, and so on.
   * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
-  * 
 * **Spark SQL**
   * Spark SQL is Spark’s package for working with structured data. 
   * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
@@ -135,3 +135,7 @@ res1: Long = 187
 * **GraphX**
   * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
   * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
+
+## Spark - Architecture
+
+![Alt text](spark-stack-diagram.png?raw=true "Spark Stack")
