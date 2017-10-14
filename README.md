@@ -3,7 +3,7 @@
   * Spark is NOT a modified version of Hadoop 
   * Spark is NOT really dependent on Hadoop because it has its own cluster management (Hadoop is just one of the ways to implement Spark)
   * Spark is NOT programming language
-* What is Spark?
+* **What is Spark**?
   * Apache Spark is a cluster computing platform designed to be fast and general-purpose
   * Spark provides API to create distributed application for processing data in distributed fashion
 * **Evolution:**
