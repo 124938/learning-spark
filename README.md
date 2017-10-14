@@ -21,25 +21,6 @@
     * Spark not only supports ‘Map’ and ‘reduce’. 
     * It also supports SQL queries, Streaming data, Machine learning (ML), and Graph algorithms.
 
-## Spark - Modules
-
-![Alt text](spark-modules.png?raw=true "Spark Modules")
-
-* **Spark Core**
-  * Spark Core contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems, and more.
-  * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
-* **Spark SQL**
-  * Spark SQL is Spark’s package for working with structured data. 
-  * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
-* **Spark Streaming**
-  * Spark Streaming is a Spark component that enables processing of live streams of data.
-* **MLlib**
-  * Spark comes with a library containing common machine learning (ML) functionality, called MLlib
-  * MLlib provides multiple types of machine learning algorithms, including classification, regression, clustering, and collaborative filtering, as well as supporting functionality such as model evaluation and data import.
-* **GraphX**
-  * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
-  * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
-  
 ## Spark - Setting up development environment
 * **Pre-Requisite**
   * 64 bit OD
@@ -136,3 +117,21 @@ res1: Long = 187
 ~~~
 
 ## Spark - Architecture
+
+![Alt text](spark-architecture.jpg?raw=true "Spark Architecture")
+
+* **Spark Core**
+  * Spark Core contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems, and more.
+  * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
+  * 
+* **Spark SQL**
+  * Spark SQL is Spark’s package for working with structured data. 
+  * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
+* **Spark Streaming**
+  * Spark Streaming is a Spark component that enables processing of live streams of data.
+* **MLlib**
+  * Spark comes with a library containing common machine learning (ML) functionality, called MLlib
+  * MLlib provides multiple types of machine learning algorithms, including classification, regression, clustering, and collaborative filtering, as well as supporting functionality such as model evaluation and data import.
+* **GraphX**
+  * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
+  * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
