@@ -116,26 +116,69 @@ scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 ~~~
 
-## Spark - Stack
+## Spark Architectural Overview
+
+* **Spark Stack:**
+  * _Spark Core_
+    * Heart of the Spark architecture is core engine of Spark, commonly referred as spark-core, which forms the foundation of this powerful architecture.
+    * Spark core provides services such as managing the memory pool, scheduling of tasks on the cluster, recovering failed jobs, and providing support to work with a wide variety of storage systems such as HDFS, S3, and so on.
+    * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
+  * _Spark SQL_
+    * Spark SQL is Spark’s package for working with structured data. 
+    * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
+  * _Spark Streaming_
+    * Spark Streaming is a Spark component that enables processing of live streams of data.
+  * _MLlib_
+    * Spark comes with a library containing common machine learning (ML) functionality, called MLlib
+    * MLlib provides multiple types of machine learning algorithms, including classification, regression, clustering, and collaborative filtering, as well as supporting functionality such as model evaluation and data import.
+  * _GraphX_
+    * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
+    * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
 
 ![Alt text](spark-stack-diagram.png?raw=true "Spark Stack")
 
-* **Spark Core**
-  * Heart of the Spark architecture is core engine of Spark, commonly referred as spark-core, which forms the foundation of this powerful architecture.
-  * Spark core provides services such as managing the memory pool, scheduling of tasks on the cluster, recovering failed jobs, and providing support to work with a wide variety of storage systems such as HDFS, S3, and so on.
-  * Spark Core is also home to the API that defines resilient distributed datasets (RDDs), which are Spark’s main programming abstraction.
-* **Spark SQL**
-  * Spark SQL is Spark’s package for working with structured data. 
-  * It allows querying data via SQL as well as the Apache Hive variant of SQL—called the Hive Query Language (HQL)—and it supports many sources of data, including Hive tables, Parquet, and JSON.
-* **Spark Streaming**
-  * Spark Streaming is a Spark component that enables processing of live streams of data.
-* **MLlib**
-  * Spark comes with a library containing common machine learning (ML) functionality, called MLlib
-  * MLlib provides multiple types of machine learning algorithms, including classification, regression, clustering, and collaborative filtering, as well as supporting functionality such as model evaluation and data import.
-* **GraphX**
-  * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
-  * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
+* **Development Language Support:**
+  * Comprehensive support for the development languages with which developers are already familiar is important so that Spark can be leaned relatively easy and incorporated into existing application as straight forward as possible
+  * Programming languages supported by Spark include:
+    * Scala
+    * Java
+    * Python
+    * SQL
+    * R
 
-## Spark - Architecture
+* **Storage Options:**
+  * Spark mostly linked with HDFS, but it can be integrated with range of commercial or open source third party data storage system including
+    * Apache Hadoop (HDFS, HBase, Hive)
+    * Apache Cassandra
+    * Amazon S3
+    * Google Cloud
+    * MapR (file system and database)
 
-![Alt text](spark-stack-diagram.png?raw=true "Spark Stack")
+* **Deployment Options:**
+  * Spark is easy to download and install on laptop or virtual machine (as mentioned in setting up spark section)
+  * But for production workloads that are operating at scale, spark support following clusters:
+    * Standalone
+    * YARN
+    * Mesos
+    * Amazon EC2
+    
+* **Spark Architecture OR Execution Model:**
+  * Spark follows a master/worker architecture
+  * There is a driver that talks to a single coordinator called master that manages workers in which executor runs
+  * The driver and executors runs in their own Java processes
+
+![Alt text](spark-architecture-high-level-view.png?raw=true "Spark Architecture")
+
+* **Spark Memory Usage:**
+
+![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
+
+## Spark on YARN
+* If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
+* In YARN...
+  * Driver program will be submitted on gateway machine/node
+  * Cluster Manager is Resource Manager
+  * There will be application master per submission
+  * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
+
+![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
