@@ -175,7 +175,8 @@ res1: Long = 187
 
 ## HDFS (Hadoop Distributed File System) - Recap
 * **Overview:**
-  * It follows master/slave architecture and comprises of following components:
+  * HDFS is a hadoop’s storage layer which can store files in range of Terabytes and Petabytes in distributed manner with features like high availability, reliability and fault tolerance
+  * HDFS follows master/slave architecture and comprises of following components:
     * NameNode : It is a _deamon process_ runs on master node (Only 1)
     * SecondaryNameNode : It is a _deamon process_ to perform backup and record-keeping functions for the NameNode (typically 1)
     * DataNode : It is a _deamon process_ runs on slave nodes (typically many)
@@ -266,6 +267,7 @@ _Note:_
 
 ## YARN (Yet Another Resource Navigator) - Recap
 * **Overview:**
+  * Hadoop YARN is designed to provide a generic and flexible framework to administer for computing resources in the Hadoop cluster
   * It follows master/slave architecture and comprises of following components:
     * Resource Manager : It is a _deamon process_ runs on master node (typically 1 OR 2)
     * Node Manager : It is a _deamon process_ runs on slave node (typically many)
