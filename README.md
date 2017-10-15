@@ -182,3 +182,85 @@ res1: Long = 187
   * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
 
 ![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
+
+## HDFS (Hadoop Distributed File System) - Recap
+* **Configuration:**
+
+  * Followings are important files configured on gateway node (to access hadoop cluster)
+    * `/etc/hadoop/conf/core-site.xml`
+    * `/etc/hadoop/conf/hdfs-site.xml`
+  * Below are few important properties available under `/etc/hadoop/conf/core-site.xml`
+
+  ~~~
+  <!-- Below property provides information about namenode's host & port-->
+  <property>
+      <name>fs.defaultFS</name>
+      <value>hdfs://namenode01.domain.com</value>
+  </property>
+  ~~~
+
+  * Below are few important properties available under `/etc/hadoop/conf/hdfs-site.xml`
+    * Block Size - default is 128 Mb (a file of 1.1 GB will be divided into 8 blocks of 128 Mb and 1 block of 100 Mb)
+      * Block size makes HDFS distributes
+    * Replication Factor - default is 3 (each block will have 3 copies)
+      * Replication factor makes HDFS fault tolerant & reliable
+
+  ~~~
+  <!-- Below property provides information about default block size -->
+  <property>
+      <name>dfs.blockSize</name>
+      <value>134217728</value>
+  </property>
+
+  <!-- Below property provides information about default replication factor -->
+  <property>
+      <name>dfs.replication</name>
+      <value>3</value>
+  </property>
+  ~~~
+
+* **Architecture:**
+
+![Alt text](hdfs-architecture.jpg?raw=true "HDFS Architecture")
+
+* **Useful Commands:**
+
+_Developer:_
+
+| Command | Description |
+| ------- | ------------|
+| hadoop version | Print hadoop version |
+| hadoop fs | List all the hadoop file system shell commands |
+| hadoop fs -help [hdfs_cmd] | Print usage of command in HDFS |
+| hadoop fs -ls [hdfs_path] | List the contents of the directory/file in HDFS |
+| hadoop fs -ls -h [hdfs_path] | List the contents of the directory/file in HDFS |
+| hadoop fs -ls -h -R [hdfs_path] | List the contents of the directory/file recursively in HDFS|
+| hadoop fs -copyFromLocal [local_fs_path] [hdfs_path] | Copy directory/file from local file system to HDFS|
+| hadoop fs -put [local_fs_path] [hdfs_path] | Same as -copyFromLocal |
+| hadoop fs -get [hdfs_path] [local_fs_path] | Copy directory/file from HDFS to local file system |
+| hadoop fs -mkdir [hdfs_path] | Create new directory in HDFS |
+| hadoop fs -rm [hdfs_path] | Remove existing file from HDFS |
+| hadoop fs -rmdir [hdfs_path] | Remove existing directory from HDFS |
+| hadoop fs -touchz [hdfs_path] | Create file in HDFS |
+| hadoop fs -cat [hdfs_path] | Print content of file from HDFS |
+| hadoop fs -tail [hdfs_path] | Print last 1 Kb of content from HDFS file to standard output (typically useful for previewing data from file) |
+
+_Admin:_
+
+| Command | Description |
+| ------- | ------------|
+| hadoop fs -df -h | Shows the capacity, free and used space of HDFS |
+| hadoop fs -du -s -h [hdfs_path] | Prints aggregate length of file from HDFS |
+| hdfs fsck [hdfs_path] | Prints meta-data of file stored in HDFS |
+
+_Note:_
+* -du => Stands for disk usage
+* -h  => It displays the size of file in readable format
+* -R  => Stands for recursive 
+
+## YARN (Yet Another Resource Navigator) - Recap
+* Test
+
+## HDFS & YARN together
+* Test
+
