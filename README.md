@@ -208,7 +208,7 @@ res1: Long = 187
   ~~~
   <!-- Below property provides information about default block size -->
   <property>
-      <name>dfs.blockSize</name>
+      <name>dfs.blocksize</name>
       <value>134217728</value>
   </property>
 
@@ -259,8 +259,46 @@ _Note:_
 * -R  => Stands for recursive 
 
 ## YARN (Yet Another Resource Navigator) - Recap
-* Test
+* **Overview:**
+  * It follows master/slave architecture and comprises of following components:
+    * Resource Manager : It is a _deamon process_ runs on master node (typically 1 OR 2)
+    * Node Manager : It is a _deamon process_ runs on slave node (typically many)
+  * **Node Manager:**
+    * Runs on all the slave nodes, which will keep track of resources on individual node
+    * It sends information to Resource Manager at regular intervals
+  * **Resource Manager:**
+    * Runs on master nodes, which will keep track of all the resources on cluster level
+    * It receives information from all Node Managers
+  * Per job **Application Master:** When JOB is submitted (in context of spark => via spark-shell or spark-submit)
+    * Request goes to Resource Manager
+    * Resource Manager will pick one node and Application Master will get started from that point onwards
+      * Application Master will talk to Node Manager and create executor
+      * Each executor will take care of execuring the job in form of tasks
+  * **Cluster Manager:**
+    * In YARN... **Resource Manager + Application Master** will act as Cluster Manager
+
+* **Configuration:**
+  * Followings are important files configured on gateway node (to access hadoop cluster)
+    * `/etc/hadoop/conf/yarn-site.xml`
+  * Below are few important properties available under `/etc/hadoop/conf/site-site.xml`
+
+  ~~~
+  <!-- Resource Manager can be accessible from below URL -->
+  <property>
+      <name>yarn.resourcemanager.webapp.address</name>
+      <value>quickstart.cloudera:8088</value>
+  </property>
+  
+  <!-- Application log location -->
+  <property>
+    <name>yarn.nodemanager.remote-app-log-dir</name>
+    <value>/tmp/logs</value>
+  </property>
+  ~~~
+
+* **Architecture:**
+
+![Alt text](yarn-architecture.jpg?raw=true "YARN Architecture")
 
 ## HDFS & YARN together
-* Test
 
