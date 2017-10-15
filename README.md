@@ -139,7 +139,7 @@ res1: Long = 187
 
 * **Development Language Support:**
   * Comprehensive support for the development languages with which developers are already familiar is important so that Spark can be leaned relatively easy and incorporated into existing application as straight forward as possible
-  * Programming languages supported by Spark include:
+  * Programming languages supported by Spark includes:
     * Scala
     * Java
     * Python
@@ -169,10 +169,6 @@ res1: Long = 187
 
 ![Alt text](spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
-* **Spark Memory Usage:**
-
-![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
-
 ## HDFS (Hadoop Distributed File System) - Recap
 * **Overview:**
   * HDFS is a hadoop’s storage layer which can store files in range of Terabytes and Petabytes in distributed manner with features like high availability, reliability and fault tolerance
@@ -192,7 +188,6 @@ res1: Long = 187
     * HDFS cluster usually has more than one DataNodes and data is replicated across the other machines present in the HDFS cluster
 
 * **Configuration:**
-
   * Followings are important files configured on gateway node (to access hadoop cluster)
     * `/etc/hadoop/conf/core-site.xml`
     * `/etc/hadoop/conf/hdfs-site.xml`
@@ -322,15 +317,5 @@ _Note:_
 ## HDFS & YARN - Consolidated View
 
 ![Alt text](hdfs-yarn-consolidated-view.png?raw=true "HDFS & YARN - Consolidated View")
-
-## Spark on YARN
-* If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
-* In YARN...
-  * Driver program will be submitted on gateway machine/node
-  * Cluster Manager is Resource Manager
-  * There will be application master per submission
-  * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
-
-![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
 
 
