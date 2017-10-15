@@ -298,7 +298,7 @@ _Note:_
 
 * **Architecture:**
 
-![Alt text](yarn-architecture.gif?raw=true "YARN Architecture")
+![Alt text](yarn-architecture.png?raw=true "YARN Architecture")
 
 ## HDFS & YARN together
 
