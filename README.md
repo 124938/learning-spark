@@ -321,7 +321,7 @@ _Note:_
 
 ## HDFS & YARN - Consolidated View
 
-![Alt text](yarn-architecture.png?raw=true "YARN Architecture")
+![Alt text](hdfs-yarn-consolidated-view.png?raw=true "HDFS & YARN - Consolidated View")
 
 ## Spark on YARN
 * If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
@@ -331,6 +331,6 @@ _Note:_
   * There will be application master per submission
   * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
 
-![Alt text](hdfs-yarn-consolidated-view.png?raw=true "HDFS & YARN - Consolidated View")
+![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
 
 
