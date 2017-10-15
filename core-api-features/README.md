@@ -11,7 +11,7 @@
   * **Local:** Mode to be used by developer while doing development of spark application on local machine (default mode on local machine)
     * `spark-shell --master local[*]` => Launch spark shell in local mode
 
-  * **Stand Alone:** Recommended mode to used by developer before deploying application to production (binary provided within spark distribution)
+  * **Stand Alone:** Recommended mode to be used by developer before deploying application to production (binaries available within spark distribution)
     * `start-master.sh` => Start Master
     * `start-slave.sh spark://localhost:7077` => Start Slave
     * `spark-shell --master spark://localhost:7077` => Launch spark shell in standalone mode
@@ -29,6 +29,7 @@
     * `scala> sc.getConf.getAll.foreach(println)`
   * Below are few important configuration parameters
     * `spark.ui.port` => Port number on which spark UI should be accessible
+  * By default spark launches with 2 executors
 
 ## Spark on YARN (typical production mode)
 * If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
@@ -43,5 +44,8 @@
 ## Spark Memory Model
 
 ![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
+
+## Setup Data Set
+* retail_db
 
 
