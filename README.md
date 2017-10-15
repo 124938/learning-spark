@@ -300,5 +300,16 @@ _Note:_
 
 ![Alt text](yarn-architecture.png?raw=true "YARN Architecture")
 
+* **Useful Commands:**
+
+| Command | Description |
+| ------- | ------------|
+| yarn version | Print YARN version |
+| yarn | Print list of commands supported by YARN |
+| yarn application | Print list of sub-commands supported by application command |
+| yarn application --list | List all applications running under YARN |
+| yarn application --kill <application_id> | Kill application running under YARN |
+| yarn application --status <application_id> | Prints the status of application |
+
 ## HDFS & YARN together
 
