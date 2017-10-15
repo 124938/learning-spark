@@ -95,3 +95,49 @@ object SparkDemo {
   * On local machine: As spark is independently installed on local machine and `file://` is set as default protocol
       * No need to specify `file://` while reading/writing data from/to local file system
       * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
+
+
+## Reading & Writing File - Using SBT console
+* Below is the sample code to read/write file (very famous word count program)
+
+~~~
+$cd /path/to/project
+$sbt console
+
+Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_131).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.{SparkConf, SparkContext}
+
+scala> val conf = new SparkConf().setAppName("Spark Demo - SBT Console").setMaster("local[2]")
+conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@a1866f0
+
+scala> val sc = new SparkContext(conf)
+sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@238082b6
+
+scala> val rdd = sc.textFile("/home/asus/tech_soft/apache-maven-3.5.0/README.txt")
+rdd: org.apache.spark.rdd.RDD[String] = /home/asus/tech_soft/apache-maven-3.5.0/README.txt MapPartitionsRDD[1] at textFile at <console>:10
+
+scala> val wordCountRdd = rdd.flatMap((line: String) => line.split(",")).map((word: String) => (word, 1)).reduceByKey((agg, ele) => agg + ele)
+wordCountRdd: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at <console>:11
+
+scala> wordCountRdd.saveAsTextFile("/home/asus/tech_soft/apache-maven-3.5.0/out")
+
+~~~
+
+## Spark Web UI
+* A typical spark application usually executes multiple JOBs
+  
+![Alt text](spark-web-ui-jobs.png?raw=true "Spark Web UI - Jobs")
+
+* A JOB consists of multiple tasks and tasks are grouped as stages
+
+![Alt text](spark-web-ui-job-details.png?raw=true "Spark Web UI - Job Details")
+
+![Alt text](spark-web-ui-job-stage.png?raw=true "Spark Web UI - Stage")
+
+* A JOB always ends with executing "action" on RDD e.g. `rdd.saveAsTextFile`
+
+* Explore Spark Web UI....
