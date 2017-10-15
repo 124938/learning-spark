@@ -173,17 +173,23 @@ res1: Long = 187
 
 ![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
 
-## Spark on YARN
-* If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
-* In YARN...
-  * Driver program will be submitted on gateway machine/node
-  * Cluster Manager is Resource Manager
-  * There will be application master per submission
-  * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
-
-![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
-
 ## HDFS (Hadoop Distributed File System) - Recap
+* **Overview:**
+  * It follows master/slave architecture and comprises of following components:
+    * NameNode : It is a _deamon process_ runs on master node (Only 1)
+    * SecondaryNameNode : It is a _deamon process_ to perform backup and record-keeping functions for the NameNode (typically 1)
+    * DataNode : It is a _deamon process_ runs on slave nodes (typically many)
+  * **NameNode:**
+    * It manages the HDFS filesystem namespace
+    * It keeps the record of all the files present in the HDFS
+  * **SecondaryNameNode:**
+    * It periodically pulls the data from NameNode, so if NameNode goes down we can manually make secondary NN as Namenode
+    * One important point, it is not a hot standby of namenode
+  * **DataNode:**
+    * The function of DataNode is to store data in the HDFS
+    * It contains the actual data blocks
+    * HDFS cluster usually has more than one DataNodes and data is replicated across the other machines present in the HDFS cluster
+
 * **Configuration:**
 
   * Followings are important files configured on gateway node (to access hadoop cluster)
@@ -312,4 +318,16 @@ _Note:_
 | yarn application --status <application_id> | Prints the status of application |
 
 ## HDFS & YARN together
+
+
+## Spark on YARN
+* If spark cluster comes as part of Cloudera OR Hortonworks OR MapR OR any major distribution, it usually integrated with YARN and HDFS
+* In YARN...
+  * Driver program will be submitted on gateway machine/node
+  * Cluster Manager is Resource Manager
+  * There will be application master per submission
+  * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
+
+![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Execution Model")
+
 
