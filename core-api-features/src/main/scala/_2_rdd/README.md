@@ -43,6 +43,56 @@
 * **Goal:**
   * Re-use intermediate in-memory results across multiple data intensive workload with no need for copying large amounts of data over the network (which was the core issue in Map Reduce)
 
+## Creating RDD
+
+* From **Collection**
+~~~
+scala> val rdd = sc.parallelize(1 to 1000)
+rdd: org.apache.spark.rdd.RDD[Int] = ParallelCollectionRDD[0] at parallelize at <console>:27
+
+scala> rdd.take(5).foreach(println)
+1
+2
+3
+4
+5
+
+scala> rdd.count
+res1: Long = 1000
+~~~
+
+* From **File** i.e. _External Dataset_
+~~~
+scala> val orders = sc.textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders")
+orders: org.apache.spark.rdd.RDD[String] = /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders MapPartitionsRDD[2] at textFile at <console>:27
+
+scala> orders.first
+res2: String = 1,2013-07-25 00:00:00.0,11599,CLOSED
+
+scala> orders.take(3).foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+
+~~~
+
+* From **Existing RDD**
+~~~
+scala> val orders = sc.textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders")
+orders: org.apache.spark.rdd.RDD[String] = /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders MapPartitionsRDD[4] at textFile at <console>:27
+
+scala> val completedOrders = orders.filter((rec: String) => rec.split(",")(3) == "COMPLETE")
+completedOrders: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[5] at filter at <console>:29
+
+scala> completedOrders.take(5).foreach(println)
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+6,2013-07-25 00:00:00.0,7130,COMPLETE
+7,2013-07-25 00:00:00.0,4530,COMPLETE
+15,2013-07-25 00:00:00.0,2568,COMPLETE
+
+~~~
+  
 ## RDD - Types
 * Types of RDDs are:
   
