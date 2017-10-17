@@ -29,6 +29,7 @@
     * `scala> sc.getConf.getAll.foreach(println)`
   * Below are few important configuration parameters
     * `spark.ui.port` => Port number on which spark UI should be accessible
+    * `spark.executor.memory` => Size of memory allocated to executor
   * By default spark launches with 2 executors
 
 ## Spark on YARN (typical production mode)
