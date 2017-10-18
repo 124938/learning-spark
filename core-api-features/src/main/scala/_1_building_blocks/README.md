@@ -130,13 +130,13 @@ scala> wordCountRdd.saveAsTextFile("/home/asus/tech_soft/apache-maven-3.5.0/out"
 ## Spark Web UI
 * A typical spark application usually executes multiple JOBs
   
-![Alt text](spark-web-ui-jobs.png?raw=true "Spark Web UI - Jobs")
+![Alt text](images/spark-web-ui-jobs.png?raw=true "Spark Web UI - Jobs")
 
 * A JOB consists of multiple tasks and tasks are grouped as stages
 
-![Alt text](spark-web-ui-job-details.png?raw=true "Spark Web UI - Job Details")
+![Alt text](images/spark-web-ui-job-details.png?raw=true "Spark Web UI - Job Details")
 
-![Alt text](spark-web-ui-job-stage.png?raw=true "Spark Web UI - Stage")
+![Alt text](images/spark-web-ui-job-stage.png?raw=true "Spark Web UI - Stage")
 
 * A JOB always ends with executing "action" on RDD e.g. `rdd.saveAsTextFile`
 
