@@ -66,9 +66,11 @@ At high level actions can be grouped into following categories:
 | Applicable for aggregation only | Applicable for aggregation only | Applicable for aggregation, sorting & ranking etc. |
 | e.g. sum, min, max etc. | e.g. average | e.g. any aggregation is possible but not preferred due to performance hit |
 
-* Visual presentation for groupByKey & reduceByKey
+* Visual Presentation - `groupByKey`
 
 ![Alt text](images/group-by-key.jpg?raw=true "Group By Key - Word Count")
+
+* Visual Presentation - `reduceByKey`
 
 ![Alt text](images/reduce-by-key.png?raw=true "Reduce By Key - Word Count")
 
