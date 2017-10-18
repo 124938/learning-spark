@@ -1,7 +1,9 @@
-## Action 
+## RDD - Action
 RDD supports many actions and at high level actions can be grouped into following categories:
 
-* **Previewing Data:**
+#### Previewing Data:
+
+* Below are few important APIs for previewing/collecting data:
 
 | Method Name | Description |
 | ----------- | ----------- |
@@ -15,7 +17,9 @@ RDD supports many actions and at high level actions can be grouped into followin
   * On top of `take` & `collect`, `foreach` is used to display result in readable as well as custom format
   * Never use any of above APIs as part of applications which is suppose to deploy in production, unless and until it is inevitable
  
-* **Aggregation:**
+#### Aggregation:
+
+* Below are few important APIs to aggregate data:
 
 | Method Name | Description |
 | ----------- | ----------- |
@@ -23,14 +27,18 @@ RDD supports many actions and at high level actions can be grouped into followin
 | countByKey() | Only available on RDDs of type (K, V). Returns a hashmap of (K, Int) pairs with the count of each key |
 | reduce(func) | Aggregate the elements of the dataset using a function func (which takes two arguments and returns one). The function should be commutative and associative so that it can be computed correctly in parallel e.g. sum, min, max etc. |
 
-* **Sorting & Ranking:**
+#### Sorting & Ranking:
+
+* Below are few important APIs to sort data:
 
 | Method Name | Description |
 | ----------- | ----------- |
 | top(n) | Return an array with the top n elements of the dataset (Sorting happens based on natural order or element present in RDD) |
 | takeOrdered(n, [ordering]) | Return the first n elements of the RDD using either their natural order or a custom comparator |
 
-* **Saving Output:**
+#### Saving Output:
+
+* Below are few important APIs to save data:
 
 | Method Name | Description |
 | ----------- | ----------- |
