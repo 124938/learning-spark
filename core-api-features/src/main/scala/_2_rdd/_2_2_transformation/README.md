@@ -68,7 +68,7 @@ At high level actions can be grouped into following categories:
 
 * Visual Presentation - `groupByKey`
 
-![Alt text](images/group-by-key.jpg?raw=true "Group By Key - Word Count")
+![Alt text](images/group-by-key.png?raw=true "Group By Key - Word Count")
 
 * Visual Presentation - `reduceByKey`
 
