@@ -1,3 +1,31 @@
+## Map Reduce - Recap
+
+### Working Model
+
+* **Without combiner**
+
+  ![Alt text](images/map-reduce-without-combiner.jpg?raw=true "Map Reduce Without Combiner - Word Count")
+  
+* **With combiner**
+  
+  ![Alt text](images/map-reduce-with-combiner.jpg?raw=true "Map Reduce With Combiner - Word Count")
+
+### Important terms
+
+* **What is Mapper?**
+  * Applying row level transformation comes under mapper phase 
+  * e.g. map, filter, flatMap (In context of spark)
+
+* **What is Shuffling?**
+  * The process of grouping & moving data is called as shuffling, which is typically provided by framework
+
+* **What is Reducer?**
+  * Applying transformation which requires at-least 2 records comes under reducer phase 
+  * e.g. reduce, groupByKey, reduceByKey, aggregateByKey, join, union etc.  (In context of spark)
+
+* **What is Combiner?**
+  * Applying aggregation at mapper side called as combiner
+
 ## RDD - Transformation
 At high level actions can be grouped into following categories:
 
@@ -16,29 +44,6 @@ At high level actions can be grouped into following categories:
 | map(func) | Return a new distributed dataset formed by passing each element of the source through a function func |
 | filter(func) | Return a new dataset formed by selecting those elements of the source on which func returns true |
 | flatMap(func) | Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item) |
-
-### Map Reduce - Recap
-
-* **Without Combiner**:
-
-  ![Alt text](map-reduce-without-combiner.jpg?raw=true "Map Reduce Without Combiner - Word Count")
-  
-* **With Combiner:**
-  
-  ![Alt text](map-reduce-with-combiner.jpg?raw=true "Map Reduce With Combiner - Word Count")
-
-* **What is Mapper?**
-  * Applying row level transformation comes under mapper phase e.g. map, filter, flatMap
-
-* **What is Shuffling?**
-  * The process of grouping & moving data is called as shuffling, which is typically provided by framework
-
-* **What is Reducer?**
-  * Applying transformation which requires at-least 2 records comes under reducer phase e.g. reduce, groupByKey, reduceByKey, aggregateByKey, join, union etc.
-
-* **What is Combiner?**
-  * Applying aggregation at mapper side called as combiner
-
 
 ### Aggregation:
 
@@ -60,7 +65,13 @@ At high level actions can be grouped into following categories:
 | Performance is great for aggregation | Performance is good for aggregation | Relatively slower for aggregation |
 | Applicable for aggregation only | Applicable for aggregation only | Applicable for aggregation, sorting & ranking etc. |
 | e.g. sum, min, max etc. | e.g. average | e.g. any aggregation is possible but not preferred due to performance hit |
- 
+
+* Visual presentation for groupByKey & reduceByKey
+
+![Alt text](images/group-by-key.jpg?raw=true "Group By Key - Word Count")
+
+![Alt text](images/reduce-by-key.png?raw=true "Reduce By Key - Word Count")
+
 * _Note:_
     * If you are grouping in order to perform an aggregation (such as a sum or average) over each key, using reduceByKey or aggregateByKey will yield much better performance
     * By default, the level of parallelism in the output depends on the number of partitions of the parent RDD. You can pass an optional numTasks argument to set a different number of tasks
