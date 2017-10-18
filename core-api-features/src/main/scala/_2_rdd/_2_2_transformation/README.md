@@ -17,11 +17,31 @@ At high level actions can be grouped into following categories:
 | filter(func) | Return a new dataset formed by selecting those elements of the source on which func returns true |
 | flatMap(func) | Similar to map, but each input item can be mapped to 0 or more output items (so func should return a Seq rather than a single item) |
 
+### Map Reduce - Recap
+
+* **Without Combiner**:
+
+  ![Alt text](map-reduce-without-combiner.jpg?raw=true "Map Reduce Without Combiner - Word Count")
+  
+* **With Combiner:**
+  
+  ![Alt text](map-reduce-with-combiner.jpg?raw=true "Map Reduce With Combiner - Word Count")
+
+* **What is Mapper?**
+  * Applying row level transformation comes under mapper phase e.g. map, filter, flatMap
+
+* **What is Shuffling?**
+  * The process of grouping & moving data is called as shuffling, which is typically provided by framework
+
+* **What is Reducer?**
+  * Applying transformation which requires at-least 2 records comes under reducer phase e.g. reduce, groupByKey, reduceByKey, aggregateByKey, join, union etc.
+
+* **What is Combiner?**
+  * Applying aggregation at mapper side called as combiner
+
+
 ### Aggregation:
 
-* _**Map Reduce - Recap**_
-
-  
 * Below are few important APIs for performing aggregations on RDD:
 
 | Method Name | Description |
@@ -72,6 +92,8 @@ At high level actions can be grouped into following categories:
 | distinct([numTasks])) | Return a new dataset that contains the distinct elements of the source dataset |
 
 ### Sorting & Ranking:
+
+* Below are few important APIs for performing sorting operations on RDD:
 
 | Method Name | Description |
 | ----------- | ----------- |
