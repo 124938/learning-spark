@@ -171,4 +171,18 @@ scala> rdd.count
 res6: Long = 1000
 ~~~
 
-## Spark Application - Typical life cycle
+## Spark Application - Life Cycle
+Here is the typical life cycle of Spark application
+* Identify file system:
+  * `file://` => To read data from local file system
+  * `hdfs://` => To read data from HDFS
+  * `s3://` => To read data from amazone S3
+* Understand file format, structure of data & use appropriate API to read data. SparkContext supports following APIs
+  * `sc.textFile`
+  * `sc.sequenceFile`
+  * `sc.objectFile`
+  * `sc.hadoopFile`
+  * `sc.newAPIHadoopFile`
+* Data will typically stored in distributed in-memory collection called RDD
+* Apply one OR more transformation on data based on business requirement
+* Use appropriate action to write data back to underlying system
