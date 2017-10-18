@@ -10,7 +10,7 @@ RDD supports many actions and at high level actions can be grouped into followin
 | takeSample(withReplacement, num, [seed]) | Return an array with a random sample of num elements of the dataset, with or without replacement, optionally pre-specifying a random number generator seed |
 | collect() | Return all the elements of the dataset as an array at the driver program. This is usually useful after a filter or other operation that returns a sufficiently small subset of the data |
 
-_Note:_
+* _Note:_
   * Typical use case for above APIs are to preview OR validate data (for development purpose)
   * On top of `take` & `collect`, `foreach` is used to display result in readable as well as custom format
   * Never use any of above APIs as part of applications which is suppose to deploy in production, unless and until it is inevitable
