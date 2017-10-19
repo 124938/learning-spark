@@ -6,7 +6,7 @@ object SetDemo {
   def main(args: Array[String]): Unit = {
     println("========= Creating SparkContext ========")
     val conf = new SparkConf().
-      setAppName("Action Demo").
+      setAppName("Set - Demo").
       setMaster("local[2]")
 
     val sc = new SparkContext(conf)
@@ -56,6 +56,8 @@ object SetDemo {
       union(productIds26DEC2013).
       distinct().
       count()
+
+    println("======= Usage - intersection ========")
 
     println("**** Find out common product ids sold on 25-dec-2013 & 26-dec-2013 - using intersection ****")
     productIds25DEC2013.
