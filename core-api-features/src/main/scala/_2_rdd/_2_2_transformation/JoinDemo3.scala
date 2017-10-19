@@ -6,7 +6,7 @@ object JoinDemo3 {
   def main(args: Array[String]): Unit = {
     println("========= Creating SparkContext ========")
     val conf = new SparkConf().
-      setAppName("Action Demo").
+      setAppName("Join - Demo 3").
       setMaster("local[2]")
 
     val sc = new SparkContext(conf)
