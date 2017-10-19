@@ -6,7 +6,7 @@ object MappingDemo {
   def main(args: Array[String]): Unit = {
     println("========= Creating SparkContext ========")
     val conf = new SparkConf().
-      setAppName("Action Demo").
+      setAppName("Mapping - Demo").
       setMaster("local[2]")
 
     val sc = new SparkContext(conf)
