@@ -2,7 +2,7 @@ package _2_rdd._2_2_transformation
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-object AggregationDemo {
+object AggregationDemo1 {
   def main(args: Array[String]): Unit = {
     println("========= Creating SparkContext ========")
     val conf = new SparkConf().
