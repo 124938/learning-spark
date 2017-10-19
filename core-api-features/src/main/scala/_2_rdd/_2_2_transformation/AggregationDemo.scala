@@ -14,11 +14,7 @@ object AggregationDemo {
     println("======= Creating RDD from text file ========")
     val orderItems = sc.textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/order_items")
 
-    // Verification code
-    orderItems.
-      filter((rec: String) => rec.split(",")(1).toInt == 65722).
-      collect().
-      foreach(println)
+    println("======= Usage - Aggregation ========")
 
     println("**** Generate revenue for each order - using groupByKey ****")
     val orderRevGBK = orderItems.
@@ -75,5 +71,12 @@ object AggregationDemo {
         (agg: (Float, Int), ele: (Float, Int)) => (agg._1 + ele._1, agg._2 + ele._2)).
       take(10).
       foreach(println)
+
+    // Verification code
+    orderItems.
+      filter((rec: String) => rec.split(",")(1).toInt == 65722).
+      collect().
+      foreach(println)
+
   }
 }
