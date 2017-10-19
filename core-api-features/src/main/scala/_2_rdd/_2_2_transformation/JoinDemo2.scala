@@ -48,6 +48,7 @@ object JoinDemo2 {
     // Calculate count
     orderRightOuterJoin.
       filter((t: (Int, (Option[String], String))) => t._2._1 == None).
+      map((t: (Int, (Option[String], String))) => t._2._2).
       count()
 
     println("======= Usage - fullOuterJoin ========")
