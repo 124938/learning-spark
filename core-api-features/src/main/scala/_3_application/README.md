@@ -25,7 +25,7 @@
 
   ~~~
   
-* **Using IDE**
+* **Use IDE for development**
   * Create Scala project (using SBT) under IntelliJ Idea
   * Add following dependencies to build.sbt file
   * Create Word Count program
@@ -34,3 +34,15 @@
   libraryDependencies += "com.typesafe" % "config" % "1.3.1"
   libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.3"
   ~~~
+  
+* **Use SBT to build artifact**
+  * Execute below SBT command to build JAR file
+  
+  ~~~
+  $cd /path/to/project
+  sbt package
+  ~~~
+
+### Execution Life Cycle:
+
+* Copy JAR file to VM or Gateway node of cluster using below command
