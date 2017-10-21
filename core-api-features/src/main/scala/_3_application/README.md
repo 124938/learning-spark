@@ -148,10 +148,12 @@
   
   * _In standalone mode_: Use below command...
   ~~~
+  mkdir /tmp/spark-events
   spark-submit \
     --class _3_application.WordCount \
     --name "Word Count - demo application on stand alone" \
     --conf spark.ui.port=54321 \
+    --conf spark.eventLog.enabled=true \
     --executor-memory 512M \
     /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
     /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/README.md \
@@ -173,4 +175,10 @@
     prd
   ~~~
   
-  * 
+* **Explore Spark Web UI:**
+  * Job
+  * Stages
+    * Aggregated Metrics by Executor
+    * Tasks
+  * Environment
+  * Executors
