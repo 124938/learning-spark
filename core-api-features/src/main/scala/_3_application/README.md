@@ -43,6 +43,10 @@
   sbt package
   ~~~
 
+* **Note:**
+  * Make sure to use same version of scala & spark available on cluster
+  * 
+
 ### Execution Life Cycle:
 
 * **Copy JAR file** 
@@ -168,7 +172,8 @@
     --name "Word Count - demo application on YARN" \
     --conf spark.ui.port=54321 \
     --num-executors 4 \
-    --executor-memory 512M \
+    --executor-memory 2G \
+    --executor-cores 2 \
     /home/cloudera/core-api-features_2.10-0.1.jar \
     /user/cloudera/random-words-input \
     /user/cloudera/random-words-output \
