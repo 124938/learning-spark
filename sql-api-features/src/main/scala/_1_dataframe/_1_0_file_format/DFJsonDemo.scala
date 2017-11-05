@@ -8,7 +8,7 @@ object DFJsonDemo {
 
     // Create Spark Configuration
     val conf = new SparkConf().
-      setAppName("DF Creation Using RDD").
+      setAppName("DF JSON File - Demo").
       setMaster("local[2]")
 
     // Create Spark Context
@@ -31,7 +31,7 @@ object DFJsonDemo {
       }).
       toDF("order_id", "order_date", "order_customer_id", "order_status")
 
-    println("**** Problem Statement : Write JSON data without compression codec ****")
+    println("**** Problem Statement : Write & Verify JSON data without compression codec ****")
 
     println("!!!! WARN : As of 1.6.3 compression doesn't get supported while writing JSON file using  DataFrame !!!!")
     val orderJsonFileLocation = "/tmp/retail_db/orders/json"
@@ -46,7 +46,7 @@ object DFJsonDemo {
       json(orderJsonFileLocation).
       show(20)
 
-    println("**** Problem Statement : Write JSON data with BZIP2 compression codec ****")
+    println("**** Problem Statement : Write & Verify JSON data with BZIP2 compression codec ****")
     val orderJsonBzip2FileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
     orderDF.
       toJSON.
@@ -58,7 +58,7 @@ object DFJsonDemo {
       json(orderJsonBzip2FileLocation).
       show(20)
 
-    println("**** Problem Statement : Write JSON data with GZIP compression codec ****")
+    println("**** Problem Statement : Write & Verify JSON data with GZIP compression codec ****")
     val orderJsonGzipFileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
     orderDF.
       toJSON.
@@ -71,7 +71,7 @@ object DFJsonDemo {
       show(20)
 
     /* // Below is not working
-    println("**** Problem Statement : Write JSON data with Snappy compression codec ****")
+    println("**** Problem Statement : Write & Verify JSON data with Snappy compression codec ****")
     val orderJsonSnappyFileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
     orderDF.
       toJSON.
