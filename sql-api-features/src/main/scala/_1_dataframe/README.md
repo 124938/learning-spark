@@ -18,7 +18,6 @@
     * By knowing schema of data in advance and storing it efficiently in binary format, expensive java serialization is also avoided
 
 ### Creating DataFrame
-
 **(1) : Using Native Context (aka org.apache.spark.sql.SQLContext)**
 * With a SQLContext, application can crete DataFrame in following ways:
   
@@ -47,10 +46,20 @@
     ~~~
   
   * **Configuration:** 
-    
     * _Approach-1:_ Copy following files under conf folder of Spark installation
       * `hive-site.xml`
       * `core-site.xml` => For security configuration
       * `hdfs-site.xml` => For HDFS configuration
     
     * _Approach-2:_ Create soft link of `hive-site.xml` under conf folder of Spark installation using `ln-s` command
+    
+### DataFrame Operations
+* DataFrame supports following type of transformations:
+  * Filter
+  * Aggregation
+  * Join
+  * Set
+  * Soring & Ranking
+  * Analytical or Windowing functions
+  * RDD conversion
+  
