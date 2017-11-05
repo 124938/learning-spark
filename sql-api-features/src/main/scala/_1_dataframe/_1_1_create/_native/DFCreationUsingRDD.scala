@@ -45,7 +45,7 @@ object DFCreationUsingRDD {
         Row(recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
       })
 
-    val schema = StructType(
+    val orderRowSchema = StructType(
       List(
         StructField("order_id", IntegerType),
         StructField("order_date", StringType),
@@ -55,7 +55,7 @@ object DFCreationUsingRDD {
     )
 
     val orderDF2 = sqlContext.
-      createDataFrame(orderRowRDD, schema)
+      createDataFrame(orderRowRDD, orderRowSchema)
 
     // Preview data
     orderDF2.
