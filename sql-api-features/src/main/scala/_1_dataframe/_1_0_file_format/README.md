@@ -200,7 +200,7 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 -rw-r--r--   1 cloudera cloudera    616.1 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00001
 ~~~
 
-* View Sequence file using hadoop file system command (Refer below snapshot)
+* View Sequence file using HDFS command (Refer below snapshot)
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -text tmp/orders/text_snappy/part-00000.snappy | more
 17/11/12 19:21:46 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
