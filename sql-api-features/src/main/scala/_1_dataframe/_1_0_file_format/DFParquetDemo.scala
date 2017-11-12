@@ -31,29 +31,32 @@ object DFParquetDemo {
       }).
       toDF("order_id", "order_date", "order_customer_id", "order_status")
 
+    // Output location
     val orderParquetFileLocation = "/tmp/retail_db/orders/parquet"
 
-    println("**** Problem Statement : Write & Verify Parquet data without compression ****")
+    println("**** Problem Statement : Write & Verify Parquet data with Snappy compression ****")
 
-    // Default compression codec of parquet file is gzip
-    sqlContext.setConf("spark.sql.parquet.compression.codec", "uncompressed")
+    val orderParquetSnappyFileLocation = orderParquetFileLocation + "_snappy"
+
+    // Set compression codec of parquet file as snappy
+    sqlContext.setConf("spark.sql.parquet.compression.codec", "snappy")
 
     orderDF.
       write.
       mode(SaveMode.Overwrite).
-      parquet(orderParquetFileLocation)
+      parquet(orderParquetSnappyFileLocation)
 
     // Verify Parquet files
     sqlContext.
       read.
-      parquet(orderParquetFileLocation).
+      parquet(orderParquetSnappyFileLocation).
       show(20)
 
     println("**** Problem Statement : Write & Verify Parquet data with GZIP compression ****")
 
-    val orderParquetGzipFileLocation = orderParquetFileLocation + "_" + System.currentTimeMillis()
+    val orderParquetGzipFileLocation = orderParquetFileLocation + "_gzip"
 
-    // Default compression codec of parquet file is gzip
+    // Set compression codec of parquet file as gzip
     sqlContext.setConf("spark.sql.parquet.compression.codec", "gzip")
 
     orderDF.
@@ -67,22 +70,20 @@ object DFParquetDemo {
       parquet(orderParquetGzipFileLocation).
       show(20)
 
-    println("**** Problem Statement : Write & Verify Parquet data with Snappy compression ****")
+    println("**** Problem Statement : Write & Verify Parquet data without compression ****")
 
-    val orderParquetSnappyFileLocation = orderParquetFileLocation + "_" + System.currentTimeMillis()
-
-    // Default compression codec of parquet file is snappy
-    sqlContext.setConf("spark.sql.parquet.compression.codec", "snappy")
+    // Set compression codec of parquet file as uncompressed
+    sqlContext.setConf("spark.sql.parquet.compression.codec", "uncompressed")
 
     orderDF.
       write.
       mode(SaveMode.Overwrite).
-      parquet(orderParquetSnappyFileLocation)
+      parquet(orderParquetFileLocation)
 
     // Verify Parquet files
     sqlContext.
       read.
-      parquet(orderParquetSnappyFileLocation).
+      parquet(orderParquetFileLocation).
       show(20)
   }
 }

@@ -31,10 +31,10 @@ object DFJsonDemo {
       }).
       toDF("order_id", "order_date", "order_customer_id", "order_status")
 
-    println("**** Problem Statement : Write & Verify JSON data without compression codec ****")
-
-    println("!!!! WARN : As of 1.6.3 compression doesn't get supported while writing JSON file using  DataFrame !!!!")
+    // Output location
     val orderJsonFileLocation = "/tmp/retail_db/orders/json"
+
+    println("**** Problem Statement : Write & Verify JSON data without compression codec ****")
     orderDF.
       write.
       mode(SaveMode.Overwrite).
@@ -46,8 +46,10 @@ object DFJsonDemo {
       json(orderJsonFileLocation).
       show(20)
 
+    println("!!!! WARN : As of 1.6.3 compression doesn't get supported while writing JSON file using  DataFrame !!!!")
+
     println("**** Problem Statement : Write & Verify JSON data with BZIP2 compression codec ****")
-    val orderJsonBzip2FileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
+    val orderJsonBzip2FileLocation = orderJsonFileLocation + "_bzip2"
     orderDF.
       toJSON.
       saveAsTextFile(orderJsonBzip2FileLocation, classOf[org.apache.hadoop.io.compress.BZip2Codec])
@@ -59,7 +61,7 @@ object DFJsonDemo {
       show(20)
 
     println("**** Problem Statement : Write & Verify JSON data with GZIP compression codec ****")
-    val orderJsonGzipFileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
+    val orderJsonGzipFileLocation = orderJsonFileLocation + "_gzip"
     orderDF.
       toJSON.
       saveAsTextFile(orderJsonGzipFileLocation, classOf[org.apache.hadoop.io.compress.GzipCodec])
@@ -70,8 +72,9 @@ object DFJsonDemo {
       json(orderJsonGzipFileLocation).
       show(20)
 
-    /* // Below is not working
     println("**** Problem Statement : Write & Verify JSON data with Snappy compression codec ****")
+    /*
+    // Below is not working
     val orderJsonSnappyFileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
     orderDF.
       toJSON.
