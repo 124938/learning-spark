@@ -85,7 +85,7 @@ scala> sc.textFile("tmp/orders/text_bzip2").take(2).foreach(println)
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
 
-* Verify text file using hadoop file system commands (Refer below snapshot)
+* Display list of generated text files using HDFS commands (Refer below snapshot)
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:19 tmp/orders/text
@@ -117,6 +117,9 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
 ~~~
 scala> import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.io.IntWritable
+
+scala> import org.apache.hadoop.io.Text
+import org.apache.hadoop.io.Text
 
 scala> sc.textFile("sqoop/import-all-tables-text/orders").
      |   map((rec: String) => (rec.split(",")(0).toInt, rec)).
@@ -176,7 +179,7 @@ scala> sc.sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Tex
 
 ~~~
 
-* Verify sequence file using hadoop file system commands (Refer below snapshot)
+* Display list of generated sequence files using HDFS commands (Refer below snapshot)
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq
@@ -195,4 +198,17 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 -rw-r--r--   1 cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snappy/_SUCCESS
 -rw-r--r--   1 cloudera cloudera    616.2 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00000
 -rw-r--r--   1 cloudera cloudera    616.1 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00001
+~~~
+
+* View Sequence file using hadoop file system command (Refer below snapshot)
+~~~
+[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/text_snappy/part-00000.snappy | more
+17/11/12 19:21:46 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+6,2013-07-25 00:00:00.0,7130,COMPLETE
+7,2013-07-25 00:00:00.0,4530,COMPLETE
 ~~~
