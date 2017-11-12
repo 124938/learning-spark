@@ -3,7 +3,7 @@ package _1_dataframe._1_0_file_format
 import org.apache.spark.sql.{SQLContext, SaveMode}
 import org.apache.spark.{SparkConf, SparkContext}
 
-object DFParquetDemo {
+object DFParquetFileDemo {
   def main(args: Array[String]): Unit = {
 
     // Create Spark Configuration
@@ -33,6 +33,22 @@ object DFParquetDemo {
 
     // Output location
     val orderParquetFileLocation = "/tmp/retail_db/orders/parquet"
+
+    println("**** Problem Statement : Write & Verify Parquet data without compression ****")
+
+    // Set compression codec of parquet file as uncompressed
+    sqlContext.setConf("spark.sql.parquet.compression.codec", "uncompressed")
+
+    orderDF.
+      write.
+      mode(SaveMode.Overwrite).
+      parquet(orderParquetFileLocation)
+
+    // Verify Parquet files
+    sqlContext.
+      read.
+      parquet(orderParquetFileLocation).
+      show(20)
 
     println("**** Problem Statement : Write & Verify Parquet data with Snappy compression ****")
 
@@ -68,22 +84,6 @@ object DFParquetDemo {
     sqlContext.
       read.
       parquet(orderParquetGzipFileLocation).
-      show(20)
-
-    println("**** Problem Statement : Write & Verify Parquet data without compression ****")
-
-    // Set compression codec of parquet file as uncompressed
-    sqlContext.setConf("spark.sql.parquet.compression.codec", "uncompressed")
-
-    orderDF.
-      write.
-      mode(SaveMode.Overwrite).
-      parquet(orderParquetFileLocation)
-
-    // Verify Parquet files
-    sqlContext.
-      read.
-      parquet(orderParquetFileLocation).
       show(20)
   }
 }
