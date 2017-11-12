@@ -42,7 +42,7 @@ Spark context available as sc (master = yarn-client, app id = application_150927
 SQL context available as sqlContext.
 ~~~
 
-### Text File - Supported Compression Codec
+### (1) Text File
 
 * Text file supports following compression codec:
   * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
@@ -104,4 +104,95 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
 -rw-r--r--   1 cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_snappy/_SUCCESS
 -rw-r--r--   1 cloudera cloudera    429.3 K 2017-11-12 18:20 tmp/orders/text_snappy/part-00000.snappy
 -rw-r--r--   1 cloudera cloudera    441.0 K 2017-11-12 18:20 tmp/orders/text_snappy/part-00001.snappy
+~~~
+
+### (2) Sequence File
+
+* Sequence file supports following compression codec:
+  * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
+  * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
+  * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
+
+* Read/Write sequence file using above compression codec (Refer below snapshot)
+~~~
+scala> import org.apache.hadoop.io.IntWritable
+import org.apache.hadoop.io.IntWritable
+
+scala> sc.textFile("sqoop/import-all-tables-text/orders").
+     |   map((rec: String) => (rec.split(",")(0).toInt, rec)).
+     |   saveAsSequenceFile("tmp/orders/seq")
+                                                                                
+scala> sc.sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
+     |   map((t: (IntWritable, Text)) => t._2.toString).
+     |   take(5).
+     |   foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+scala> sc.textFile("sqoop/import-all-tables-text/orders").
+     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
+     | saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
+
+scala> sc.sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
+     |   map((t: (IntWritable, Text)) => t._2.toString).
+     |   take(5).
+     |   foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+scala> sc.textFile("sqoop/import-all-tables-text/orders").
+     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
+     | saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
+
+scala> sc.sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
+     |   map((t: (IntWritable, Text)) => t._2.toString).
+     |   take(5).
+     |   foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+scala> sc.textFile("sqoop/import-all-tables-text/orders").
+     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
+     | saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
+
+scala> sc.sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
+     |   map((t: (IntWritable, Text)) => t._2.toString).
+     |   take(5).
+     |   foreach(println)
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+~~~
+
+* Verify sequence file using hadoop file system commands (Refer below snapshot)
+~~~
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
+drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq
+-rw-r--r--   1 cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq/_SUCCESS
+-rw-r--r--   1 cloudera cloudera      1.8 M 2017-11-12 18:54 tmp/orders/seq/part-00000
+-rw-r--r--   1 cloudera cloudera      1.8 M 2017-11-12 18:54 tmp/orders/seq/part-00001
+drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:07 tmp/orders/seq_bzip2
+-rw-r--r--   1 cloudera cloudera          0 2017-11-12 19:07 tmp/orders/seq_bzip2/_SUCCESS
+-rw-r--r--   1 cloudera cloudera    231.0 K 2017-11-12 19:07 tmp/orders/seq_bzip2/part-00000
+-rw-r--r--   1 cloudera cloudera    230.9 K 2017-11-12 19:07 tmp/orders/seq_bzip2/part-00001
+drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:06 tmp/orders/seq_gzip
+-rw-r--r--   1 cloudera cloudera          0 2017-11-12 19:06 tmp/orders/seq_gzip/_SUCCESS
+-rw-r--r--   1 cloudera cloudera    336.1 K 2017-11-12 19:06 tmp/orders/seq_gzip/part-00000
+-rw-r--r--   1 cloudera cloudera    338.6 K 2017-11-12 19:06 tmp/orders/seq_gzip/part-00001
+drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snappy
+-rw-r--r--   1 cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snappy/_SUCCESS
+-rw-r--r--   1 cloudera cloudera    616.2 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00000
+-rw-r--r--   1 cloudera cloudera    616.1 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00001
 ~~~
