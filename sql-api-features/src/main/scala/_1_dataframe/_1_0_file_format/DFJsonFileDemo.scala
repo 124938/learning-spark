@@ -3,7 +3,7 @@ package _1_dataframe._1_0_file_format
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.{SQLContext, SaveMode}
 
-object DFJsonDemo {
+object DFJsonFileDemo {
   def main(args: Array[String]): Unit = {
 
     // Create Spark Configuration
@@ -73,12 +73,17 @@ object DFJsonDemo {
       show(20)
 
     println("**** Problem Statement : Write & Verify JSON data with Snappy compression codec ****")
-    /*
-    // Below is not working
-    val orderJsonSnappyFileLocation = orderJsonFileLocation + "_" + System.currentTimeMillis
+
+    println("!!! snappy with json file may not be working in local mode, but it should work in yarn mode !!!")
+    val orderJsonSnappyFileLocation = orderJsonFileLocation + "_snappy"
     orderDF.
       toJSON.
       saveAsTextFile(orderJsonSnappyFileLocation, classOf[org.apache.hadoop.io.compress.SnappyCodec])
-    */
+
+    // Verify JSON Snappy files
+    sqlContext.
+      read.
+      json(orderJsonSnappyFileLocation).
+      show(20)
   }
 }
