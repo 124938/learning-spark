@@ -1,6 +1,6 @@
 ## File Format
 
-### Text File - Supported Compression Codec
+### Pre-Requisite
 
 * Login to Cloudera Quick Start VM using ssh (Refer below snapshot)
 
@@ -40,7 +40,17 @@ Type :help for more information.
 17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
 Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
 SQL context available as sqlContext.
+~~~
 
+### Text File - Supported Compression Codec
+
+* Text file supports following compression codec:
+  * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
+  * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
+  * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
+
+* Read/Write text file using above compression codec (Refer below snapshot)
+~~~
 scala> import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.hadoop.io.compress.SnappyCodec
 
@@ -75,8 +85,7 @@ scala> sc.textFile("tmp/orders/text_bzip2").take(2).foreach(println)
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
 
-* Verify files using hadoop file system commands (Refer below snapshot)
-
+* Verify text file using hadoop file system commands (Refer below snapshot)
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:19 tmp/orders/text
