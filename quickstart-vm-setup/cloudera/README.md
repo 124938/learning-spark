@@ -646,5 +646,31 @@ OK
 2013-08-02 00:00:00.0	109347.00200462341
 2013-08-03 00:00:00.0	95266.89186286926
 Time taken: 36.754 seconds, Fetched: 10 row(s)
-
 ~~~
+
+## Cloudera QuickStart VM - Useful Commands
+
+### Cloudera Manager
+
+* **Login To VM:**
+~~~
+asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
+cloudera@192.168.211.142's password: 
+Last login: Sun Nov 26 17:58:32 2017 from 192.168.211.1
+[cloudera@quickstart ~]$
+~~~
+
+* **Start Cloudera Express Manger - Manually:**
+~~~
+[cloudera@quickstart ~]$sudo ./cloudera-manager --express --force
+~~~
+
+* **Start Cloudera Enterprise Manger - Manually:**
+~~~
+[cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force
+~~~
+
+### Others
+
+
+
