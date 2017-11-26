@@ -17,6 +17,7 @@
     * `spark-shell --master spark://localhost:7077` => Launch spark shell in standalone mode
 
   * **YARN:** It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
+    * `ssh cloudera@192.168.211.142` => Login to Quick Start VM or gateway node of hadoop cluster using ssh
     * `spark-shell --master yarn` => Launch spark shell in YARN mode
     * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
 
@@ -45,8 +46,3 @@
 ## Spark Memory Model
 
 ![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
-
-## Setup Data Set
-* retail_db
-
-
