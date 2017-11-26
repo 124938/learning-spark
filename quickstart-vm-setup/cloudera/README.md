@@ -1,8 +1,10 @@
 ## Cloudera QuickStart VM - Setup
 
 ### Setup/Configuration:
-* Download VMWare workstation player from `https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html`
-* Download latest version of Cloudera QuickStart VM from `https://www.cloudera.com/downloads.html`
+* Download VMWare workstation player from below URL
+  * `https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html`
+* Download latest version of Cloudera QuickStart VM from below URL
+  * `https://www.cloudera.com/downloads.html`
 * Configure/Start Cloudera QuickStart VM under VMWare player by allocating below minimum required resources to VM
   * 8 GB of RAM 
   * 2 Cores/CPU
