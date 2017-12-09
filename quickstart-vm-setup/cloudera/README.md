@@ -18,13 +18,13 @@
 
 ![Alt text](images/vmware_quickstart_cloudera_home.png?raw=true "Home for Cloudera Quickstart VM")
 
-* Find out IP Address of configured Cloudera Quickstart VM by referring below screenshot:
+* Find out IP Address of configured Cloudera Quickstart VM by referring below screenshot and command `ip addr` on terminal
 
 ![Alt text](images/vmware_quickstart_cloudera_ip.png?raw=true "Cloudera Quickstart VM - Find out IP Address")
 
 ### Verification:
 
-* **Login To VM:** Refer below command to login to VM
+* **Login To VM:** Refer below command to login to Cloudera Quickstart VM using IP address
 ~~~
 asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
 cloudera@192.168.211.142's password: 
@@ -32,7 +32,7 @@ Last login: Sun Nov 26 17:58:32 2017 from 192.168.211.1
 [cloudera@quickstart ~]$
 ~~~
  
-* **MySQL:** Verify MySQL installation on Cloudera QuickStart VM using root 
+* **MySQL:** Verify MySQL installation on Cloudera QuickStart VM 
 ~~~
 [cloudera@quickstart ~]$ mysql -h localhost -P 3306 -u root -p
 Enter password: 
