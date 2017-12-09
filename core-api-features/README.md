@@ -1,7 +1,7 @@
 ## Launching Spark Shell
 * **Configuration:**
 
-  * Followings are few important files used to configure Spark located under /etc/spark/conf OR $SPARK_HOME/conf
+  * Followings are few important files used to configure Spark located under `/etc/spark/conf` OR `$SPARK_HOME/conf`
     * `spark-defaults.conf` => Contains default parameter available while running spark application
     * `spark-env.sh` => Script contains environment variable to conrol run time behavior or spark application
     * `hive-site.xml` => Should be present to create SQL Context to interact with hive
