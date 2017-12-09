@@ -11,7 +11,7 @@
   * **Local:** Mode to be used by developer while doing development of spark application on local machine (default mode on local machine)
     
     * `spark-shell --master local[*]` => Launch spark shell in local mode
-
+    
     ~~~
     asus@asus-GL553VD:~$ spark-shell --master local[*]
     log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
@@ -69,7 +69,7 @@
     ~~~
 
     * `start-slave.sh spark://asus-GL553VD:7077` => Start Slave
-
+    
     ~~~
     asus@asus-GL553VD:~$ start-slave.sh spark://asus-GL553VD:7077
     starting org.apache.spark.deploy.worker.Worker, logging to /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.worker.Worker-1-asus-GL553VD.out
@@ -87,7 +87,7 @@
     ~~~
 
     * `spark-shell --master spark://asus-GL553VD:7077` => Launch spark shell in standalone mode
-
+    
     ~~~
     asus@asus-GL553VD:~$ spark-shell --master spark://asus-GL553VD:7077
     log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
@@ -144,7 +144,7 @@
     * `spark-shell --master yarn` => Launch spark shell in YARN mode
     
     * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
-
+    
     ~~~
     [cloudera@quickstart ~]$ spark-shell --master yarn
     Setting default log level to "WARN".
