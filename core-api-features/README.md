@@ -34,15 +34,23 @@
     Spark context available as sc.
     SQL context available as sqlContext.
 
-    scala> 
+    scala> sc.getConf.getAll.foreach(println)
+    (spark.app.name,Spark shell)
+    (spark.driver.host,192.168.0.100)
+    (spark.repl.class.uri,http://192.168.0.100:38903)
+    (spark.app.id,local-1512833126267)
+    (spark.jars,)
+    (spark.master,local[*])
+    (spark.executor.id,driver)
+    (spark.submit.deployMode,client)
+    (spark.driver.port,34590)
+    (spark.externalBlockStore.folderName,spark-611ad3b6-d2dc-443c-b2dc-de8f2ea76fb3)
     ~~~
 
   * **Stand Alone:** Recommended mode to be used by developer before deploying application to production (binaries available within spark distribution)
     
     * `start-master.sh` => Start Master
-    * `start-slave.sh spark://asus-GL553VD:7077` => Start Slave
-    * `spark-shell --master spark://asus-GL553VD:7077` => Launch spark shell in standalone mode
-
+    
     ~~~
     asus@asus-GL553VD:~$ start-master.sh 
     starting org.apache.spark.deploy.master.Master, logging to /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.master.Master-1-asus-GL553VD.out
@@ -58,7 +66,11 @@
     17/12/09 20:25:14 INFO Utils: Successfully started service on port 6066.
     17/12/09 20:25:14 INFO StandaloneRestServer: Started REST server for submitting applications on port 6066
     17/12/09 20:25:14 INFO Master: I have been elected leader! New state: ALIVE
+    ~~~
 
+    * `start-slave.sh spark://asus-GL553VD:7077` => Start Slave
+
+    ~~~
     asus@asus-GL553VD:~$ start-slave.sh spark://asus-GL553VD:7077
     starting org.apache.spark.deploy.worker.Worker, logging to /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.worker.Worker-1-asus-GL553VD.out
     asus@asus-GL553VD:~$ tail -f /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.worker.Worker-1-asus-GL553VD.out
@@ -72,7 +84,11 @@
     17/12/09 20:34:30 INFO WorkerWebUI: Started WorkerWebUI at http://192.168.0.100:8081
     17/12/09 20:34:30 INFO Worker: Connecting to master asus-GL553VD:7077...
     17/12/09 20:34:30 INFO Worker: Successfully registered with master spark://asus-GL553VD:7077
+    ~~~
 
+    * `spark-shell --master spark://asus-GL553VD:7077` => Launch spark shell in standalone mode
+
+    ~~~
     asus@asus-GL553VD:~$ spark-shell --master spark://asus-GL553VD:7077
     log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
     log4j:WARN Please initialize the log4j system properly.
@@ -94,7 +110,17 @@
     Spark context available as sc.
     SQL context available as sqlContext.
 
-    scala> 
+    scala> sc.getConf.getAll.foreach(println)
+    (spark.repl.class.uri,http://192.168.0.100:42838)
+    (spark.app.name,Spark shell)
+    (spark.driver.port,35794)
+    (spark.driver.host,192.168.0.100)
+    (spark.master,spark://asus-GL553VD:7077)
+    (spark.jars,)
+    (spark.app.id,app-20171209203952-0000)
+    (spark.executor.id,driver)
+    (spark.submit.deployMode,client)
+    (spark.externalBlockStore.folderName,spark-f247dc69-34e2-4b19-8a16-b10e36cf65af)
     ~~~~
     
     * Monitor spark shell application from UI (Refer below screenshot)
@@ -102,9 +128,63 @@
     ![Alt text](_images/spark-standalone-ui.png?raw=true "Spark UI On Standalone")
 
   * **YARN:** It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
+    * **Pre-Requisite:**
+      * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
     * `ssh cloudera@192.168.211.142` => Login to Quick Start VM or gateway node of hadoop cluster using ssh
     * `spark-shell --master yarn` => Launch spark shell in YARN mode
     * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
+
+    ~~~
+    asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
+    cloudera@192.168.211.142's password: 
+    Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
+    [cloudera@quickstart ~]$
+
+    [cloudera@quickstart ~]$ spark-shell --master yarn
+    Setting default log level to "WARN".
+    To adjust logging level use sc.setLogLevel(newLevel).
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/usr/lib/zookeeper/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/usr/lib/flume-ng/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/usr/lib/parquet/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/usr/lib/avro/avro-tools-1.7.6-cdh5.12.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+    Welcome to
+          ____              __
+         / __/__  ___ _____/ /__
+        _\ \/ _ \/ _ `/ __/  '_/
+       /___/ .__/\_,_/_/ /_/\_\   version 1.6.0
+          /_/
+
+    Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_67)
+    Type in expressions to have them evaluated.
+    Type :help for more information.
+    17/12/12 18:11:06 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+    17/11/12 18:11:06 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
+    17/11/12 18:11:06 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+    17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
+    Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
+    SQL context available as sqlContext.
+
+    scala> sc.getConf.getAll.foreach(println)
+    (spark.driver.appUIAddress,http://192.168.211.142:4040)
+    (spark.master,yarn-client)
+    (spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_HOSTS,quickstart.cloudera)
+    (spark.executor.id,driver)
+    (spark.repl.class.outputDir,/tmp/spark-721a484f-dce3-4880-85dc-306d36044585/repl-69794e3a-faf1-46f8-badb-325e0f285264)
+    (spark.app.name,Spark shell)
+    (spark.driver.host,192.168.211.142)
+    (spark.jars,)
+    (spark.submit.deployMode,client)
+    (spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_URI_BASES,http://quickstart.cloudera:8088/proxy/application_1512816333799_0001)
+    (spark.app.id,application_1512816333799_0001)
+    (spark.repl.class.uri,spark://192.168.211.142:52257/classes)
+    (spark.ui.filters,org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter)
+    (spark.driver.port,52257)
+    (spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
+
+    ~~~
 
   * **Mesos:** It's used in exclusive spark cluster
     * Out of scope
