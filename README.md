@@ -21,7 +21,7 @@
     * Spark not only supports ‘Map’ and ‘reduce’. 
     * It also supports SQL queries, Streaming data, Machine learning (ML), and Graph algorithms.
 
-## Spark - Setting up development environment
+## Spark - Setting up development environment (On local machine)
 * **Pre-Requisite**
   * 64 bit OD
   * 4 GB RAM
@@ -114,6 +114,48 @@ sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@71ea9c44
 
 scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
+~~~
+
+## Spark - Use existing Spark environment configured under Cloudera QuickStart VM 
+
+* **Pre-Requisite**
+  * Cloudera QuickStart VM should be up & running
+
+* **REPL**
+  * Login to Cloudera QuickStart VM using ssh & start spark shell
+
+~~~
+asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
+cloudera@192.168.211.142's password: 
+Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
+[cloudera@quickstart ~]$
+
+[cloudera@quickstart ~]$ spark-shell --master yarn
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel).
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/lib/zookeeper/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/lib/flume-ng/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/lib/parquet/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/lib/avro/avro-tools-1.7.6-cdh5.12.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 1.6.0
+      /_/
+
+Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_67)
+Type in expressions to have them evaluated.
+Type :help for more information.
+17/11/12 18:11:06 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/11/12 18:11:06 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
+17/11/12 18:11:06 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
+Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
+SQL context available as sqlContext.
 ~~~
 
 ## Spark Architectural Overview
