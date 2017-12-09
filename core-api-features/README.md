@@ -123,7 +123,7 @@
     (spark.externalBlockStore.folderName,spark-f247dc69-34e2-4b19-8a16-b10e36cf65af)
     ~~~~
     
-    * Monitor spark shell application from UI (Refer below screenshot)
+    * Monitor Standalone cluster from UI (Refer below screenshot)
 
     ![Alt text](_images/spark-standalone-ui.png?raw=true "Spark UI On Standalone")
 
