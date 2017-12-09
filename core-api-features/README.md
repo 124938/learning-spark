@@ -128,18 +128,24 @@
     ![Alt text](_images/spark-standalone-ui.png?raw=true "Spark UI On Standalone")
 
   * **YARN:** It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
+    
     * **Pre-Requisite:**
       * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
+    
     * `ssh cloudera@192.168.211.142` => Login to Quick Start VM or gateway node of hadoop cluster using ssh
-    * `spark-shell --master yarn` => Launch spark shell in YARN mode
-    * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
-
+    
     ~~~
     asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
     cloudera@192.168.211.142's password: 
     Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
     [cloudera@quickstart ~]$
+    ~~~
 
+    * `spark-shell --master yarn` => Launch spark shell in YARN mode
+    
+    * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
+
+    ~~~
     [cloudera@quickstart ~]$ spark-shell --master yarn
     Setting default log level to "WARN".
     To adjust logging level use sc.setLogLevel(newLevel).
@@ -183,7 +189,6 @@
     (spark.ui.filters,org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter)
     (spark.driver.port,52257)
     (spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
-
     ~~~
 
   * **Mesos:** It's used in exclusive spark cluster
