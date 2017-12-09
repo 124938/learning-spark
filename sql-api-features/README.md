@@ -31,7 +31,7 @@
   * SQL interfaces using JDBC/ODBC for data warehousing applications i.e. BI tools can connect to Spark SQL to perform analytics at memory speeds
   * SQL command-line console to execute query interactively
 
-  ![Alt text](images/spark-sql-architecture.jpeg?raw=true "Spark SQL - Architecture")
+  ![Alt text](_images/spark-sql-architecture.jpeg?raw=true "Spark SQL - Architecture")
   
 ### Getting Started
 * **Start with REPL:**
