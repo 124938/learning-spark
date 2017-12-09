@@ -9,6 +9,8 @@
   * 8 GB of RAM 
   * 2 Cores/CPU
 * Explore Cloudera QuickStart VM
+  * ![Alt text](images/vmware_start.png?raw=true "Start - VMWare")
+  * ![Alt text](images/vmware_quickstart_cloudera_open?raw=true "Open Cloudera Quickstart Iamge under VMWare")
 
 ### Verification:
 
