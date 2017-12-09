@@ -10,17 +10,17 @@
   * 2 Cores/CPU
 * Explore Cloudera QuickStart VM by referring below screenshots:
 
-![Alt text](images/vmware_start.png?raw=true "Start - VMWare")
+![Alt text](_images/vmware_start.png?raw=true "Start - VMWare")
 
-![Alt text](images/vmware_quickstart_cloudera_open.png?raw=true "Open Cloudera Quickstart VM")
+![Alt text](_images/vmware_quickstart_cloudera_open.png?raw=true "Open Cloudera Quickstart VM")
 
-![Alt text](images/vmware_quickstart_cloudera_settings.png?raw=true "Settings for Cloudera Quickstart VM")
+![Alt text](_images/vmware_quickstart_cloudera_settings.png?raw=true "Settings for Cloudera Quickstart VM")
 
-![Alt text](images/vmware_quickstart_cloudera_home.png?raw=true "Home for Cloudera Quickstart VM")
+![Alt text](_images/vmware_quickstart_cloudera_home.png?raw=true "Home for Cloudera Quickstart VM")
 
 * Find out IP Address of configured Cloudera Quickstart VM by referring below screenshot and command `ip addr` on terminal
 
-![Alt text](images/vmware_quickstart_cloudera_ip.png?raw=true "Cloudera Quickstart VM - Find out IP Address")
+![Alt text](_images/vmware_quickstart_cloudera_ip.png?raw=true "Cloudera Quickstart VM - Find out IP Address")
 
 ### Verification:
 
