@@ -116,7 +116,7 @@ scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 ~~~
 
-## Spark - Use existing Spark environment configured under Cloudera QuickStart VM 
+## Spark - Use existing environment of Cloudera QuickStart VM 
 
 * **Pre-Requisite**
   * Cloudera QuickStart VM should be up & running
