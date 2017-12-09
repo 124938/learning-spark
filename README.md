@@ -116,66 +116,6 @@ scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 ~~~
 
-## Spark - Use existing configured environment (Of Cloudera QuickStart VM) 
-
-* **Pre-Requisite**
-  * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
-
-* **REPL**
-  * Login to Cloudera QuickStart VM using ssh & start spark shell
-
-~~~
-asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
-cloudera@192.168.211.142's password: 
-Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
-[cloudera@quickstart ~]$
-
-[cloudera@quickstart ~]$ spark-shell --master yarn
-Setting default log level to "WARN".
-To adjust logging level use sc.setLogLevel(newLevel).
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/usr/lib/zookeeper/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/usr/lib/flume-ng/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/usr/lib/parquet/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/usr/lib/avro/avro-tools-1.7.6-cdh5.12.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
-Welcome to
-      ____              __
-     / __/__  ___ _____/ /__
-    _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 1.6.0
-      /_/
-
-Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_67)
-Type in expressions to have them evaluated.
-Type :help for more information.
-17/11/12 18:11:06 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-17/11/12 18:11:06 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
-17/11/12 18:11:06 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
-17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
-Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
-SQL context available as sqlContext.
-
-scala> sc.getConf.getAll.foreach(println)
-(spark.driver.appUIAddress,http://192.168.211.142:4040)
-(spark.master,yarn-client)
-(spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_HOSTS,quickstart.cloudera)
-(spark.executor.id,driver)
-(spark.repl.class.outputDir,/tmp/spark-721a484f-dce3-4880-85dc-306d36044585/repl-69794e3a-faf1-46f8-badb-325e0f285264)
-(spark.app.name,Spark shell)
-(spark.driver.host,192.168.211.142)
-(spark.jars,)
-(spark.submit.deployMode,client)
-(spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_URI_BASES,http://quickstart.cloudera:8088/proxy/application_1512816333799_0001)
-(spark.app.id,application_1512816333799_0001)
-(spark.repl.class.uri,spark://192.168.211.142:52257/classes)
-(spark.ui.filters,org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter)
-(spark.driver.port,52257)
-(spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
-
-~~~
-
 ## Spark Architectural Overview
 
 * **Spark Stack:**
