@@ -116,7 +116,7 @@ scala> sc.textFile("/path/to/file.txt").count
 res1: Long = 187
 ~~~
 
-## Spark - Use existing environment of Cloudera QuickStart VM 
+## Spark - Use existing configured environment (Of Cloudera QuickStart VM) 
 
 * **Pre-Requisite**
   * Cloudera QuickStart VM should be up & running
@@ -156,6 +156,24 @@ Type :help for more information.
 17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
 Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
 SQL context available as sqlContext.
+
+scala> sc.getConf.getAll.foreach(println)
+(spark.driver.appUIAddress,http://192.168.211.142:4040)
+(spark.master,yarn-client)
+(spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_HOSTS,quickstart.cloudera)
+(spark.executor.id,driver)
+(spark.repl.class.outputDir,/tmp/spark-721a484f-dce3-4880-85dc-306d36044585/repl-69794e3a-faf1-46f8-badb-325e0f285264)
+(spark.app.name,Spark shell)
+(spark.driver.host,192.168.211.142)
+(spark.jars,)
+(spark.submit.deployMode,client)
+(spark.org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter.param.PROXY_URI_BASES,http://quickstart.cloudera:8088/proxy/application_1512816333799_0001)
+(spark.app.id,application_1512816333799_0001)
+(spark.repl.class.uri,spark://192.168.211.142:52257/classes)
+(spark.ui.filters,org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter)
+(spark.driver.port,52257)
+(spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
+
 ~~~
 
 ## Spark Architectural Overview
