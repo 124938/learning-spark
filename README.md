@@ -119,8 +119,7 @@ res1: Long = 187
 ## Spark - Use existing configured environment (Of Cloudera QuickStart VM) 
 
 * **Pre-Requisite**
-  * Cloudera QuickStart VM should be up & running
-  * Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM locally
+  * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
 
 * **REPL**
   * Login to Cloudera QuickStart VM using ssh & start spark shell
