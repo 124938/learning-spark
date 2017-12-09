@@ -8,9 +8,15 @@
 * Configure/Start Cloudera QuickStart VM under VMWare player by allocating below minimum required resources to VM
   * 8 GB of RAM 
   * 2 Cores/CPU
-* Explore Cloudera QuickStart VM
-  * ![Alt text](images/vmware_start.png?raw=true "Start - VMWare")
-  * ![Alt text](images/vmware_quickstart_cloudera_open?raw=true "Open Cloudera Quickstart Iamge under VMWare")
+* Explore Cloudera QuickStart VM by refering below screenshots:
+
+![Alt text](images/vmware_start.png?raw=true "Start - VMWare")
+
+![Alt text](images/vmware_quickstart_cloudera_open.png?raw=true "Open Cloudera Quickstart VM")
+
+![Alt text](images/vmware_quickstart_cloudera_settings.png?raw=true "Settings for Cloudera Quickstart VM")
+
+![Alt text](images/vmware_quickstart_cloudera_home.png?raw=true "Cloudera Quickstart VM Home")
 
 ### Verification:
 
