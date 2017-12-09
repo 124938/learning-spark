@@ -41,8 +41,8 @@
   * There will be Application Master per submission
   * Worker machines/nodes are nothing but servers on which Data Node & Node Manager processes are running
 
-![Alt text](spark-architecture-on-YARN.png?raw=true "Spark Architecture On YARN")
+![Alt text](_images/spark-architecture-on-YARN.png?raw=true "Spark Architecture On YARN")
 
 ## Spark Memory Model
 
-![Alt text](spark-memory-usage.jpg?raw=true "Spark Memory Usage")
+![Alt text](_images/spark-memory-usage.jpg?raw=true "Spark Memory Usage")
