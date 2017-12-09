@@ -135,7 +135,7 @@ res1: Long = 187
     * GraphX is a library for manipulating graphs (e.g., a social network’s friend graph) and performing graph-parallel computations.
     * GraphX also provides various operators for manipulating graphs (e.g., subgraph and mapVertices) and a library of common graph algorithms (e.g., PageRank and triangle counting).
 
-![Alt text](spark-stack-diagram.png?raw=true "Spark Stack")
+![Alt text](_images/spark-stack-diagram.png?raw=true "Spark Stack")
 
 * **Development Language Support:**
   * Comprehensive support for the development languages with which developers are already familiar is important so that Spark can be leaned relatively easy and incorporated into existing application as straight forward as possible
@@ -167,7 +167,7 @@ res1: Long = 187
   * There is a driver that talks to a single coordinator called master that manages workers in which executor runs
   * The driver and executors runs in their own Java processes
 
-![Alt text](spark-architecture-high-level-view.png?raw=true "Spark Architecture")
+![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
 ## HDFS (Hadoop Distributed File System) - Recap
 * **Overview:**
@@ -223,7 +223,7 @@ res1: Long = 187
 
 * **Architecture:**
 
-![Alt text](hdfs-architecture.jpg?raw=true "HDFS Architecture")
+![Alt text](_images/hdfs-architecture.jpg?raw=true "HDFS Architecture")
 
 * **Useful Commands:**
 
@@ -301,7 +301,7 @@ _Note:_
 
 * **Architecture:**
 
-![Alt text](yarn-architecture.png?raw=true "YARN Architecture")
+![Alt text](_images/yarn-architecture.png?raw=true "YARN Architecture")
 
 * **Useful Commands:**
 
@@ -316,6 +316,6 @@ _Note:_
 
 ## HDFS & YARN - Consolidated View
 
-![Alt text](hdfs-yarn-consolidated-view.png?raw=true "HDFS & YARN - Consolidated View")
+![Alt text](_images/hdfs-yarn-consolidated-view.png?raw=true "HDFS & YARN - Consolidated View")
 
 
