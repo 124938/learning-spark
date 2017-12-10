@@ -5,8 +5,9 @@
 * **Start With REPL**
   * Start spark-shell i.e. REPL in standalone mode
     * `start-master.sh` => Start Master
-    * `start-slave.sh spark://localhost:7077` => Start Slave
-    * `spark-shell --master spark://localhost:7077` => Launch spark shell in standalone mode
+    * `start-slave.sh spark://asus-GL553VD:7077` => Start Slave
+    * `spark-shell --master spark://asus-GL553VD:7077` => Launch spark shell in standalone mode
+  
   * Create Word Count program - Refer below code
 
   ~~~
@@ -22,7 +23,6 @@
   (this,3)
   (hive,2)
   (its,1)
-
   ~~~
   
 * **Use IDE for development**
@@ -45,15 +45,8 @@
 
 * **Note:**
   * Make sure to use same version of scala & spark available on cluster
-  * 
 
 ### Execution Life Cycle:
-
-* **Copy JAR file** 
-  * To quick start VM OR gateway node of cluster using below command
-
-   ~~~
-   ~~~
 
 * **Usage of spark-submit**:
 
@@ -138,47 +131,87 @@
    ~~~
 
 * **Execute Application:**
-  * _In local mode_: Use below command...
-  ~~~
-  spark-submit \
-    --class _3_application.WordCount \
-    --name "Word Count - demo application on local" \
-    --conf spark.ui.port=54321 \
-    /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
-    /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/README.md \
-    /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/output_1 \
-    local
-  ~~~
+  * **Local mode:** 
+    * Refer below command
+    ~~~
+    asus@asus-GL553VD:~$ spark-submit \
+      --class _3_application.WordCount \
+      --name "Word Count - demo application on local" \
+      --conf spark.ui.port=54321 \
+      /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
+      /home/asus/big_text_files \
+      /home/asus/big_text_files_output \
+      local
+    ~~~
   
-  * _In standalone mode_: Use below command...
-  ~~~
-  mkdir /tmp/spark-events
-  spark-submit \
-    --class _3_application.WordCount \
-    --name "Word Count - demo application on stand alone" \
-    --conf spark.ui.port=54321 \
-    --conf spark.eventLog.enabled=true \
-    --executor-memory 512M \
-    /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
-    /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/README.md \
-    /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/output_1 \
-    dev
-  ~~~
+  * **Standalone mode:** 
+    * Refer below command
+    ~~~
+    asus@asus-GL553VD:~$ mkdir /tmp/spark-events
+    asus@asus-GL553VD:~$ spark-submit \
+      --master spark://asus-GL553VD:7077 \
+      --class _3_application.WordCount \
+      --name "Word Count - demo application on stand alone" \
+      --conf spark.ui.port=54321 \
+      --conf spark.eventLog.enabled=true \
+      --executor-memory 512M \
+      /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
+      /home/asus/big_text_files \
+      /home/asus/big_text_files_output_1 \
+      dev
+    ~~~
     
-  * _In YARN mode_: Use below command...
-  ~~~
-  spark-submit \
-    --class _3_application.WordCount \
-    --name "Word Count - demo application on YARN" \
-    --conf spark.ui.port=54321 \
-    --num-executors 4 \
-    --executor-memory 2G \
-    --executor-cores 2 \
-    /home/cloudera/core-api-features_2.10-0.1.jar \
-    /user/cloudera/random-words-input \
-    /user/cloudera/random-words-output \
-    prd
-  ~~~
+  * **YARN mode:**
+    * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
+    ~~~
+    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar cloudera@192.168.211.142:/home/cloudera/core-api-features_2.10-0.1.jar
+    ~~~
+
+    * Copy big text files folder from local machine to Cloudera QuickStart VM or Gateway node using below command
+    ~~~
+    asus@asus-GL553VD:~$ scp -r /home/asus/big_text_files cloudera@192.168.211.142:/home/cloudera
+    ~~~
+    
+    * Login to Quick Start VM or gateway node of hadoop cluster using ssh & verify copied files
+    ~~~
+    asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
+    cloudera@192.168.211.142's password: 
+    Last login: Sat Dec  9 19:13:35 2017 from 192.168.211.1
+
+    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar 
+    -rw-rw-r-- 1 cloudera cloudera 2650763 Dec 10 20:05 core-api-features_2.10-0.1.jar
+
+    [cloudera@quickstart ~]$ ls -ltr big_text_files
+    total 141240
+    -rw-rw-r-- 1 cloudera cloudera 72313825 Dec 10 21:16 sample_2.txt
+    -rw-rw-r-- 1 cloudera cloudera 72313825 Dec 10 21:16 sample_1.txt
+    ~~~
+    
+    * Copy text files folder from QuickStart VM or Gateway node to HDFS
+    ~~~
+    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/big_text_files /user/cloudera/big_text_files
+    
+    [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/big_text_files
+    Found 2 items
+    -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/big_text_files/sample_1.txt
+    -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/big_text_files/sample_2.txt
+    ~~~
+
+    * Refer below command
+    ~~~
+    [cloudera@quickstart ~]$ spark-submit \
+      --master yarn \
+      --class _3_application.WordCount \
+      --name "Word Count - demo application on YARN" \
+      --conf spark.ui.port=54321 \
+      --num-executors 4 \
+      --executor-memory 512M \
+      --executor-cores 2 \
+      /home/cloudera/core-api-features_2.10-0.1.jar \
+      /user/cloudera/big_text_files \
+      /user/cloudera/big_text_files_output \
+      prd
+    ~~~
   
 * **Explore Spark Web UI:**
   * Job
