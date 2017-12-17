@@ -47,6 +47,10 @@
     (spark.externalBlockStore.folderName,spark-611ad3b6-d2dc-443c-b2dc-de8f2ea76fb3)
     ~~~
 
+    * Monitor Spark UI for local mode (Refer below screenshot)
+      
+    ![Alt text](_images/spark-ui-local-mode.png?raw=true "Spark UI - Local Mode")
+
   * **Stand Alone:** Recommended mode to be used by developer before deploying application to production (binaries available within spark distribution)
     
     * `start-master.sh` => Start Master
@@ -123,9 +127,9 @@
     (spark.externalBlockStore.folderName,spark-f247dc69-34e2-4b19-8a16-b10e36cf65af)
     ~~~~
     
-    * Monitor Standalone cluster from UI (Refer below screenshot)
+    * Monitor Spark UI for Standalone cluster (Refer below screenshot)
 
-    ![Alt text](_images/spark-standalone-ui.png?raw=true "Spark UI On Standalone")
+    ![Alt text](_images/spark-ui-standalone-mode.png?raw=true "Spark UI - Standalone Mode")
 
   * **YARN:** It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
     
