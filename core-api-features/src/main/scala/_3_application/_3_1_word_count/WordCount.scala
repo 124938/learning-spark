@@ -1,4 +1,4 @@
-package _3_application
+package _3_application._3_1_word_count
 
 import com.typesafe.config.ConfigFactory
 import org.apache.hadoop.fs.{FileSystem, Path}
@@ -8,7 +8,7 @@ object WordCount {
   def main(args: Array[String]): Unit = {
     println("========= Get Program Arguments ===========")
     if (args.length != 3) {
-      println("Usage : <input_path> <output_path> <DEV or UAT or PRD>")
+      println("Usage : <input_path> <output_path> <local OR dev OR prd>")
       throw new RuntimeException("Arguments are not valid!!")
     }
 
