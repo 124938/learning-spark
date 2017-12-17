@@ -119,10 +119,10 @@
     
     * Copy text files folder from QuickStart VM or Gateway node to HDFS
     ~~~
-    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/word /user/cloudera/card
+    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/card /user/cloudera/card
     
     [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/card
-    Found 2 items
+    Found 1 item
     -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/card/largedeck.txt
     ~~~
 

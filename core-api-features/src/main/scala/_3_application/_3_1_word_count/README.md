@@ -131,7 +131,7 @@
     [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/word /user/cloudera/word
     
     [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/word
-    Found 2 items
+    Found 1 item
     -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/word/bible.txt
     ~~~
 
