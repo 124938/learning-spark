@@ -103,15 +103,15 @@
     
     * Refer below screenshot
     
-    ![Alt text](_images/standalone/spark_ui_standalone_word_count_1.png?raw=true "")
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_1.png?raw=true "Standalone Cluster - Home Page")
     
-    ![Alt text](_images/standalone/spark_ui_standalone_word_count_2.png?raw=true "")
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_2.png?raw=true "Standalone Cluster - Word Count - Job Summary")
     
-    ![Alt text](_images/standalone/spark_ui_standalone_word_count_3.png?raw=true "")
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_3.png?raw=true "Standalone Cluster - Word Count - Job Details")
     
-    ![Alt text](_images/standalone/spark_ui_standalone_word_count_4.png?raw=true "")
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_4.png?raw=true "Standalone Cluster - Word Count - Stage 0")
     
-    ![Alt text](_images/standalone/spark_ui_standalone_word_count_5.png?raw=true "")
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_5.png?raw=true "Standalone Cluster - Word Count - Stage 1")
     
     
   * **YARN mode:**
