@@ -101,6 +101,19 @@
       dev
     ~~~
     
+    * Refer below screenshot
+    
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_1.png?raw=true "")
+    
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_2.png?raw=true "")
+    
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_3.png?raw=true "")
+    
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_4.png?raw=true "")
+    
+    ![Alt text](_images/standalone/spark_ui_standalone_word_count_5.png?raw=true "")
+    
+    
   * **YARN mode:**
     * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
     ~~~
