@@ -7,7 +7,7 @@
   * Refer below code to count card by suit
 
   ~~~
-  asus@asus-GL553VD:~$ spark-shell --master spark://asus-GL553VD:7077 --conf spark.eventLog.enabled=true
+  asus@asus-GL553VD:~$ spark-shell --master spark://asus-GL553VD:7077
   log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
   log4j:WARN Please initialize the log4j system properly.
   log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
@@ -23,16 +23,24 @@
   Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.8.0_151)
   Type in expressions to have them evaluated.
   Type :help for more information.
-  17/12/17 19:40:15 WARN Utils: Your hostname, asus-GL553VD resolves to a loopback address: 127.0.1.1; using 192.168.0.102 instead (on interface enp3s0)
-  17/12/17 19:40:15 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+  17/12/17 21:19:01 WARN Utils: Your hostname, asus-GL553VD resolves to a loopback address: 127.0.1.1; using 192.168.0.102 instead (on interface enp3s0)
+  17/12/17 21:19:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
   Spark context available as sc.
   SQL context available as sqlContext.
   
+  scala> val cards = sc.textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt").map(rec => (rec.split("\\|")(1), 1))
+  cards: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[2] at map at <console>:27
   
+  scala> cards.reduceByKey((total, ele) => total + ele).take(10).foreach(println)
+  (SPADE,13631488)                                                                
+  (HEART,13631488)
+  (DIAMOND,13631488)
+  (CLUB,13631488)
+
   ~~~
   
 * **Use IDE for development**
-  * Create car count by suit program under project
+  * Create card count by suit program under project
 
 * **Use SBT to build artifact**
   * Execute below SBT command to build JAR file

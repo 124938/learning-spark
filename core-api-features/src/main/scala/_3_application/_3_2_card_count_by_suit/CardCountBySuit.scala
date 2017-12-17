@@ -24,7 +24,7 @@ object CardCountBySuit {
 
     println( "========= Creating SparkContext ========")
     val conf = new SparkConf().
-      setAppName("Word Count").
+      setAppName("Card Count By Suit").
       setMaster(executionMode)
 
     val sc = new SparkContext(conf)
