@@ -134,8 +134,8 @@
   * **YARN:** It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
     
     * **Pre-Requisite:**
-      * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
-      * Make sure to configure Spark history server (Click [here](_quickstart-vm-setup/cloudera/spark_history_server_setup/README.md) to configure Spark history server)
+      * Cloudera QuickStart VM should be up & running (Click [here](../_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
+      * Make sure to configure Spark history server (Click [here](../_quickstart-vm-setup/cloudera/spark_history_server_setup/README.md) to configure Spark history server)
     
     * `ssh cloudera@192.168.211.142` => Login to Quick Start VM or gateway node of hadoop cluster using ssh
     
