@@ -195,6 +195,12 @@
     (spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
     ~~~
 
+    * Monitor Spark UI for Standalone cluster (Refer below screenshot)
+
+    ![Alt text](_images/yarn-resource-manager.png?raw=true "YARN - Resource Manager")
+
+    ![Alt text](_images/spark-ui-yarn-mode.png?raw=true "Spark UI - From YARN")
+
   * **Mesos:** It's used in exclusive spark cluster
     * Out of scope
 
