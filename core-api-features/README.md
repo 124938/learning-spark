@@ -144,7 +144,7 @@
     Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
     [cloudera@quickstart ~]$
     ~~~
-
+    
     * `spark-shell --master yarn` => Launch spark shell in YARN mode
     
     * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter

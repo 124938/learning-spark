@@ -490,21 +490,50 @@ where option is one of:
 where <input> is the parquet file to print to stdout
 ~~~
 
+## Cloudera QuickStart VM - Spark History Server
+
+### Stop the Spark History Server:
+~~~
+[cloudera@quickstart ~]$ sudo service spark-history-server stop
+~~~
+
+### Set ownership and permissions on /user/spark/applicationHistory directory in HDFS and  as follows:
+~~~
+[cloudera@quickstart ~]$ sudo -u hdfs hadoop fs -chown -R spark:spark /user/spark
+[cloudera@quickstart ~]$ sudo -u hdfs hadoop fs -chmod 1777 /user/spark/applicationHistory
+~~~
+
+### Add following lines to /etc/spark/conf/spark-defaults.conf file to enable spark events log:
+~~~
+spark.eventLog.enabled true
+spark.eventLog.dir hdfs://quickstart.cloudera:8020/user/spark/applicationHistory
+~~~
+      
+### Add below line to /etc/spark/conf/spark-defaults.conf file to link YARN ResourceManager directly to the Spark History Server:
+~~~
+spark.yarn.historyServer.address http://quickstart.cloudera:18088
+~~~
+
+### Start the Spark History Server:
+~~~
+[cloudera@quickstart ~]$ sudo service spark-history-server start
+~~~
+
 ## Cloudera QuickStart VM - Cloudera Manager
 
-### Start Cloudera Express Manger - Manually:
+### Start Cloudera Express Manger - Manually (This will require at least 8+ GB of RAM)
 ~~~
 [cloudera@quickstart ~]$sudo ./cloudera-manager --express --force
 ~~~
 
-### Start Cloudera Enterprise Manger - Manually:
+### Start Cloudera Enterprise Manger - Manually (This will require at least 10+ GB of RAM)
 ~~~
-[cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force
+[cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force 
 ~~~
 
-### Important Screenshot:
+## Cloudera QuickStart VM - Others
 
-![Alt text](_images/cloudera-manager-ui.png?raw=true "Cloudera Manager - UI")
+### UI:
 
 ![Alt text](_images/yarn-resource-manager-ui.png?raw=true "YARN - Resource Manager - UI")
 
@@ -513,6 +542,7 @@ where <input> is the parquet file to print to stdout
 ![Alt text](_images/spark-application-master-ui.png?raw=true "Spark - Application Master UI")
 
 ![Alt text](_images/spark-history-server-ui.png?raw=true "Spark - History Server UI")
+
 
 ## Cloudera QuickStart VM - Retail DataSet Setup
 
