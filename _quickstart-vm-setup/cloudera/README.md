@@ -492,6 +492,45 @@ where <input> is the parquet file to print to stdout
 
 ## Cloudera QuickStart VM - Others
 
+### Important unix commands
+
+* **This would list all processes started by current logged in user i.e. cloudera in our case**
+~~~
+[cloudera@quickstart ~]$jps
+~~~
+
+* **This would list all java processes started by hdfs user**
+~~~
+[cloudera@quickstart ~]$sudo -u hdfs jps
+~~~
+
+* **This would list all processes started by hdfs use**
+~~~
+[cloudera@quickstart ~]$ps -fu hdfs
+~~~
+
+* **This would list all java processes started by yarn user**
+~~~
+[cloudera@quickstart ~]$sudo -u yarn jps
+~~~
+
+* **This would list all processes started by yarn user**
+~~~
+[cloudera@quickstart ~]$ps -fu yarn
+~~~
+
+* **This would list all processes by grepping 'manager'**
+~~~
+[cloudera@quickstart ~]$ps -aef | grep manager
+~~~
+
+* **Other important commands**
+~~~
+[cloudera@quickstart ~]$uname -a
+[cloudera@quickstart ~]$hostname
+[cloudera@quickstart ~]$ping quickstart.cloudera
+~~~
+
 ### Cloudera Manager specific commands
 
 * **Start Cloudera Express Manger - Manually (This will require at least 8+ GB of RAM)**
@@ -503,5 +542,4 @@ where <input> is the parquet file to print to stdout
 ~~~
 [cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force 
 ~~~
-
 
