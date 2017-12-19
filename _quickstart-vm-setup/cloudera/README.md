@@ -664,14 +664,6 @@ Time taken: 36.754 seconds, Fetched: 10 row(s)
 
 ### Cloudera Manager
 
-* **Login To VM:**
-~~~
-asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
-cloudera@192.168.211.142's password: 
-Last login: Sun Nov 26 17:58:32 2017 from 192.168.211.1
-[cloudera@quickstart ~]$
-~~~
-
 * **Start Cloudera Express Manger - Manually:**
 ~~~
 [cloudera@quickstart ~]$sudo ./cloudera-manager --express --force
@@ -682,7 +674,24 @@ Last login: Sun Nov 26 17:58:32 2017 from 192.168.211.1
 [cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force
 ~~~
 
-### Others
+* **Important Screenshot:**
 
+![Alt text](_images/cloudera-manager-ui.png?raw=true "Cloudera Manager - UI")
 
+![Alt text](_images/yarn-resource-manager-ui.png?raw=true "YARN - Resource Manager - UI")
+
+![Alt text](_images/hdfs-name-node-ui.png?raw=true "HDFS - Name Node -UI")
+
+![Alt text](_images/spark-application-master-ui.png?raw=true "Spark - Application Master UI")
+
+![Alt text](_images/spark-history-server-ui.png?raw=true "Spark - History Server UI")
+
+* **Login To VM:**
+
+~~~
+asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
+cloudera@192.168.211.142's password: 
+Last login: Sun Nov 26 17:58:32 2017 from 192.168.211.1
+[cloudera@quickstart ~]$
+~~~
 
