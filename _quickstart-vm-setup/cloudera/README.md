@@ -326,7 +326,7 @@ Welcome to
                         
 Type --help for more information.
 
-[cloudera@quickstart ~]$ spark-shell --master yarn
+[cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel).
 SLF4J: Class path contains multiple SLF4J bindings.
@@ -530,18 +530,5 @@ spark.yarn.historyServer.address http://quickstart.cloudera:18088
 ~~~
 [cloudera@quickstart ~]$sudo ./cloudera-manager --enterprise --force 
 ~~~
-
-## Cloudera QuickStart VM - Others
-
-### UI:
-
-![Alt text](_images/yarn-resource-manager-ui.png?raw=true "YARN - Resource Manager - UI")
-
-![Alt text](_images/hdfs-name-node-ui.png?raw=true "HDFS - Name Node -UI")
-
-![Alt text](_images/spark-application-master-ui.png?raw=true "Spark - Application Master UI")
-
-![Alt text](_images/spark-history-server-ui.png?raw=true "Spark - History Server UI")
-
 
 
