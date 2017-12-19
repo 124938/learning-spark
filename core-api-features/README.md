@@ -135,6 +135,7 @@
     
     * **Pre-Requisite:**
       * Cloudera QuickStart VM should be up & running (Click [here](_quickstart-vm-setup/cloudera/README.md) to configure Cloudera QuickStart VM)
+      * Make sure to configure Spark history server (Click [here](_quickstart-vm-setup/cloudera/spark_history_server_setup/README.md) to configure Spark history server)
     
     * `ssh cloudera@192.168.211.142` => Login to Quick Start VM or gateway node of hadoop cluster using ssh
     
@@ -145,12 +146,12 @@
     [cloudera@quickstart ~]$
     ~~~
     
-    * `spark-shell --master yarn` => Launch spark shell in YARN mode
+    * `spark-shell --master yarn --num-executors 1` => Launch spark shell in YARN mode
     
-    * `spark-shell --master yarn --conf spark.ui.port=56123` => With overriding default config parameter
+    * `spark-shell --master yarn --num-executors 1 --conf spark.ui.port=56123` => With overriding default config parameter
     
     ~~~
-    [cloudera@quickstart ~]$ spark-shell --master yarn
+    [cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1
     Setting default log level to "WARN".
     To adjust logging level use sc.setLogLevel(newLevel).
     SLF4J: Class path contains multiple SLF4J bindings.
