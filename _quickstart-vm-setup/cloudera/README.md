@@ -496,7 +496,7 @@ where <input> is the parquet file to print to stdout
 
 * **This would list all processes started by current logged in user i.e. cloudera in our case**
 ~~~
-[cloudera@quickstart ~]$jps
+[cloudera@quickstart ~]$sudo jps
 ~~~
 
 * **This would list all java processes started by hdfs user**
