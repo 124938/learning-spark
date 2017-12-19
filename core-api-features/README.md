@@ -195,7 +195,7 @@
     (spark.externalBlockStore.folderName,spark-51c342df-5ea3-474d-9625-b059fd91a4d2)
     ~~~
 
-    * Monitor Spark UI for Standalone cluster (Refer below screenshot)
+    * Monitor Spark UI from YARN (Refer below screenshot)
 
     ![Alt text](_images/yarn-resource-manager.png?raw=true "YARN - Resource Manager")
 
