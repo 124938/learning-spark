@@ -108,7 +108,7 @@
       --conf spark.ui.port=54321 \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/output/prod_rev_for_month \
+      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/prod_rev_for_month \
       2013-12 \
       local
     ~~~
@@ -126,7 +126,7 @@
       --executor-memory 512M \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/output/prod_rev_for_month \
+      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/prod_rev_for_month \
       2013-12 \
       dev
     ~~~
