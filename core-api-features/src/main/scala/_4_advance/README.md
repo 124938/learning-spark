@@ -44,16 +44,16 @@
   * Each executor is nothing but an individual JVM instance launched on worker node
   * Task runs under executor
 
-### Accumulators
+### Accumulator
 * **Pre-Requisite:**
-  * Before understanding accumulators, we need to understand the scope of driver program and scope of task getting executed in distributed manner
+  * Before understanding accumulator, we need to understand the scope of driver program and scope of task getting executed in distributed manner
 
 * **Introduction:**
   * In Map-Reduce world, concept called Counter is known as Accumulator in Spark
   * In Spark program, accumulator is typically initialized in driver program and scope of accumulator is managed across all the executors OR tasks
 
 * **When to use?**
-  * Followings are typical use case of Accumulators
+  * Followings are typical use case of Accumulator:
     * Unit testing
     * Data quality
 
@@ -70,8 +70,17 @@
   ~~~
   
 * **Known Issues:**
-  * Unless tasks are finished, we will not be able to see details of accumulators
-  * Spark guarantees accumulators to be updated only in first execution i.e. if any task is re-executed the result can be inconsistent
+  * Unless tasks are finished, we will not be able to see details of accumulator
+  * Spark guarantees accumulator to be updated only in first execution i.e. if any task is re-executed the result can be inconsistent
 
 * _**Note:**_
   * Accumulator should get used to manage counter instead of creating global variable in spark program
+
+### Broadcast Variable
+* **Introduction:**
+  * In Map-Reduce world, concept called Map Side Join is known as Broadcast Variable in Spark
+  * Broadcast Variable is immutable i.e. it can't be change
+
+* **When to use?**
+  * Usage of broadcast variable in below use case provides considerable performance boost:
+    * Large data set (fact) is getting join with smaller data set (dimension)
