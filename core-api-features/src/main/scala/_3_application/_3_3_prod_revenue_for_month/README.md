@@ -4,7 +4,7 @@
 
 * **Start spark-shell in Standalone Cluster**
   * `spark-shell --master spark://asus-GL553VD:7077` => Launch spark shell in standalone mode
-  * Refer below code to count card by suit
+  * Refer below code to generate product revenue for month
 
   ~~~
   asus@asus-GL553VD:~$ spark-shell --master spark://asus-GL553VD:7077
