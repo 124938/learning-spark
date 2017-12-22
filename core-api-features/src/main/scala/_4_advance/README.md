@@ -11,7 +11,7 @@
     * Default block size is 128 Mb, which can be change using `hadoop fs -D dfs.block.size=file-size -put local_name remote_location`
     * Refer `hdfs fsck /user/cloudera/cards/largedeck.txt -files -blocks -locations` command to find out number of blocks allocated to file
     * Number of tasks = File Size / Block size of file (typically 128 Mb)
-  * _In case of local file system_:
+  * _In case of Local File System_:
     * Default value of block size is controlled by `fs.local.block.size` parameter, which is set to 32 Mb
     * Number of tasks = File size / 32 Mb
     
@@ -35,6 +35,10 @@
   * Determine number of tasks for card count by suit : As key is dense....
     * There are only 4 suits in millions of records
     * So, number of tasks in stage 2 can be set to 1
+
+* **Find out number of output files generated after executing JOB**    
+  * Default value for number of output files are inherited from number of task executed in last stage of JOB
+  * Few files may have output data and few files may be empty. Reason being while shuffling, data will be grouped and partition by key based on formula `mod(hash(key), numTasks)`
 
 * _**Note:**_
   * Each executor is nothing but an individual JVM instance launched on worker node
