@@ -73,4 +73,5 @@
   * Unless tasks are finished, we will not be able to see details of accumulators
   * Spark guarantees accumulators to be updated only in first execution i.e. if any task is re-executed the result can be inconsistent
 
-  
+* _**Note:**_
+  * Accumulator should get used to manage counter instead of creating global variable in spark program
