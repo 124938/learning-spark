@@ -1,0 +1,11 @@
+core-api-features/.idea/*
+core-api-features/metastore_db/*
+core-api-features/project/*
+core-api-features/target/*
+sql-api-features/.idea/*
+sql-api-features/project/*
+sql-api-features/target/*
+metastore_db/*
+*.log
+hive_context
+
