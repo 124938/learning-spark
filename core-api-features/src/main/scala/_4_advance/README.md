@@ -4,8 +4,6 @@
 * **Find out number of executors in JOB**
   * Default value for number of executors are 2
   * Default value for number of executors can be override using `--num-executors 4` option, while launching spark application
-  * _**Note:**_
-    * Each executor is nothing but an individual JVM instance launched on worker node
     
 * **Find out number of tasks executed for first/initial stage in JOB**
   * Default value for number of tasks (in first/initial stage) are dependent on block size of underlying file system, from which data is getting read
@@ -32,18 +30,19 @@
     * `cogroup`
     
   * Followings are important points to be considered, while determining the number of tasks accurately (before shuffling):
-    * how much data will be discarded (as part of filter operation)?
+    * How much data will be discarded (as part of filter operation)?
     * What could be the rate at which data volume will be reduced (as part of aggregation operation)?
     * What are the number of unique keys to be processed?
     
   * Determine number of tasks for word count : As key is sparse....
     * There are millions of words under input data but for each GB of data is generating approximate of 30 MB of data
-    * So number of tasks in stage 2 can be determine based on input data
+    * So, number of tasks in stage 2 can be determine based on input data
     
   * Determine number of tasks for card count by suit : As key is dense....
     * There are only 4 suits in millions of records
-    * So number of tasks in stage 2 can be set to 1
-          
-  * _**Note:**_
-    * Task runs under executor
+    * So, number of tasks in stage 2 can be set to 1
+
+* _**Note:**_
+  * Each executor is nothing but an individual JVM instance launched on worker node
+  * Task runs under executor
       
