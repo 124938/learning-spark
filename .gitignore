@@ -6,7 +6,7 @@ core-api-features/src/main/resources/card/*.txt
 core-api-features/src/main/resources/card/output/*
 core-api-features/src/main/resources/word/*.txt
 core-api-features/src/main/resources/word/output/*
-core-api-features/src/main/resources/retail_db/output/*
+core-api-features/src/main/resources/retail_db/products/output/*
 sql-api-features/.idea/*
 sql-api-features/project/*
 sql-api-features/target/*
