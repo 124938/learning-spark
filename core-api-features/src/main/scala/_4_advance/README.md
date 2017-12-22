@@ -26,8 +26,7 @@
   
   * _Note:_
     * Task runs under executor
+    * Default value of block size for local file system is 32 Mb and it is getting controlled by `fs.local.block.size`
     * Refer below command to determine block size of file lying under HDFS
       * `hdfs fsck /user/cloudera/cards/largedeck.txt -files -blocks -locations`
-    * Default value of block size for local file system is 32 Mb, which is controlled by below parameter:
-      * `fs.local.block.size`
       
