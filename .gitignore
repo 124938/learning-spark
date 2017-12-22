@@ -2,8 +2,9 @@ core-api-features/metastore_db/*
 core-api-features/.idea/*
 core-api-features/project/*
 core-api-features/target/*
-core-api-features/src/main/resources/card/largedeck.txt
+core-api-features/src/main/resources/card/*.txt
 core-api-features/src/main/resources/card/output/*
+core-api-features/src/main/resources/word/*.txt
 core-api-features/src/main/resources/word/output/*
 sql-api-features/.idea/*
 sql-api-features/project/*
