@@ -64,60 +64,67 @@
     
     * Refer below screenshot
     
-    ![Alt text](_images/standalone/1.png?raw=true "Standalone Cluster - Home Page")
+    ![Alt text](_images/standalone/1.png?raw=true "Standalone - Home Page")
     
-    ![Alt text](_images/standalone/2.png?raw=true "Standalone Cluster - Product Revenue for month updated - Job Summary")
+    ![Alt text](_images/standalone/2.png?raw=true "Standalone - Product Revenue for month updated - Job Summary")
     
-    ![Alt text](_images/standalone/3.png?raw=true "Standalone Cluster - Product Revenue for month updated - Job Details")
+    ![Alt text](_images/standalone/3.png?raw=true "Standalone - Product Revenue for month updated - Job Details")
 
-    ![Alt text](_images/standalone/4.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 0")
+    ![Alt text](_images/standalone/4.png?raw=true "Standalone - Product Revenue for month updated - Stage 0")
     
-    ![Alt text](_images/standalone/5.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 1")
+    ![Alt text](_images/standalone/5.png?raw=true "Standalone - Product Revenue for month updated - Stage 1")
     
-    ![Alt text](_images/standalone/6.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 2")
+    ![Alt text](_images/standalone/6.png?raw=true "Standalone - Product Revenue for month updated - Stage 2")
     
-    ![Alt text](_images/standalone/7.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 3")
+    ![Alt text](_images/standalone/7.png?raw=true "Standalone - Product Revenue for month updated - Stage 3")
     
   * **YARN mode:**
-    * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
+    * Refer below command to copy project JAR file from local machine to Cloudera QuickStart VM OR Gateway node of hadoop cluster
     ~~~
     asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar cloudera@192.168.211.142:/home/cloudera/core-api-features_2.10-0.1.jar
     ~~~
 
-    * Copy deck of card text file from local machine to Cloudera QuickStart VM or Gateway node using below command
-    ~~~
-    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt cloudera@192.168.211.142:/home/cloudera/card
-    ~~~
+    * Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup/README.md) to know more details on it)
     
-    * Login to Quick Start VM or gateway node of hadoop cluster using ssh & verify copied files
+    * Login to Quick Start VM or Gateway node of hadoop cluster using ssh & verify copied files
     ~~~
     asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
     cloudera@192.168.211.142's password: 
-    Last login: Sat Dec  9 19:13:35 2017 from 192.168.211.1
+    Last login: Sat Dec 23 01:30:00 2017 from 192.168.211.1
 
-    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar 
-    -rw-rw-r-- 1 cloudera cloudera 2650763 Dec 10 20:05 core-api-features_2.10-0.1.jar
-
-    [cloudera@quickstart ~]$ ls -ltr card
-    total 141240
-    -rw-rw-r-- 1 cloudera cloudera 72313825 Dec 10 21:16 largedeck.txt
+    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar
+    -rw-rw-r-- 1 cloudera cloudera 196861582 Dec 23 01:24 core-api-features_2.10-0.1.jar
     ~~~
     
-    * Copy text files folder from QuickStart VM or Gateway node to HDFS
+    * Verify required files on HDFS
     ~~~
-    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/card /user/cloudera/card
-    
-    [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/card
-    Found 1 item
-    -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/card/largedeck.txt
+    [cloudera@quickstart ~]$ hadoop fs -ls -R /user/cloudera/sqoop/import-all-tables-text
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/categories
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/categories/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera       1029 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/categories/part-m-00000
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/customers
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/customers/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera     953525 2017-12-19 03:24 /user/cloudera/sqoop/import-all-tables-text/customers/part-m-00000
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/departments
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/departments/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera         60 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/departments/part-m-00000
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/order_items
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/order_items/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera    5408880 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/order_items/part-m-00000
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/orders
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/orders/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera    2999944 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/orders/part-m-00000
+    drwxr-xr-x   - cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/products
+    -rw-r--r--   1 cloudera cloudera          0 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/products/_SUCCESS
+    -rw-r--r--   1 cloudera cloudera     173993 2017-12-19 03:25 /user/cloudera/sqoop/import-all-tables-text/products/part-m-00000
     ~~~
 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     [cloudera@quickstart ~]$ spark-submit \
       --master yarn \
-      --class _3_application._3_3_prod_revenue_for_month.ProductRevenueForMonth \
-      --name "Product Revenue For Month - demo application on YARN" \
+      --class _4_advance._4_3_prod_revenue_for_month.ProductRevenueForMonthUpdated \
+      --name "Product Revenue For Month Updated - demo application on YARN" \
       --conf spark.ui.port=54321 \
       --num-executors 1 \
       --executor-memory 512M \
