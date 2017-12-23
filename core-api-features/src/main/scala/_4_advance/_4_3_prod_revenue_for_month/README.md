@@ -135,7 +135,17 @@
       2013-12 \
       prd
     ~~~
-  
+
+    * Refer below screenshot
+    
+    ![Alt text](_images/yarn/1.png?raw=true "YARN - Product Revenue for month Updated - In Progress")
+    
+    ![Alt text](_images/yarn/2.png?raw=true "YARN - Product Revenue for month Updated - Finished")
+
+    ![Alt text](_images/yarn/3.png?raw=true "YARN - Product Revenue for month Updated - Job Summary")
+    
+    ![Alt text](_images/yarn/4.png?raw=true "YARN - Product Revenue for month Updated - Job Details")
+
 * **Explore Spark Web UI:**
   * Job
   * Stages
