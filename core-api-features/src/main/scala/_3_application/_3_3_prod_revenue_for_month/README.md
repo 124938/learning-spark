@@ -199,13 +199,13 @@
     
     * Refer below screenshot
     
-    ![Alt text](_images/standalone/1.png?raw=true "YARN - Product Revenue for month - In Progress")
+    ![Alt text](_images/yarn/1.png?raw=true "YARN - Product Revenue for month - In Progress")
     
-    ![Alt text](_images/standalone/2.png?raw=true "YARN - Product Revenue for month - Finished")
+    ![Alt text](_images/yarn/2.png?raw=true "YARN - Product Revenue for month - Finished")
 
-    ![Alt text](_images/standalone/3.png?raw=true "YARN - Product Revenue for month - Job Summary")
+    ![Alt text](_images/yarn/3.png?raw=true "YARN - Product Revenue for month - Job Summary")
     
-    ![Alt text](_images/standalone/4.png?raw=true "YARN - Product Revenue for month - Job Details")
+    ![Alt text](_images/yarn/4.png?raw=true "YARN - Product Revenue for month - Job Details")
 
 * **Explore Spark Web UI:**
   * Job
