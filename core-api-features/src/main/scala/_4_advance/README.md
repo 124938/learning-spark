@@ -29,12 +29,6 @@
     * How much data will be discarded (as part of filter operation)?
     * What could be the rate at which data volume will be reduced (as part of aggregation operation)?
     * What are the number of unique keys to be processed?
-  * Determine number of tasks for word count : As key is sparse....
-    * There are millions of words under input data but for each GB of data is generating approximate of 30 MB of data
-    * So, number of tasks in stage 2 can be determine based on input data
-  * Determine number of tasks for card count by suit : As key is dense....
-    * There are only 4 suits in millions of records
-    * So, number of tasks in stage 2 can be set to 1
 
 * **Find out number of output files generated after executing JOB:**    
   * Default value for number of output files are inherited from number of task executed in last stage of JOB
