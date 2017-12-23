@@ -57,8 +57,6 @@
   * Execute below SBT command to build JAR file
   
   ~~~
-  asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/core-api-features
-  
   asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt package
   [info] Loading global plugins from /home/asus/.sbt/0.13/plugins
   [info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/core-api-features/project
@@ -66,7 +64,6 @@
   [warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
   [info] Packaging /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar ...
   [info] Done packaging.
-  
   [success] Total time: 40 s, completed 17 Dec, 2017 6:23:26 PM
   ~~~
 
@@ -147,35 +144,6 @@
     [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/word
     Found 1 items
     -rw-r--r--   1 cloudera cloudera  323791282 2017-12-23 01:33 /user/cloudera/word/bible.txt
-
-    [cloudera@quickstart ~]$ hdfs fsck /user/cloudera/word/bible.txt -files -blocks -locations
-    Connecting to namenode via http://quickstart.cloudera:50070/fsck?ugi=cloudera&files=1&blocks=1&locations=1&path=%2Fuser%2Fcloudera%2Fword%2Fbible.txt
-    FSCK started by cloudera (auth:SIMPLE) from /127.0.0.1 for path /user/cloudera/word/bible.txt at Sat Dec 23 03:48:07 PST 2017
-    /user/cloudera/word/bible.txt 323791282 bytes, 3 block(s):  OK
-    0. BP-1028023124-127.0.0.1-1500470886981:blk_1073743120_2299 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
-    1. BP-1028023124-127.0.0.1-1500470886981:blk_1073743121_2300 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
-    2. BP-1028023124-127.0.0.1-1500470886981:blk_1073743122_2301 len=55355826 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
-
-    Status: HEALTHY
-     Total size:	323791282 B
-     Total dirs:	0
-     Total files:	1
-     Total symlinks:		  0
-     Total blocks (validated):	  3 (avg. block size 107930427 B)
-     Minimally replicated blocks: 3 (100.0 %)
-     Over-replicated blocks:	  0 (0.0 %)
-     Under-replicated blocks:	  0 (0.0 %)
-     Mis-replicated blocks:	  0 (0.0 %)
-     Default replication factor:  1
-     Average block replication:	  1.0
-     Corrupt blocks:		  0
-     Missing replicas:		  0 (0.0 %)
-     Number of data-nodes:	  1
-     Number of racks:		  1
-    FSCK ended at Sat Dec 23 03:48:07 PST 2017 in 1 milliseconds
-
-
-    The filesystem under path '/user/cloudera/word/bible.txt' is HEALTHY
     ~~~
 
     * Refer below command to execute spark application

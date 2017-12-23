@@ -48,8 +48,6 @@
   * Execute below SBT command to build JAR file
   
   ~~~
-  asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/core-api-features
-  
   asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt package
   [info] Loading global plugins from /home/asus/.sbt/0.13/plugins
   [info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/core-api-features/project
@@ -57,13 +55,12 @@
   [warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
   [info] Packaging /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar ...
   [info] Done packaging.
-  
   [success] Total time: 40 s, completed 17 Dec, 2017 6:23:26 PM
   ~~~
 
 * **Execute Application:**
   * **Local mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ spark-submit \
       --class _3_application._3_2_card_count_by_suit.CardCountBySuit \
@@ -76,7 +73,7 @@
     ~~~
   
   * **Standalone mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ mkdir /tmp/spark-events
     asus@asus-GL553VD:~$ spark-submit \

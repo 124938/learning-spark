@@ -100,7 +100,7 @@
 
 * **Execute Application:**
   * **Local mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ spark-submit \
       --class _3_application._3_3_prod_revenue_for_month.ProductRevenueForMonth \
@@ -114,7 +114,7 @@
     ~~~
   
   * **Standalone mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ mkdir /tmp/spark-events
     asus@asus-GL553VD:~$ spark-submit \
