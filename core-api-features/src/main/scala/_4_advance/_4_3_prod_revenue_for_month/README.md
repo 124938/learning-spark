@@ -69,6 +69,14 @@
     ![Alt text](_images/standalone/2.png?raw=true "Standalone Cluster - Product Revenue for month updated - Job Summary")
     
     ![Alt text](_images/standalone/3.png?raw=true "Standalone Cluster - Product Revenue for month updated - Job Details")
+
+    ![Alt text](_images/standalone/4.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 0")
+    
+    ![Alt text](_images/standalone/5.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 1")
+    
+    ![Alt text](_images/standalone/6.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 2")
+    
+    ![Alt text](_images/standalone/7.png?raw=true "Standalone Cluster - Product Revenue for month updated - Stage 3")
     
   * **YARN mode:**
     * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
