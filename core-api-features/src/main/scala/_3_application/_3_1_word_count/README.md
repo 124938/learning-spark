@@ -138,7 +138,7 @@
     -rw-rw-r-- 1 cloudera cloudera 323791282 Dec 23 01:29 bible.txt
     ~~~
     
-    * Copy text files folder from QuickStart VM or Gateway node to HDFS
+    * Copy bible.txt file from local file system to HDFS
     ~~~
     [cloudera@quickstart ~]$ hadoop fs -mkdir /user/cloudera/word
     

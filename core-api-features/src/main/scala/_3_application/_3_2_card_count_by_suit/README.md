@@ -128,7 +128,7 @@
     -rw-rw-r-- 1 cloudera cloudera 726663168 Dec 23 03:40 largedeck.txt
     ~~~
     
-    * Copy text files folder from QuickStart VM or Gateway node to HDFS
+    * Copy largedeck.txt file from local file system to HDFS
     ~~~
     [cloudera@quickstart ~]$ hadoop fs -mkdir /user/cloudera/card
     
@@ -177,7 +177,7 @@
       --class _3_application._3_2_card_count_by_suit.CardCountBySuit \
       --name "Card Count By Suit - demo application on YARN" \
       --conf spark.ui.port=54321 \
-      --num-executors 4 \
+      --num-executors 2 \
       --executor-memory 512M \
       --executor-cores 2 \
       /home/cloudera/core-api-features_2.10-0.1.jar \
