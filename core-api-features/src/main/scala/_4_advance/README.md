@@ -73,7 +73,7 @@
   * Unless tasks are finished, we will not be able to see details of accumulator
   * Spark guarantees accumulator to be updated only in first execution i.e. if any task is re-executed the result can be inconsistent
 
-* _**Note:**_
+* _**Important Note:**_
   * Accumulator should get used to manage counter instead of creating global variable in spark program
 
 ### Broadcast Variable
@@ -82,5 +82,45 @@
   * Broadcast Variable is immutable i.e. it can't be change
 
 * **When to use?**
+  * Many times, there is a requirement to share data/information required by executors to complete their task
   * Usage of broadcast variable in below use case provides considerable performance boost:
     * Large data set (fact) is getting join with smaller data set (dimension)
+
+* **How to create?**
+  * Broadcast variable can be created in many ways and followings are few common ways:
+    * Reading data from local file system
+    * Reading data from HDFS
+    * Reading data from configuration 
+    
+    ~~~
+    // Create broadcast variable from local file system
+    import scala.io.Source
+    
+    val productMapBrd = Source.
+      fromFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/part-00000").
+      getLines.
+      toList.
+      map((rec: String) => {
+        val recArray = rec.split(",")
+        (recArray(0).toInt, recArray(2))
+      }).
+      toMap  
+    ~~~
+
+* **How to use broadcast variable?**
+  ~~~
+  // lookup product name for product id = 1
+  productMapBrd.
+    value.
+    get(1).
+    get
+    
+  // lookup product name for product id = 25
+  productMapBrd.
+    value.
+    get(25).
+    get
+  ~~~
+
+* _**Important Note:**_
+  * Size of broadcast variable should fit into memory used by task of executor
