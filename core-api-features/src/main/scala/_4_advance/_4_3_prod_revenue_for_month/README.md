@@ -26,7 +26,7 @@
   [warn] Multiple main classes detected.  Run 'show discoveredMainClasses' to see the list
   [info] Packaging /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar ...
   [info] Done packaging.
-  [success] Total time: 24 s, completed 23 Dec, 2017 1:03:00 PM
+  [success] Total time: 31 s, completed 23 Dec, 2017 7:34:40 PM
   ~~~
 
 * **Execute Application:**
@@ -132,6 +132,7 @@
       /home/cloudera/core-api-features_2.10-0.1.jar \
       /user/cloudera/sqoop/import-all-tables-text \
       /user/cloudera/prod_rev_for_month_updated_output \
+      2013-12 \
       prd
     ~~~
   
