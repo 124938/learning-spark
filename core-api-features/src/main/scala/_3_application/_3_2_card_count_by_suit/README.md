@@ -32,7 +32,7 @@
   cards: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[2] at map at <console>:27
   
   scala> cards.reduceByKey((total, ele) => total + ele).take(10).foreach(println)
-  (SPADE,13631488)                                                                
+  (SPADE,13631488)
   (HEART,13631488)
   (DIAMOND,13631488)
   (CLUB,13631488)
@@ -94,51 +94,83 @@
     
     * Refer below screenshot
     
-    ![Alt text](_images/standalone/1.png?raw=true "Standalone Cluster - Home Page")
+    ![Alt text](_images/standalone/1.png?raw=true "Standalone - Home Page")
     
-    ![Alt text](_images/standalone/2.png?raw=true "Standalone Cluster - Card Count By Suit - Job Summary")
+    ![Alt text](_images/standalone/2.png?raw=true "Standalone - Card Count By Suit - Job Summary")
     
-    ![Alt text](_images/standalone/3.png?raw=true "Standalone Cluster - Card Count By Suit - Job Details")
+    ![Alt text](_images/standalone/3.png?raw=true "Standalone - Card Count By Suit - Job Details")
     
-    ![Alt text](_images/standalone/4.png?raw=true "Standalone Cluster - Card Count By Suit - Stage 0")
+    ![Alt text](_images/standalone/4.png?raw=true "Standalone - Card Count By Suit - Stage 0")
     
-    ![Alt text](_images/standalone/5.png?raw=true "Standalone Cluster - Card Count By Suit - Stage 1")
+    ![Alt text](_images/standalone/5.png?raw=true "Standalone - Card Count By Suit - Stage 1")
         
   * **YARN mode:**
-    * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
+    * Refer below command to copy project JAR file from local machine to Cloudera QuickStart VM OR Gateway node of hadoop cluster
     ~~~
     asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar cloudera@192.168.211.142:/home/cloudera/core-api-features_2.10-0.1.jar
     ~~~
 
-    * Copy deck of card text file from local machine to Cloudera QuickStart VM or Gateway node using below command
+    * Refer below command to copy largedeck.txt file from local machine to Cloudera QuickStart VM OR Gateway node of hadoop cluster
     ~~~
-    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt cloudera@192.168.211.142:/home/cloudera/card
+    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt cloudera@192.168.211.142:/home/cloudera/largedeck.txt
     ~~~
     
-    * Login to Quick Start VM or gateway node of hadoop cluster using ssh & verify copied files
+    * Login to Quick Start VM or Gateway node of hadoop cluster using ssh & verify copied files
     ~~~
     asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
     cloudera@192.168.211.142's password: 
-    Last login: Sat Dec  9 19:13:35 2017 from 192.168.211.1
+    Last login: Sat Dec 23 01:30:00 2017 from 192.168.211.1
 
-    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar 
-    -rw-rw-r-- 1 cloudera cloudera 2650763 Dec 10 20:05 core-api-features_2.10-0.1.jar
+    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar
+    -rw-rw-r-- 1 cloudera cloudera 196861582 Dec 23 01:24 core-api-features_2.10-0.1.jar
 
-    [cloudera@quickstart ~]$ ls -ltr card
-    total 141240
-    -rw-rw-r-- 1 cloudera cloudera 72313825 Dec 10 21:16 largedeck.txt
+    [cloudera@quickstart ~]$ ls -ltr largedeck.txt
+    -rw-rw-r-- 1 cloudera cloudera 726663168 Dec 23 03:40 largedeck.txt
     ~~~
     
     * Copy text files folder from QuickStart VM or Gateway node to HDFS
     ~~~
-    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/card /user/cloudera/card
+    [cloudera@quickstart ~]$ hadoop fs -mkdir /user/cloudera/card
+    
+    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/largedeck.txt /user/cloudera/card
     
     [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/card
-    Found 1 item
-    -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/card/largedeck.txt
+    Found 1 items
+    -rw-r--r--   1 cloudera cloudera  726663168 2017-12-23 03:41 /user/cloudera/card/largedeck.txt
+
+    [cloudera@quickstart ~]$ hdfs fsck /user/cloudera/card/largedeck.txt -files -blocks -locations
+    Connecting to namenode via http://quickstart.cloudera:50070/fsck?ugi=cloudera&files=1&blocks=1&locations=1&path=%2Fuser%2Fcloudera%2Fcard%2Flargedeck.txt
+    FSCK started by cloudera (auth:SIMPLE) from /127.0.0.1 for path /user/cloudera/card/largedeck.txt at Sat Dec 23 03:43:49 PST 2017
+    /user/cloudera/card/largedeck.txt 726663168 bytes, 6 block(s):  OK
+    0. BP-1028023124-127.0.0.1-1500470886981:blk_1073743130_2309 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+    1. BP-1028023124-127.0.0.1-1500470886981:blk_1073743131_2310 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+    2. BP-1028023124-127.0.0.1-1500470886981:blk_1073743132_2311 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+    3. BP-1028023124-127.0.0.1-1500470886981:blk_1073743133_2312 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+    4. BP-1028023124-127.0.0.1-1500470886981:blk_1073743134_2313 len=134217728 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+    5. BP-1028023124-127.0.0.1-1500470886981:blk_1073743135_2314 len=55574528 Live_repl=1 [DatanodeInfoWithStorage[127.0.0.1:50010,DS-8e0b541e-8cba-4475-87f2-c3b9bd3de801,DISK]]
+
+    Status: HEALTHY
+     Total size:	726663168 B
+     Total dirs:	0
+     Total files:	1
+     Total symlinks:		  0
+     Total blocks (validated):	  6 (avg. block size 121110528 B)
+     Minimally replicated blocks: 6 (100.0 %)
+     Over-replicated blocks:	  0 (0.0 %)
+     Under-replicated blocks:	  0 (0.0 %)
+     Mis-replicated blocks:	  0 (0.0 %)
+     Default replication factor:  1
+     Average block replication:	  1.0
+     Corrupt blocks:	 	  0
+     Missing replicas:		  0 (0.0 %)
+     Number of data-nodes:	  1
+     Number of racks:		  1
+    FSCK ended at Sat Dec 23 03:43:49 PST 2017 in 2 milliseconds
+
+    The filesystem under path '/user/cloudera/card/largedeck.txt' is HEALTHY
     ~~~
 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     [cloudera@quickstart ~]$ spark-submit \
       --master yarn \
@@ -153,7 +185,21 @@
       /user/cloudera/card_output \
       prd
     ~~~
-  
+
+    * Refer below screenshot
+    
+    ![Alt text](_images/yarn/1.png?raw=true "YARN - Card Count By Suit - In Progress")
+    
+    ![Alt text](_images/yarn/2.png?raw=true "YARN - Card Count By Suit - Finished")
+
+    ![Alt text](_images/yarn/3.png?raw=true "YARN - Card Count By Suit - Job Summary")
+    
+    ![Alt text](_images/yarn/4.png?raw=true "YARN - Card Count By Suit - Job Details")
+    
+    ![Alt text](_images/yarn/5.png?raw=true "YARN - Card Count By Suit - Stage 0")
+    
+    ![Alt text](_images/yarn/6.png?raw=true "YARN - Card Count By Suit - Stage 1")
+
 * **Explore Spark Web UI:**
   * Job
   * Stages
