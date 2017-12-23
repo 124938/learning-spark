@@ -37,7 +37,7 @@
       --conf spark.ui.port=54321 \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/output \
+      /tmp/card_updated_output \
       local
     ~~~
   
@@ -54,7 +54,7 @@
       --executor-memory 512M \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/largedeck.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/card/output \
+      /tmp/card_updated_output \
       dev
     ~~~
     
@@ -116,7 +116,7 @@
       --executor-cores 2 \
       /home/cloudera/core-api-features_2.10-0.1.jar \
       /user/cloudera/card \
-      /user/cloudera/card_output \
+      /user/cloudera/card_updated_output \
       prd
     ~~~
   

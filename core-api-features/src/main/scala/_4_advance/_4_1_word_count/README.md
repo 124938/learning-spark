@@ -1,4 +1,14 @@
-## Word Count - Application
+## Updated Word Count - Application
+
+### Determine number of tasks for last stage
+  * As key is sparse....
+    * There are millions of words under input data but for each GB of data is generating approximate of 30 MB of data
+    * So, number of tasks in stage 2 can be determine based on input data
+
+### Development Life Cycle:
+
+* **Use IDE for development**
+  * Create updated word count program under project
 
 ### Execution Life Cycle:
 * **Use SBT to build artifact**
@@ -26,7 +36,7 @@
       --conf spark.ui.port=54321 \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/output \
+      /tmp/word_updated_output \
       local
     ~~~
   
@@ -43,7 +53,7 @@
       --executor-memory 512M \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/output \
+      /tmp/word_updated_output \
       dev
     ~~~
     
@@ -106,7 +116,7 @@
       --executor-cores 2 \
       /home/cloudera/core-api-features_2.10-0.1.jar \
       /user/cloudera/word \
-      /user/cloudera/word_output \
+      /user/cloudera/word_updated_output \
       prd
     ~~~
   
