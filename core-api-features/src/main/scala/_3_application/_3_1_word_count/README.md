@@ -35,7 +35,7 @@
   words: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[2] at flatMap at <console>:29
   
   scala> words.reduceByKey(_ + _).take(10).foreach(println)
-  (hori.,160)                                                                     
+  (hori.,160)
   (abiud;,160)
   (bone,1920)
   (couching,320)
@@ -72,7 +72,7 @@
 
 * **Execute Application:**
   * **Local mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ spark-submit \
       --class _3_application._3_1_word_count.WordCount \
@@ -85,7 +85,7 @@
     ~~~
   
   * **Standalone mode:** 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     asus@asus-GL553VD:~$ mkdir /tmp/spark-events
     asus@asus-GL553VD:~$ spark-submit \
@@ -115,54 +115,71 @@
     
     
   * **YARN mode:**
-    * Copy JAR file from local machine to Cloudera QuickStart VM or Gateway node using below command
+    * Refer below command to copy project JAR file from local machine to Cloudera QuickStart VM OR Gateway node of hadoop cluster
     ~~~
     asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar cloudera@192.168.211.142:/home/cloudera/core-api-features_2.10-0.1.jar
     ~~~
 
-    * Copy big text files folder from local machine to Cloudera QuickStart VM or Gateway node using below command
+    * Refer below command to copy bible.txt file from local machine to Cloudera QuickStart VM OR Gateway node of hadoop cluster
     ~~~
-    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt cloudera@192.168.211.142:/home/cloudera/word
+    asus@asus-GL553VD:~$ scp /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt cloudera@192.168.211.142:/home/cloudera/bible.txt
     ~~~
     
-    * Login to Quick Start VM or gateway node of hadoop cluster using ssh & verify copied files
+    * Login to Quick Start VM or Gateway node of hadoop cluster using ssh & verify copied files
     ~~~
     asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
     cloudera@192.168.211.142's password: 
-    Last login: Sat Dec  9 19:13:35 2017 from 192.168.211.1
+    Last login: Sat Dec 23 01:30:00 2017 from 192.168.211.1
 
-    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar 
-    -rw-rw-r-- 1 cloudera cloudera 2650763 Dec 10 20:05 core-api-features_2.10-0.1.jar
+    [cloudera@quickstart ~]$ ls -ltr core-api-features_2.10-0.1.jar
+    -rw-rw-r-- 1 cloudera cloudera 196861582 Dec 23 01:24 core-api-features_2.10-0.1.jar
 
-    [cloudera@quickstart ~]$ ls -ltr word
-    total 141240
-    -rw-rw-r-- 1 cloudera cloudera 72313825 Dec 10 21:16 bible.txt
+    [cloudera@quickstart ~]$ ls -ltr bible.txt
+    -rw-rw-r-- 1 cloudera cloudera 323791282 Dec 23 01:29 bible.txt
     ~~~
     
     * Copy text files folder from QuickStart VM or Gateway node to HDFS
     ~~~
-    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/word /user/cloudera/word
+    [cloudera@quickstart ~]$ hadoop fs -mkdir /user/cloudera/word
+    
+    [cloudera@quickstart ~]$ hadoop fs -put /home/cloudera/bible.txt /user/cloudera/word
     
     [cloudera@quickstart ~]$ hadoop fs -ls /user/cloudera/word
-    Found 1 item
-    -rw-r--r--   1 cloudera cloudera   72313825 2017-12-10 21:24 /user/cloudera/word/bible.txt
+    Found 1 items
+    -rw-r--r--   1 cloudera cloudera  323791282 2017-12-23 01:33 /user/cloudera/word/bible.txt
     ~~~
 
-    * Refer below command
+    * Refer below command to execute spark application
     ~~~
     [cloudera@quickstart ~]$ spark-submit \
       --master yarn \
       --class _3_application._3_1_word_count.WordCount \
       --name "Word Count - demo application on YARN" \
       --conf spark.ui.port=54321 \
-      --num-executors 4 \
+      --num-executors 1 \
       --executor-memory 512M \
       --executor-cores 2 \
       /home/cloudera/core-api-features_2.10-0.1.jar \
-      /user/cloudera/word \
+      /user/cloudera/word/bible.txt \
       /user/cloudera/word_output \
       prd
     ~~~
+
+    * Refer below screenshot
+    
+    ![Alt text](_images/yarn/1.png?raw=true "YARN - Word Count - In Progress")
+    
+    ![Alt text](_images/yarn/2.png?raw=true "YARN - Word Count - Finished")
+
+    ![Alt text](_images/yarn/3.png?raw=true "YARN - Word Count - Word Count - Job Summary")
+    
+    ![Alt text](_images/yarn/4.png?raw=true "YARN - Word Count - Word Count - Job Details")
+    
+    ![Alt text](_images/yarn/5.png?raw=true "YARN - Word Count - Stage 0")
+    
+    ![Alt text](_images/yarn/6.png?raw=true "YARN - Word Count - Stage 1")
+
+    ![Alt text](_images/yarn/7.png?raw=true "YARN - Word Count - Stage 1")
   
 * **Explore Spark Web UI:**
   * Job
