@@ -4,6 +4,7 @@ import com.typesafe.config.ConfigFactory
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.{SparkConf, SparkContext}
 
+import java.io.InputStream
 import scala.io.Source
 
 object ProductRevenueForMonthUpdated {
@@ -37,11 +38,6 @@ object ProductRevenueForMonthUpdated {
     // Validate input file path
     val fs = FileSystem.get(sc.hadoopConfiguration)
 
-    val productsPath = inputFolderPath + "/products/part-00000"
-    if (!fs.exists(new Path(productsPath))) {
-      throw new RuntimeException(s"$productsPath does not exist")
-    }
-
     val ordersPath = inputFolderPath + "/orders"
     if (!fs.exists(new Path(ordersPath))) {
       throw new RuntimeException(s"$ordersPath does not exist")
@@ -65,8 +61,11 @@ object ProductRevenueForMonthUpdated {
       accumulator[Int](0, s"Number of order items for month -> $month")
 
     println("======= Create broadcast variable ========")
+    val productsIs : InputStream = getClass.
+      getResourceAsStream("/retail_db/products/part-m-00000")
+
     val productsMap = Source.
-      fromFile(productsPath).
+      fromInputStream(productsIs).
       getLines.
       toList.
       map((rec: String) => {
