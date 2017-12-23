@@ -42,6 +42,8 @@
 * **Use IDE for development**
   * Create card count by suit program under project
 
+### Execution Life Cycle:
+
 * **Use SBT to build artifact**
   * Execute below SBT command to build JAR file
   
@@ -58,8 +60,6 @@
   
   [success] Total time: 40 s, completed 17 Dec, 2017 6:23:26 PM
   ~~~
-
-### Execution Life Cycle:
 
 * **Execute Application:**
   * **Local mode:** 

@@ -81,6 +81,8 @@
 * **Use IDE for development**
   * Create product revenue for month program under project
 
+### Execution Life Cycle:
+
 * **Use SBT to build artifact**
   * Execute below SBT command to build JAR file
   
@@ -95,8 +97,6 @@
   [info] Done packaging.
   [success] Total time: 25 s, completed 22 Dec, 2017 3:52:45 PM
   ~~~
-
-### Execution Life Cycle:
 
 * **Execute Application:**
   * **Local mode:** 
