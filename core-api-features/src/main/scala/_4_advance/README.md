@@ -91,21 +91,20 @@
     * Reading data from local file system
     * Reading data from HDFS
     * Reading data from configuration 
-    
-    ~~~
-    // Create broadcast variable from local file system
-    import scala.io.Source
-    
-    val productMapBrd = Source.
-      fromFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/part-00000").
-      getLines.
-      toList.
-      map((rec: String) => {
-        val recArray = rec.split(",")
-        (recArray(0).toInt, recArray(2))
-      }).
-      toMap  
-    ~~~
+  ~~~
+  // Create broadcast variable from local file system
+  import scala.io.Source
+  
+  val productMapBrd = Source.
+    fromFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/part-00000").
+    getLines.
+    toList.
+    map((rec: String) => {
+      val recArray = rec.split(",")
+      (recArray(0).toInt, recArray(2))
+    }).
+    toMap  
+  ~~~
 
 * **How to use broadcast variable?**
   ~~~
