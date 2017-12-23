@@ -80,7 +80,7 @@
       --conf spark.ui.port=54321 \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/output \
+      /tmp/word_output \
       local
     ~~~
   
@@ -97,7 +97,7 @@
       --executor-memory 512M \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/bible.txt \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/word/output \
+      /tmp/word_output \
       dev
     ~~~
     

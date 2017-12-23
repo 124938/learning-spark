@@ -108,7 +108,7 @@
       --conf spark.ui.port=54321 \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/output/prod_rev_for_month \
+      /tmp/prod_rev_for_month_output \
       2013-12 \
       local
     ~~~
@@ -126,7 +126,7 @@
       --executor-memory 512M \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/target/scala-2.10/core-api-features_2.10-0.1.jar \
       /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db \
-      /home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/products/output/prod_rev_for_month \
+      /tmp/prod_rev_for_month_output \
       2013-12 \
       dev
     ~~~
@@ -185,7 +185,7 @@
       --executor-cores 2 \
       /home/cloudera/core-api-features_2.10-0.1.jar \
       /user/cloudera/sqoop/import-all-tables-text \
-      /user/cloudera/sqoop/import-all-tables-text/products/output/prod_rev_for_month \
+      /user/cloudera/prod_rev_for_month_output \
       prd
     ~~~
   
