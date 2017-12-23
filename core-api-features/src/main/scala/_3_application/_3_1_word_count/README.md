@@ -179,8 +179,6 @@
     
     ![Alt text](_images/yarn/6.png?raw=true "YARN - Word Count - Stage 1")
 
-    ![Alt text](_images/yarn/7.png?raw=true "YARN - Word Count - Stage 1")
-  
 * **Explore Spark Web UI:**
   * Job
   * Stages
