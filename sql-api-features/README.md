@@ -69,17 +69,17 @@ scala> import sqlContext.implicits._
 import sqlContext.implicits._
 
 scala> val orderDF = sc.
-     textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders").
-     map((rec: String) => rec.split(",")).
-     map((rec: Array[String]) => Order(rec(0).toInt, rec(1), rec(2).toInt, rec(3))).
-     toDF
+textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders").
+map((rec: String) => rec.split(",")).
+map((rec: Array[String]) => Order(rec(0).toInt, rec(1), rec(2).toInt, rec(3))).
+toDF
 orderDF: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
 scala> orderDF
 res1: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
 scala> orderDF.
-     show(20)
+show(20)
 +-------+--------------------+---------------+---------------+
 |orderId|           orderDate|orderCustomerId|    orderStatus|
 +-------+--------------------+---------------+---------------+
@@ -107,8 +107,8 @@ scala> orderDF.
 only showing top 20 rows
 
 scala> orderDF.
-     take(20).
-     foreach(println)
+take(20).
+foreach(println)
 [1,2013-07-25 00:00:00.0,11599,CLOSED]
 [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
 [3,2013-07-25 00:00:00.0,12111,COMPLETE]
@@ -206,8 +206,8 @@ scala> orderDF.
   import org.apache.spark.SparkContext
   
   scala> val conf = new SparkConf().
-       setAppName("Data Frame - Demo").
-       setMaster("local[2]")
+  setAppName("Data Frame - Demo").
+  setMaster("local[2]")
   conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@19306988
   
   scala> val sc = new SparkContext(conf)
@@ -223,17 +223,17 @@ scala> orderDF.
   import sqlContext.implicits._
   
   scala> val ordersDF = sc.
-       textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
-       map((rec: String) => rec.split(",")).
-       map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
-       toDF("order_id", "order_date", "order_customer_id", "order_status")
+  textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
+  map((rec: String) => rec.split(",")).
+  map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
+  toDF("order_id", "order_date", "order_customer_id", "order_status")
   ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
   scala> ordersDF
   res1: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
   scala> ordersDF.
-       printSchema
+  printSchema
   root
    |-- order_id: integer (nullable = false)
    |-- order_date: string (nullable = true)
@@ -241,7 +241,7 @@ scala> orderDF.
    |-- order_status: string (nullable = true)
   
   scala> ordersDF.
-       show(20)
+  show(20)
   +--------+--------------------+-----------------+---------------+
   |order_id|          order_date|order_customer_id|   order_status|
   +--------+--------------------+-----------------+---------------+
@@ -269,8 +269,8 @@ scala> orderDF.
   only showing top 20 rows
   
   scala> ordersDF.
-       take(10).
-       foreach(println)
+  take(10).
+  foreach(println)
   [1,2013-07-25 00:00:00.0,11599,CLOSED]
   [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
   [3,2013-07-25 00:00:00.0,12111,COMPLETE]
