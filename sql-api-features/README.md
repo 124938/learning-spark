@@ -35,9 +35,8 @@
   
 ### Getting Started
 * **Start with REPL:**
-
 ~~~
-$ spark-shell 
+$ spark-shell  --master local[*]
 log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
 log4j:WARN Please initialize the log4j system properly.
 log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
@@ -56,12 +55,8 @@ Type :help for more information.
 17/11/04 20:44:01 WARN Utils: Your hostname, asus-GL553VD resolves to a loopback address: 127.0.1.1; using 192.168.0.103 instead (on interface enp3s0)
 17/11/04 20:44:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 Spark context available as sc.
-17/11/04 20:44:03 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
-17/11/04 20:44:03 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
 17/11/04 20:44:19 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
 17/11/04 20:44:19 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
-17/11/04 20:44:22 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
-17/11/04 20:44:22 WARN Connection: BoneCP specified but not present in CLASSPATH (or one of dependencies)
 SQL context available as sqlContext.
 
 scala> sqlContext
@@ -74,17 +69,17 @@ scala> import sqlContext.implicits._
 import sqlContext.implicits._
 
 scala> val orderDF = sc.
-     | textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders").
-     | map((rec: String) => rec.split(",")).
-     | map((rec: Array[String]) => Order(rec(0).toInt, rec(1), rec(2).toInt, rec(3))).
-     | toDF
+     textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders").
+     map((rec: String) => rec.split(",")).
+     map((rec: Array[String]) => Order(rec(0).toInt, rec(1), rec(2).toInt, rec(3))).
+     toDF
 orderDF: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
 scala> orderDF
 res1: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
 scala> orderDF.
-     | show(20)
+     show(20)
 +-------+--------------------+---------------+---------------+
 |orderId|           orderDate|orderCustomerId|    orderStatus|
 +-------+--------------------+---------------+---------------+
@@ -112,9 +107,8 @@ scala> orderDF.
 only showing top 20 rows
 
 scala> orderDF.
-     | take(20).
-     | foreach(println)
-
+     take(20).
+     foreach(println)
 [1,2013-07-25 00:00:00.0,11599,CLOSED]
 [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
 [3,2013-07-25 00:00:00.0,12111,COMPLETE]
@@ -139,56 +133,59 @@ scala> orderDF.
 
 * **Using IDE:**
   * Create SBT project called sql-api-features in IntelliJ Idea
-  * Add below dependency to use Spark SQL module
-    ~~~
-    name := "sql-api-features"
-    version := "0.1"
-    scalaVersion := "2.10.6"
   
-    libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.3"
-    libraryDependencies += "org.apache.spark" % "spark-sql_2.10" % "1.6.3"
-    ~~~
+  * Add below dependency to use Spark SQL module
+  ~~~
+  name := "sql-api-features"
+  version := "0.1"
+  scalaVersion := "2.10.6"
+  
+  libraryDependencies += "org.apache.spark" % "spark-sql_2.10" % "1.6.3"
+  ~~~
+  
   * Create below sample scala program
-    ~~~
-    import org.apache.spark.sql.SQLContext
-    import org.apache.spark.{SparkConf, SparkContext}
+  ~~~
+  import org.apache.spark.sql.SQLContext
+  import org.apache.spark.{SparkConf, SparkContext}
     
-    object DFDemo {
-      def main(args: Array[String]): Unit = {
-    
-        // Create Spark Context
-        val conf = new SparkConf().
-          setAppName("DataFrame - Demo").
-          setMaster("local[2]")
-    
-        val sc = new SparkContext(conf)
-    
-        // Create SQL Context
-        val sqlContext = new SQLContext(sc)
-    
-        // Below is used to implicitly convert RDD to DataFrame
-        import sqlContext.implicits._
-    
-        // Create DataFrame using RDD
-        val orderDF = sc.
-          textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
-          map((rec: String) => rec.split(",")).
-          map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
-          toDF("order_id", "order_date", "order_customer_id", "order_status")
-    
-        // Print schema of orders DataFrame
-        orderDF.
-          printSchema
-    
-        // Preview 20 records from orders DataFrame
-        orderDF.
-          show(20)
-      }
+  object DFDemo {
+    def main(args: Array[String]): Unit = {
+  
+      // Create Spark Context
+      val conf = new SparkConf().
+        setAppName("DataFrame - Demo").
+        setMaster("local[2]")
+  
+      val sc = new SparkContext(conf)
+  
+      // Create SQL Context
+      val sqlContext = new SQLContext(sc)
+  
+      // Below is used to implicitly convert RDD to DataFrame
+      import sqlContext.implicits._
+  
+      // Create DataFrame using RDD
+      val orderDF = sc.
+        textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
+        map((rec: String) => rec.split(",")).
+        map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
+        toDF("order_id", "order_date", "order_customer_id", "order_status")
+  
+      // Print schema of orders DataFrame
+      orderDF.
+        printSchema
+  
+      // Preview 20 records from orders DataFrame
+      orderDF.
+        show(20)
     }
-    ~~~  
-    * Run above program from IDE to see the result
+  }
+  ~~~
+    
+  * Run above program from IDE to see the result
     
 * **Using SBT:** 
+  
   * Open terminal window and execute below code to see the result
   ~~~
   asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/sql-api-features
@@ -209,37 +206,11 @@ scala> orderDF.
   import org.apache.spark.SparkContext
   
   scala> val conf = new SparkConf().
-       | setAppName("Data Frame - Demo").
-       | setMaster("local[2]")
+       setAppName("Data Frame - Demo").
+       setMaster("local[2]")
   conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@19306988
   
   scala> val sc = new SparkContext(conf)
-  Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
-  17/11/04 21:27:59 INFO SparkContext: Running Spark version 1.6.3
-  17/11/04 21:27:59 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-  17/11/04 21:27:59 WARN Utils: Your hostname, asus-GL553VD resolves to a loopback address: 127.0.1.1; using 192.168.0.103 instead (on interface enp3s0)
-  17/11/04 21:27:59 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
-  17/11/04 21:27:59 INFO SecurityManager: Changing view acls to: asus
-  17/11/04 21:27:59 INFO SecurityManager: Changing modify acls to: asus
-  17/11/04 21:27:59 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(asus); users with modify permissions: Set(asus)
-  17/11/04 21:28:00 INFO Utils: Successfully started service 'sparkDriver' on port 45573.
-  17/11/04 21:28:00 INFO Slf4jLogger: Slf4jLogger started
-  17/11/04 21:28:00 INFO Remoting: Starting remoting
-  17/11/04 21:28:00 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@192.168.0.103:36215]
-  17/11/04 21:28:00 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 36215.
-  17/11/04 21:28:00 INFO SparkEnv: Registering MapOutputTracker
-  17/11/04 21:28:00 INFO SparkEnv: Registering BlockManagerMaster
-  17/11/04 21:28:00 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-b9272d67-c1a8-4ba0-8e65-7c821eaf2741
-  17/11/04 21:28:00 INFO MemoryStore: MemoryStore started with capacity 511.1 MB
-  17/11/04 21:28:00 INFO SparkEnv: Registering OutputCommitCoordinator
-  17/11/04 21:28:00 INFO Utils: Successfully started service 'SparkUI' on port 4040.
-  17/11/04 21:28:00 INFO SparkUI: Started SparkUI at http://192.168.0.103:4040
-  17/11/04 21:28:00 INFO Executor: Starting executor ID driver on host localhost
-  17/11/04 21:28:00 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 36103.
-  17/11/04 21:28:00 INFO NettyBlockTransferService: Server created on 36103
-  17/11/04 21:28:00 INFO BlockManagerMaster: Trying to register BlockManager
-  17/11/04 21:28:00 INFO BlockManagerMasterEndpoint: Registering block manager localhost:36103 with 511.1 MB RAM, BlockManagerId(driver, localhost, 36103)
-  17/11/04 21:28:00 INFO BlockManagerMaster: Registered BlockManager
   sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@2f45c5cb
   
   scala> import org.apache.spark.sql.SQLContext
@@ -252,20 +223,17 @@ scala> orderDF.
   import sqlContext.implicits._
   
   scala> val ordersDF = sc.
-       | textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
-       | map((rec: String) => rec.split(",")).
-       | map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
-       | toDF("order_id", "order_date", "order_customer_id", "order_status")
-  17/11/04 21:33:27 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 107.7 KB, free 511.0 MB)
-  17/11/04 21:33:27 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 9.8 KB, free 511.0 MB)
-  17/11/04 21:33:27 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:36103 (size: 9.8 KB, free: 511.1 MB)
-  17/11/04 21:33:27 INFO SparkContext: Created broadcast 0 from textFile at <console>:17
+       textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
+       map((rec: String) => rec.split(",")).
+       map((recArray: Array[String]) => (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))).
+       toDF("order_id", "order_date", "order_customer_id", "order_status")
   ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
   scala> ordersDF
   res1: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
-  scala> ordersDF.printSchema
+  scala> ordersDF.
+       printSchema
   root
    |-- order_id: integer (nullable = false)
    |-- order_date: string (nullable = true)
@@ -273,35 +241,7 @@ scala> orderDF.
    |-- order_status: string (nullable = true)
   
   scala> ordersDF.
-       | show(20)
-  17/11/04 21:34:01 INFO FileInputFormat: Total input paths to process : 1
-  17/11/04 21:34:01 INFO SparkContext: Starting job: show at <console>:19
-  17/11/04 21:34:01 INFO DAGScheduler: Got job 0 (show at <console>:19) with 1 output partitions
-  17/11/04 21:34:01 INFO DAGScheduler: Final stage: ResultStage 0 (show at <console>:19)
-  17/11/04 21:34:01 INFO DAGScheduler: Parents of final stage: List()
-  17/11/04 21:34:01 INFO DAGScheduler: Missing parents: List()
-  17/11/04 21:34:01 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[7] at show at <console>:19), which has no missing parents
-  17/11/04 21:34:01 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 7.4 KB, free 511.0 MB)
-  17/11/04 21:34:01 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 3.9 KB, free 511.0 MB)
-  17/11/04 21:34:01 INFO BlockManagerInfo: Added broadcast_1_piece0 in memory on localhost:36103 (size: 3.9 KB, free: 511.1 MB)
-  17/11/04 21:34:01 INFO SparkContext: Created broadcast 1 from broadcast at DAGScheduler.scala:1006
-  17/11/04 21:34:01 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 0 (MapPartitionsRDD[7] at show at <console>:19)
-  17/11/04 21:34:01 INFO TaskSchedulerImpl: Adding task set 0.0 with 1 tasks
-  17/11/04 21:34:01 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, partition 0,PROCESS_LOCAL, 2227 bytes)
-  17/11/04 21:34:01 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
-  17/11/04 21:34:01 INFO HadoopRDD: Input split: file:/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text/part-00000:0+1499972
-  17/11/04 21:34:01 INFO deprecation: mapred.tip.id is deprecated. Instead, use mapreduce.task.id
-  17/11/04 21:34:01 INFO deprecation: mapred.task.id is deprecated. Instead, use mapreduce.task.attempt.id
-  17/11/04 21:34:01 INFO deprecation: mapred.task.is.map is deprecated. Instead, use mapreduce.task.ismap
-  17/11/04 21:34:01 INFO deprecation: mapred.task.partition is deprecated. Instead, use mapreduce.task.partition
-  17/11/04 21:34:01 INFO deprecation: mapred.job.id is deprecated. Instead, use mapreduce.job.id
-  17/11/04 21:34:01 INFO GenerateUnsafeProjection: Code generated in 132.23458 ms
-  17/11/04 21:34:01 INFO GenerateSafeProjection: Code generated in 6.232363 ms
-  17/11/04 21:34:01 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 4489 bytes result sent to driver
-  17/11/04 21:34:01 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 268 ms on localhost (1/1)
-  17/11/04 21:34:01 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
-  17/11/04 21:34:01 INFO DAGScheduler: ResultStage 0 (show at <console>:19) finished in 0.281 s
-  17/11/04 21:34:01 INFO DAGScheduler: Job 0 finished: show at <console>:19, took 0.338144 s
+       show(20)
   +--------+--------------------+-----------------+---------------+
   |order_id|          order_date|order_customer_id|   order_status|
   +--------+--------------------+-----------------+---------------+
@@ -328,31 +268,9 @@ scala> orderDF.
   +--------+--------------------+-----------------+---------------+
   only showing top 20 rows
   
-  
   scala> ordersDF.
-       | take(10).
-       | foreach(println)
-  17/11/04 21:34:18 INFO SparkContext: Starting job: take at <console>:19
-  17/11/04 21:34:18 INFO DAGScheduler: Got job 1 (take at <console>:19) with 1 output partitions
-  17/11/04 21:34:18 INFO DAGScheduler: Final stage: ResultStage 1 (take at <console>:19)
-  17/11/04 21:34:18 INFO DAGScheduler: Parents of final stage: List()
-  17/11/04 21:34:18 INFO DAGScheduler: Missing parents: List()
-  17/11/04 21:34:18 INFO DAGScheduler: Submitting ResultStage 1 (MapPartitionsRDD[10] at take at <console>:19), which has no missing parents
-  17/11/04 21:34:18 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 7.4 KB, free 511.0 MB)
-  17/11/04 21:34:18 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 3.9 KB, free 511.0 MB)
-  17/11/04 21:34:18 INFO BlockManagerInfo: Added broadcast_2_piece0 in memory on localhost:36103 (size: 3.9 KB, free: 511.1 MB)
-  17/11/04 21:34:18 INFO SparkContext: Created broadcast 2 from broadcast at DAGScheduler.scala:1006
-  17/11/04 21:34:18 INFO DAGScheduler: Submitting 1 missing tasks from ResultStage 1 (MapPartitionsRDD[10] at take at <console>:19)
-  17/11/04 21:34:18 INFO TaskSchedulerImpl: Adding task set 1.0 with 1 tasks
-  17/11/04 21:34:18 INFO TaskSetManager: Starting task 0.0 in stage 1.0 (TID 1, localhost, partition 0,PROCESS_LOCAL, 2227 bytes)
-  17/11/04 21:34:18 INFO Executor: Running task 0.0 in stage 1.0 (TID 1)
-  17/11/04 21:34:18 INFO HadoopRDD: Input split: file:/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text/part-00000:0+1499972
-  17/11/04 21:34:18 INFO Executor: Finished task 0.0 in stage 1.0 (TID 1). 3457 bytes result sent to driver
-  17/11/04 21:34:18 INFO TaskSetManager: Finished task 0.0 in stage 1.0 (TID 1) in 11 ms on localhost (1/1)
-  17/11/04 21:34:18 INFO TaskSchedulerImpl: Removed TaskSet 1.0, whose tasks have all completed, from pool 
-  17/11/04 21:34:18 INFO DAGScheduler: ResultStage 1 (take at <console>:19) finished in 0.012 s
-  17/11/04 21:34:18 INFO DAGScheduler: Job 1 finished: take at <console>:19, took 0.016493 s
-
+       take(10).
+       foreach(println)
   [1,2013-07-25 00:00:00.0,11599,CLOSED]
   [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
   [3,2013-07-25 00:00:00.0,12111,COMPLETE]

@@ -5,7 +5,7 @@
 * Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on same)
 * Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup/README.md) to know more details on same)
 * Make sure to configure Spark history server (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_2_spark_history_server_setup/README.md) to know more details on same)
-* Make sure to configure hive under spark (Click [here](https://github.com/124938/learning-hadoop-vendors/blob/master/cloudera/_1_quickstart_vm/_1_3_spark_hive_setup/README.md) to know more details on same)
+* Make sure to configure Hive under spark (Click [here](https://github.com/124938/learning-hadoop-vendors/blob/master/cloudera/_1_quickstart_vm/_1_3_spark_hive_setup/README.md) to know more details on same)
 
 ### Start `spark-shell` in YARN mode
 * Login to Quick Start VM or gateway node of hadoop cluster using ssh
