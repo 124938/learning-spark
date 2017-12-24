@@ -122,13 +122,13 @@ scala> import org.apache.hadoop.io.Text
 import org.apache.hadoop.io.Text
 
 scala> sc.textFile("sqoop/import-all-tables-text/orders").
-     |   map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     |   saveAsSequenceFile("tmp/orders/seq")
+        map((rec: String) => (rec.split(",")(0).toInt, rec)).
+        saveAsSequenceFile("tmp/orders/seq")
                                                                                 
 scala> sc.sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
-     |   map((t: (IntWritable, Text)) => t._2.toString).
-     |   take(5).
-     |   foreach(println)
+        map((t: (IntWritable, Text)) => t._2.toString).
+        take(5).
+        foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
@@ -136,13 +136,13 @@ scala> sc.sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
 scala> sc.textFile("sqoop/import-all-tables-text/orders").
-     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     | saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
+      map((rec: String) => (rec.split(",")(0).toInt, rec)).
+      saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
 
 scala> sc.sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
-     |   map((t: (IntWritable, Text)) => t._2.toString).
-     |   take(5).
-     |   foreach(println)
+        map((t: (IntWritable, Text)) => t._2.toString).
+        take(5).
+        foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
@@ -150,13 +150,13 @@ scala> sc.sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Te
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
 scala> sc.textFile("sqoop/import-all-tables-text/orders").
-     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     | saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
+      map((rec: String) => (rec.split(",")(0).toInt, rec)).
+      saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
 
 scala> sc.sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
-     |   map((t: (IntWritable, Text)) => t._2.toString).
-     |   take(5).
-     |   foreach(println)
+        map((t: (IntWritable, Text)) => t._2.toString).
+        take(5).
+        foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
@@ -164,13 +164,13 @@ scala> sc.sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
 scala> sc.textFile("sqoop/import-all-tables-text/orders").
-     | map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     | saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
+      map((rec: String) => (rec.split(",")(0).toInt, rec)).
+      saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
 
 scala> sc.sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
-     |   map((t: (IntWritable, Text)) => t._2.toString).
-     |   take(5).
-     |   foreach(println)
+        map((t: (IntWritable, Text)) => t._2.toString).
+        take(5).
+        foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
@@ -232,11 +232,11 @@ scala> import sqlContext.implicits._
 import sqlContext.implicits._
 
 scala> val ordersDF = sc.textFile("sqoop/import-all-tables-text/orders").
-     | map((rec: String) => {
-     |   val recArray = rec.split(",")
-     |   (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
-     | }).
-     | toDF("order_id", "order_date", "order_customer_id", "order_status")
+      map((rec: String) => {
+        val recArray = rec.split(",")
+        (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+      }).
+      toDF("order_id", "order_date", "order_customer_id", "order_status")
 ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
 
 scala> ordersDF.show(3)
@@ -254,14 +254,14 @@ scala> import org.apache.spark.sql.SaveMode
 import org.apache.spark.sql.SaveMode
 
 scala> ordersDF.
-     | write.
-     | mode(SaveMode.Overwrite).
-     | json("tmp/orders/json")
+      write.
+      mode(SaveMode.Overwrite).
+      json("tmp/orders/json")
                                                                                 
 scala> sqlContext.
-     | read.
-     | json("tmp/orders/json").
-     | show(3)
+      read.
+      json("tmp/orders/json").
+      show(3)
 +-----------------+--------------------+--------+---------------+               
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -272,13 +272,13 @@ scala> sqlContext.
 only showing top 3 rows
 
 scala> ordersDF.
-     | toJSON.
-     | saveAsTextFile("tmp/orders/json_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
+      toJSON.
+      saveAsTextFile("tmp/orders/json_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
 
 scala> sqlContext.
-     | read.
-     | json("tmp/orders/json_gzip").
-     | show(3)
+      read.
+      json("tmp/orders/json_gzip").
+      show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -289,13 +289,13 @@ scala> sqlContext.
 only showing top 3 rows
 
 scala> ordersDF.
-     | toJSON.
-     | saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
+      toJSON.
+      saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
                                                                                 
 scala> sqlContext.
-     | read.
-     | json("tmp/orders/json_bzip2").
-     | show(3)
+      read.
+      json("tmp/orders/json_bzip2").
+      show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -306,13 +306,13 @@ scala> sqlContext.
 only showing top 3 rows
 
 scala> ordersDF.
-     | toJSON.
-     | saveAsTextFile("tmp/orders/json_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
+      toJSON.
+      saveAsTextFile("tmp/orders/json_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
 
 scala> sqlContext.
-     | read.
-     | json("tmp/orders/json_snappy").
-     | show(3)
+      read.
+      json("tmp/orders/json_snappy").
+      show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
