@@ -155,11 +155,13 @@ scala> sc.sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
-scala> sc.textFile("sqoop/import-all-tables-text/orders").
+scala> sc.
+     textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => (rec.split(",")(0).toInt, rec)).
      saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
 
-scala> sc.sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
+scala> sc.
+     sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
      map((t: (IntWritable, Text)) => t._2.toString).
      take(5).
      foreach(println)
@@ -169,11 +171,13 @@ scala> sc.sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Te
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
-scala> sc.textFile("sqoop/import-all-tables-text/orders").
+scala> sc.
+     textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => (rec.split(",")(0).toInt, rec)).
      saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
 
-scala> sc.sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
+scala> sc.
+     sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
      map((t: (IntWritable, Text)) => t._2.toString).
      take(5).
      foreach(println)
@@ -183,11 +187,13 @@ scala> sc.sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 
-scala> sc.textFile("sqoop/import-all-tables-text/orders").
+scala> sc.
+     textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => (rec.split(",")(0).toInt, rec)).
      saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
 
-scala> sc.sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
+scala> sc.
+     sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
      map((t: (IntWritable, Text)) => t._2.toString).
      take(5).
      foreach(println)
@@ -251,7 +257,8 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@4a
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
 
-scala> val ordersDF = sc.textFile("sqoop/import-all-tables-text/orders").
+scala> val ordersDF = sc.
+     textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => {
        val recArray = rec.split(",")
        (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
@@ -259,7 +266,8 @@ scala> val ordersDF = sc.textFile("sqoop/import-all-tables-text/orders").
      toDF("order_id", "order_date", "order_customer_id", "order_status")
 ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
 
-scala> ordersDF.show(3)
+scala> ordersDF.
+     show(3)
 +--------+--------------------+-----------------+---------------+
 |order_id|          order_date|order_customer_id|   order_status|
 +--------+--------------------+-----------------+---------------+
