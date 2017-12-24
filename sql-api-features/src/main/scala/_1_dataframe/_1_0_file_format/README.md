@@ -2,17 +2,20 @@
 
 ### Pre-Requisite
 
-* Login to Cloudera Quick Start VM using ssh (Refer below snapshot)
+* Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on same)
+* Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup/README.md) to know more details on same)
+* Make sure to configure Spark history server (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_2_spark_history_server_setup/README.md) to know more details on same)
 
+### Start Spark Shell in YARN mode
+* Login to Quick Start VM or gateway node of hadoop cluster using ssh
 ~~~
 asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
 cloudera@192.168.211.142's password: 
 Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
 [cloudera@quickstart ~]$
 ~~~
-
-* Start `spark-shell` (Refer below snapshot)
-
+    
+* Launch spark shell in YARN mode
 ~~~
 [cloudera@quickstart ~]$ spark-shell --master yarn
 Setting default log level to "WARN".
@@ -292,7 +295,7 @@ scala> sqlContext.
      read.
      json("tmp/orders/json").
      show(3)
-+-----------------+--------------------+--------+---------------+               
++-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
 |            11599|2013-07-25 00:00:...|       1|         CLOSED|
