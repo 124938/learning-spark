@@ -5,8 +5,9 @@
 * Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on same)
 * Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup/README.md) to know more details on same)
 * Make sure to configure Spark history server (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_2_spark_history_server_setup/README.md) to know more details on same)
+* Make sure to configure hive under spark (Click [here](https://github.com/124938/learning-hadoop-vendors/blob/master/cloudera/_1_quickstart_vm/_1_3_spark_hive_setup/README.md) to know more details on same)
 
-### Start Spark Shell in YARN mode
+### Start `spark-shell` in YARN mode
 * Login to Quick Start VM or gateway node of hadoop cluster using ssh
 ~~~
 asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
@@ -14,10 +15,10 @@ cloudera@192.168.211.142's password:
 Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
 [cloudera@quickstart ~]$
 ~~~
-    
+
 * Launch spark shell in YARN mode
 ~~~
-[cloudera@quickstart ~]$ spark-shell --master yarn
+[cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel).
 SLF4J: Class path contains multiple SLF4J bindings.
@@ -52,7 +53,7 @@ SQL context available as sqlContext.
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Read/Write text file using above compression codec (Refer below snapshot)
+* Refer below code snippet to Read/Write text file using above compression codec
 ~~~
 scala> import org.apache.hadoop.io.compress.SnappyCodec
 import org.apache.hadoop.io.compress.SnappyCodec
@@ -88,7 +89,7 @@ scala> sc.
 scala> sc.
      textFile("sqoop/import-all-tables-text/orders").
      saveAsTextFile("tmp/orders/text_gzip", classOf[GzipCodec])
-                                                                                
+
 scala> sc.
      textFile("tmp/orders/text_gzip").
      take(2).
@@ -108,7 +109,7 @@ scala> sc.
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
 
-* Display list of generated text files using HDFS commands (Refer below snapshot)
+* Refer below HDFS command to display list of generated text files
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:19 tmp/orders/text
@@ -129,6 +130,40 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
 -rw-r--r--   1 cloudera cloudera    441.0 K 2017-11-12 18:20 tmp/orders/text_snappy/part-00001.snappy
 ~~~
 
+* Refer below HDFS command to view text file on terminal
+~~~
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text/part-00000 | more
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_snappy/part-00000.snappy | more
+17/12/24 03:43:59 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_gzip/part-00000.gz | more
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_bzip2/part-00000.bz2 | more
+17/12/24 03:46:00 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
+17/12/24 03:46:00 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+1,2013-07-25 00:00:00.0,11599,CLOSED
+2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3,2013-07-25 00:00:00.0,12111,COMPLETE
+4,2013-07-25 00:00:00.0,8827,CLOSED
+5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
+
 ### (2) Sequence File
 
 * Sequence file supports following compression codec:
@@ -136,7 +171,7 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Read/Write sequence file using above compression codec (Refer below snapshot)
+* Refer below code snippet to Read/Write sequence file using above compression codec
 ~~~
 scala> import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.io.IntWritable
@@ -148,7 +183,7 @@ scala> sc.
      textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => (rec.split(",")(0).toInt, rec)).
      saveAsSequenceFile("tmp/orders/seq")
-                                                                                
+
 scala> sc.
      sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
      map((t: (IntWritable, Text)) => t._2.toString).
@@ -210,7 +245,7 @@ scala> sc.
 
 ~~~
 
-* Display list of generated sequence files using HDFS commands (Refer below snapshot)
+* Refer below HDFS command to display list of generated sequence files
 ~~~
 [cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq
@@ -231,17 +266,49 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 -rw-r--r--   1 cloudera cloudera    616.1 K 2017-11-12 19:04 tmp/orders/seq_snappy/part-00001
 ~~~
 
-* View Sequence file using HDFS command (Refer below snapshot)
+* Refer below HDFS command to view sequence file (in text format) on terminal
 ~~~
-[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/text_snappy/part-00000.snappy | more
-17/11/12 19:21:46 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
-1,2013-07-25 00:00:00.0,11599,CLOSED
-2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
-3,2013-07-25 00:00:00.0,12111,COMPLETE
-4,2013-07-25 00:00:00.0,8827,CLOSED
-5,2013-07-25 00:00:00.0,11318,COMPLETE
-6,2013-07-25 00:00:00.0,7130,COMPLETE
-7,2013-07-25 00:00:00.0,4530,COMPLETE
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq/part-00000 | more
+1	1,2013-07-25 00:00:00.0,11599,CLOSED
+2	2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3	3,2013-07-25 00:00:00.0,12111,COMPLETE
+4	4,2013-07-25 00:00:00.0,8827,CLOSED
+5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_snappy/part-00000 | more
+17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+1	1,2013-07-25 00:00:00.0,11599,CLOSED
+2	2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3	3,2013-07-25 00:00:00.0,12111,COMPLETE
+4	4,2013-07-25 00:00:00.0,8827,CLOSED
+5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_gzip/part-00000 | more
+17/12/24 03:40:33 INFO zlib.ZlibFactory: Successfully loaded & initialized native-zlib library
+17/12/24 03:40:33 INFO compress.CodecPool: Got brand-new decompressor [.gz]
+17/12/24 03:40:33 INFO compress.CodecPool: Got brand-new decompressor [.gz]
+17/12/24 03:40:33 INFO compress.CodecPool: Got brand-new decompressor [.gz]
+17/12/24 03:40:33 INFO compress.CodecPool: Got brand-new decompressor [.gz]
+1	1,2013-07-25 00:00:00.0,11599,CLOSED
+2	2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3	3,2013-07-25 00:00:00.0,12111,COMPLETE
+4	4,2013-07-25 00:00:00.0,8827,CLOSED
+5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+
+[cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_bzip2/part-00000 | more
+17/12/24 03:41:05 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
+17/12/24 03:41:05 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+17/12/24 03:41:05 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+17/12/24 03:41:05 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+17/12/24 03:41:05 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+1	1,2013-07-25 00:00:00.0,11599,CLOSED
+2	2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+3	3,2013-07-25 00:00:00.0,12111,COMPLETE
+4	4,2013-07-25 00:00:00.0,8827,CLOSED
+5	5,2013-07-25 00:00:00.0,11318,COMPLETE
 ~~~
 
 ### (3) JSON File
@@ -251,7 +318,7 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Read/Write JSON file using above compression codec (Refer below snapshot)
+* Refer below code snippet to Read/Write JSON file using above compression codec
 ~~~
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
@@ -290,7 +357,7 @@ scala> ordersDF.
      write.
      mode(SaveMode.Overwrite).
      json("tmp/orders/json")
-                                                                                
+
 scala> sqlContext.
      read.
      json("tmp/orders/json").
@@ -324,7 +391,7 @@ only showing top 3 rows
 scala> ordersDF.
      toJSON.
      saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
-                                                                                
+
 scala> sqlContext.
      read.
      json("tmp/orders/json_bzip2").
