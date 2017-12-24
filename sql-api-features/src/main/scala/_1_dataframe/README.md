@@ -56,7 +56,7 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
   
   * **From Existing RDD:**
     
-    * Inferring the schema using reflection i.e. using case class:
+    * _Inferring the schema using reflection i.e. using case class:_
     ~~~
     scala> import sqlContext.implicits._
     import sqlContext.implicits._
@@ -92,7 +92,7 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
     only showing top 10 rows
     ~~~
     
-    * Programmatically specifying the schema using StructField:
+    * _Programmatically specifying the schema using StructField:_
     ~~~
     scala> import org.apache.spark.sql.Row
     import org.apache.spark.sql.Row
@@ -140,7 +140,7 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
     only showing top 10 rows
     ~~~
 
-    * Programmatically specifying the schema using toDF:
+    * _Programmatically specifying the schema using toDF:_
     ~~~
     scala> val orderDF3 = sc.
     textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
