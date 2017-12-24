@@ -141,11 +141,13 @@ import org.apache.hadoop.io.IntWritable
 scala> import org.apache.hadoop.io.Text
 import org.apache.hadoop.io.Text
 
-scala> sc.textFile("sqoop/import-all-tables-text/orders").
+scala> sc.
+     textFile("sqoop/import-all-tables-text/orders").
      map((rec: String) => (rec.split(",")(0).toInt, rec)).
      saveAsSequenceFile("tmp/orders/seq")
                                                                                 
-scala> sc.sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
+scala> sc.
+     sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
      map((t: (IntWritable, Text)) => t._2.toString).
      take(5).
      foreach(println)
