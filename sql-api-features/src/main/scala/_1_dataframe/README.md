@@ -11,7 +11,7 @@
     * Query plans are created for execution using Spark catalyst optimizer
     * After an optimized execution plan is prepared going through some steps, the final execution happens internally on RDDs only but that's completely hidden from users
     
-    ![Alt text](images/spark-sql-catalyst-optimizer-model.png?raw=true "Spark SQL - Catalyst Optimizer")
+    ![Alt text](_images/spark-sql-catalyst-optimizer-model.png?raw=true "Spark SQL - Catalyst Optimizer")
     
   * **Custom Memory Management (aka Project Tungsten):**
     * Data is stored in off-heap memory in binary format, which saves a lot of memory space & also there is no overhead of garbage collection
