@@ -55,7 +55,8 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
 **(1) : Using Native Context (aka org.apache.spark.sql.SQLContext) :** With a SQLContext, application can create dataFrame in following ways:
   
   * **From Existing RDD:**
-    *_1.1: Inferring the schema using reflection i.e. using case class_
+    
+    * Inferring the schema using reflection i.e. using case class:
     ~~~
     scala> import sqlContext.implicits._
     import sqlContext.implicits._
@@ -91,7 +92,7 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
     only showing top 10 rows
     ~~~
     
-    *_1.2: Programmatically specifying the schema using StructField_
+    * Programmatically specifying the schema using StructField:
     ~~~
     scala> import org.apache.spark.sql.Row
     import org.apache.spark.sql.Row
@@ -139,7 +140,7 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7a
     only showing top 10 rows
     ~~~
 
-    *_1.3: Programmatically specifying the schema using toDF_
+    * Programmatically specifying the schema using toDF:
     ~~~
     scala> val orderDF3 = sc.
     textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
