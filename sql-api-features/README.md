@@ -59,8 +59,11 @@ Spark context available as sc.
 17/11/04 20:44:19 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
 SQL context available as sqlContext.
 
-scala> sqlContext
-res0: org.apache.spark.sql.SQLContext = org.apache.spark.sql.hive.HiveContext@621c7b91
+scala> import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SQLContext
+
+scala> val sqlContext = new SQLContext(sc)
+sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7ab7a4eb
 
 scala> case class Order(orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)
 defined class Order
@@ -69,17 +72,16 @@ scala> import sqlContext.implicits._
 import sqlContext.implicits._
 
 scala> val orderDF = sc.
-textFile("/home/asus/source_code/github/124938/learning-spark/core-api-features/src/main/resources/retail_db/orders").
-map((rec: String) => rec.split(",")).
-map((rec: Array[String]) => Order(rec(0).toInt, rec(1), rec(2).toInt, rec(3))).
-toDF
+textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  OrderRDD(recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF()
 orderDF: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
-scala> orderDF
-res1: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
-
 scala> orderDF.
-show(20)
+show(10)
 +-------+--------------------+---------------+---------------+
 |orderId|           orderDate|orderCustomerId|    orderStatus|
 +-------+--------------------+---------------+---------------+
@@ -93,21 +95,11 @@ show(20)
 |      8|2013-07-25 00:00:...|           2911|     PROCESSING|
 |      9|2013-07-25 00:00:...|           5657|PENDING_PAYMENT|
 |     10|2013-07-25 00:00:...|           5648|PENDING_PAYMENT|
-|     11|2013-07-25 00:00:...|            918| PAYMENT_REVIEW|
-|     12|2013-07-25 00:00:...|           1837|         CLOSED|
-|     13|2013-07-25 00:00:...|           9149|PENDING_PAYMENT|
-|     14|2013-07-25 00:00:...|           9842|     PROCESSING|
-|     15|2013-07-25 00:00:...|           2568|       COMPLETE|
-|     16|2013-07-25 00:00:...|           7276|PENDING_PAYMENT|
-|     17|2013-07-25 00:00:...|           2667|       COMPLETE|
-|     18|2013-07-25 00:00:...|           1205|         CLOSED|
-|     19|2013-07-25 00:00:...|           9488|PENDING_PAYMENT|
-|     20|2013-07-25 00:00:...|           9198|     PROCESSING|
 +-------+--------------------+---------------+---------------+
-only showing top 20 rows
+only showing top 10 rows
 
 scala> orderDF.
-take(20).
+take(10).
 foreach(println)
 [1,2013-07-25 00:00:00.0,11599,CLOSED]
 [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
@@ -119,16 +111,6 @@ foreach(println)
 [8,2013-07-25 00:00:00.0,2911,PROCESSING]
 [9,2013-07-25 00:00:00.0,5657,PENDING_PAYMENT]
 [10,2013-07-25 00:00:00.0,5648,PENDING_PAYMENT]
-[11,2013-07-25 00:00:00.0,918,PAYMENT_REVIEW]
-[12,2013-07-25 00:00:00.0,1837,CLOSED]
-[13,2013-07-25 00:00:00.0,9149,PENDING_PAYMENT]
-[14,2013-07-25 00:00:00.0,9842,PROCESSING]
-[15,2013-07-25 00:00:00.0,2568,COMPLETE]
-[16,2013-07-25 00:00:00.0,7276,PENDING_PAYMENT]
-[17,2013-07-25 00:00:00.0,2667,COMPLETE]
-[18,2013-07-25 00:00:00.0,1205,CLOSED]
-[19,2013-07-25 00:00:00.0,9488,PENDING_PAYMENT]
-[20,2013-07-25 00:00:00.0,9198,PROCESSING]
 ~~~
 
 * **Using IDE:**
@@ -241,7 +223,7 @@ foreach(println)
    |-- order_status: string (nullable = true)
   
   scala> ordersDF.
-  show(20)
+  show(10)
   +--------+--------------------+-----------------+---------------+
   |order_id|          order_date|order_customer_id|   order_status|
   +--------+--------------------+-----------------+---------------+
@@ -255,18 +237,8 @@ foreach(println)
   |       8|2013-07-25 00:00:...|             2911|     PROCESSING|
   |       9|2013-07-25 00:00:...|             5657|PENDING_PAYMENT|
   |      10|2013-07-25 00:00:...|             5648|PENDING_PAYMENT|
-  |      11|2013-07-25 00:00:...|              918| PAYMENT_REVIEW|
-  |      12|2013-07-25 00:00:...|             1837|         CLOSED|
-  |      13|2013-07-25 00:00:...|             9149|PENDING_PAYMENT|
-  |      14|2013-07-25 00:00:...|             9842|     PROCESSING|
-  |      15|2013-07-25 00:00:...|             2568|       COMPLETE|
-  |      16|2013-07-25 00:00:...|             7276|PENDING_PAYMENT|
-  |      17|2013-07-25 00:00:...|             2667|       COMPLETE|
-  |      18|2013-07-25 00:00:...|             1205|         CLOSED|
-  |      19|2013-07-25 00:00:...|             9488|PENDING_PAYMENT|
-  |      20|2013-07-25 00:00:...|             9198|     PROCESSING|
   +--------+--------------------+-----------------+---------------+
-  only showing top 20 rows
+  only showing top 10 rows
   
   scala> ordersDF.
   take(10).
