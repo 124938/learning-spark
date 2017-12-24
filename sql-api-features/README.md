@@ -211,9 +211,6 @@ foreach(println)
   toDF("order_id", "order_date", "order_customer_id", "order_status")
   ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
-  scala> ordersDF
-  res1: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
-  
   scala> ordersDF.
   printSchema
   root
