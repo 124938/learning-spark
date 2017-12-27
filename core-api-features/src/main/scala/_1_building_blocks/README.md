@@ -1,7 +1,9 @@
 ## SparkConf and SparkContext
-* **In context of spark-shell:** When we launch spark-shell...
-  * SparkContext will be created automatically with implicit instance of SparkConf
-  * Below is the reference code to create instance of SparkConf & SparkContext manually from spark-shell
+
+### In context of `spark-shell`
+When we launch spark shell...
+* SparkContext will be created automatically with implicit instance of SparkConf
+* Below is the reference code to create instance of SparkConf & SparkContext manually from spark-shell
 
 ~~~
 $spark-shell
@@ -43,9 +45,10 @@ scala> val sc = new SparkContext(conf)
 sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@5ac26c55
 ~~~
 
-* **In context of spark-submit:** When we submit spark application as a JAR file...
-  * Below is the reference code to create instance of SparkConf & SparkContext
-  
+### In context of `spark-submit`
+When we submit spark application as a JAR file...
+* Below is the reference code to create instance of SparkConf & SparkContext
+
 ~~~
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -62,62 +65,70 @@ object SparkDemo {
 }
 ~~~
 
-* **SparkConf:** Below are several important set methods to override parameter values OR environment variables
-  * `conf.setAppName("Spark Demo")` => Set unique name to application
-  * `conf.setMaster("local[2]")` => Should get used to start application in local mode
-  * `conf.setMaster("spark://localhost:7077")` => Should get used to start application in stand alone mode
-  * `conf.set("spark.ui.port", "65869")` => Set port on which spark UI should get exposed
-  * `conf.set("spark.executor.memory", "1g")` => Set executor memory
+### SparkConf
+Below are several important set methods to override parameter values OR environment variables
+* `conf.setAppName("Spark Demo")` => Set unique name to application
+* `conf.setMaster("local[2]")` => Should get used to start application in local mode
+* `conf.setMaster("spark://localhost:7077")` => Should get used to start application in stand alone mode
+* `conf.set("spark.ui.port", "65869")` => Set port on which spark UI should get exposed
+* `conf.set("spark.executor.memory", "1g")` => Set executor memory
 
-* **SparkContext:** It's the starting point of spark application and typical life cycle of spark application performs following steps:
+### SparkContext 
+It's the starting point of spark application and typical life cycle of spark application performs following steps:
+* _Read Data from file system:_ 
   
-  * _Read Data from file system:_ 
-    
-    * SparkContext supports following protocols
-      * `file://` => To read data from local file system
-      * `hdfs://` => To read data from HDFS
-    
-    * SparkContext supports following APIs
-      * `sc.textFile`
-      * `sc.sequenceFile`
-      * `sc.objectFile`
-      * `sc.hadoopFile`
-      * `sc.newAPIHadoopFile`
+  * SparkContext supports following protocols:
+    * `file://` => To read data from local file system
+    * `hdfs://` => To read data from HDFS
   
-  * _Process Data_:
-    
-    * RDD is getting used to process data in distributed fashion
+  * SparkContext supports following APIs:
+    * `sc.textFile`
+    * `sc.sequenceFile`
+    * `sc.objectFile`
+    * `sc.hadoopFile`
+    * `sc.newAPIHadoopFile`
   
-  * _Write Data back to file system:_
-    * RDD supports following APIs
-      * `rdd.saveAsTextFile`
-      * `rdd.saveAsSequenceFile`
-      * `rdd.saveAsObjectFile`
-      * `rdd.saveAsHadoopFile`
-      * `rdd.saveAsNewAPIHadoopFile`
+* _Process data:_
+  
+  * RDD is getting used to process data in distributed fashion
+  
+* _Write data back to file system:_   
+  
+  * RDD supports following APIs
+    * `rdd.saveAsTextFile`
+    * `rdd.saveAsSequenceFile`
+    * `rdd.saveAsObjectFile`
+    * `rdd.saveAsHadoopFile`
+    * `rdd.saveAsNewAPIHadoopFile`
 
-* **When to use which protocol?**
+## When to use which protocol?
   
-  * On Cloudera quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
-      * No need to specify `hdfs://` while reading/writing data from/to HDFS
-      * Mandatory to specify `file://` while reading/writing data from/to local file system
+* On Cloudera quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
+  * No need to specify `hdfs://` while reading/writing data from/to HDFS
+  * Mandatory to specify `file://` while reading/writing data from/to local file system
   
-  * On local machine: As spark is independently installed on local machine and `file://` is set as default protocol
-      * No need to specify `file://` while reading/writing data from/to local file system
-      * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
+* On local machine: As spark is independently installed on local machine and `file://` is set as default protocol
+  * No need to specify `file://` while reading/writing data from/to local file system
+  * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
 
 
 ## Reading & Writing File - Using SBT console
 * Below is the sample code to read/write file (very famous word count program)
 
 ~~~
-$cd /path/to/project
-$sbt console
-
-Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_131).
+asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/core-api-features
+asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt console
+[info] Loading global plugins from /home/asus/.sbt/0.13/plugins
+[info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/core-api-features/project
+[info] Set current project to core-api-features (in build file:/home/asus/source_code/github/124938/learning-spark/core-api-features/)
+[info] Starting scala interpreter...
+[info] 
+Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_151).
 Type in expressions to have them evaluated.
 Type :help for more information.
+~~~
 
+~~~
 scala> import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -134,7 +145,6 @@ scala> val wordCountRdd = rdd.flatMap((line: String) => line.split(",")).map((wo
 wordCountRdd: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at <console>:11
 
 scala> wordCountRdd.saveAsTextFile("/home/asus/tech_soft/apache-maven-3.5.0/out")
-
 ~~~
 
 ## Spark Web UI
