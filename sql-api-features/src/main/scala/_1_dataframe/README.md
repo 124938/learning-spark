@@ -4,7 +4,9 @@
 * DataFrame is an abstraction, which gives a schema view on top of data i.e.
   * We can think DataFrame like a table in database
   * It provides data as columns with name & type
+
 * Like RDD, execution in DataFrame too is lazily triggered
+
 * It offers huge performance improvement over RDDs because of following powerful features:
   
   * **Optimized Execution Engine (aka Catalyst Optimizer):**
