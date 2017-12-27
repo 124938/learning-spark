@@ -25,7 +25,9 @@ Type :help for more information.
 17/10/15 17:18:18 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 Spark context available as sc.
 SQL context available as sqlContext.
+~~~
 
+~~~
 scala> sc.stop
 
 scala> import org.apache.spark.SparkConf
@@ -68,18 +70,24 @@ object SparkDemo {
   * `conf.set("spark.executor.memory", "1g")` => Set executor memory
 
 * **SparkContext:** It's the starting point of spark application and typical life cycle of spark application performs following steps:
+  
   * _Read Data from file system:_ 
+    
     * SparkContext supports following protocols
       * `file://` => To read data from local file system
       * `hdfs://` => To read data from HDFS
+    
     * SparkContext supports following APIs
       * `sc.textFile`
       * `sc.sequenceFile`
       * `sc.objectFile`
       * `sc.hadoopFile`
       * `sc.newAPIHadoopFile`
+  
   * _Process Data_:
+    
     * RDD is getting used to process data in distributed fashion
+  
   * _Write Data back to file system:_
     * RDD supports following APIs
       * `rdd.saveAsTextFile`
@@ -89,9 +97,11 @@ object SparkDemo {
       * `rdd.saveAsNewAPIHadoopFile`
 
 * **When to use which protocol?**
+  
   * On Cloudera quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
       * No need to specify `hdfs://` while reading/writing data from/to HDFS
       * Mandatory to specify `file://` while reading/writing data from/to local file system
+  
   * On local machine: As spark is independently installed on local machine and `file://` is set as default protocol
       * No need to specify `file://` while reading/writing data from/to local file system
       * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
