@@ -24,6 +24,7 @@
 * **Pre-Requisite:**
   
   * **_Start `spark-shell` in local mode:_**
+  
   ~~~
   asus@asus-GL553VD:~$ spark-shell --master local[*]
   log4j:WARN Please initialize the log4j system properly.
@@ -46,6 +47,7 @@
   ~~~
   
   * **_Create instance of `org.apache.spark.sql.SQLContext`:_**
+  
   ~~~
   scala> import org.apache.spark.sql.SQLContext
   import org.apache.spark.sql.SQLContext
@@ -60,6 +62,7 @@
 * **From Existing RDD:**
   
   * _**Inferring the schema using reflection i.e. using case class:**_
+  
   ~~~
   scala> case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String) 
   defined class OrderRDD
@@ -88,6 +91,7 @@
   ~~~
   
   * _**Programmatically specifying the schema using StructField:**_
+  
   ~~~
   scala> import org.apache.spark.sql.Row
   import org.apache.spark.sql.Row
@@ -131,6 +135,7 @@
   ~~~
    
   * _**Programmatically specifying the schema using toDF:**_
+  
   ~~~
   scala> val orderDF3 = sc.
   textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
@@ -403,6 +408,7 @@
   ~~~
     
   * **_Avro File_**
+  
   ~~~
   scala> val categoriesDF = sqlContext.
   read.
@@ -424,6 +430,7 @@
   ~~~
   
 * **Configuration:** 
+  
   * _Approach-1:_ Copy following files under conf folder of Spark installation
     * `hive-site.xml`
     * `core-site.xml` => For security configuration
