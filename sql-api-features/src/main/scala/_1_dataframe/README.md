@@ -19,44 +19,50 @@
 
 ### Creating DataFrame
 
-**Pre-Requisite - Start `spark-shell` in local mode:**
-~~~
-asus@asus-GL553VD:~$ spark-shell --master local[*]
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-Using Spark's repl log4j profile: org/apache/spark/log4j-defaults-repl.properties
-To adjust logging level use sc.setLogLevel("INFO")
-Welcome to
-      ____              __
-     / __/__  ___ _____/ /__
-    _\ \/ _ \/ _ `/ __/  '_/
-   /___/ .__/\_,_/_/ /_/\_\   version 1.6.3
-      /_/
-
-Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.8.0_151)
-Type in expressions to have them evaluated.
-Type :help for more information.
-Spark context available as sc.
-SQL context available as sqlContext.
-~~~
-
-~~~
-scala> import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SQLContext
-    
-scala> val sqlContext = new SQLContext(sc)
-sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7ab7a4eb
-
-scala> import sqlContext.implicits._
-import sqlContext.implicits._
-~~~
-
 **(1) : Using Native Context (aka org.apache.spark.sql.SQLContext) :** With a SQLContext, application can create dataFrame in following ways:
   
+  * **Pre-Requisite:**
+    
+    * **_Start `spark-shell` in local mode:_**
+    
+    ~~~
+    asus@asus-GL553VD:~$ spark-shell --master local[*]
+    log4j:WARN Please initialize the log4j system properly.
+    log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+    log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+    Using Spark's repl log4j profile: org/apache/spark/log4j-defaults-repl.properties
+    To adjust logging level use sc.setLogLevel("INFO")
+    Welcome to
+          ____              __
+         / __/__  ___ _____/ /__
+        _\ \/ _ \/ _ `/ __/  '_/
+       /___/ .__/\_,_/_/ /_/\_\   version 1.6.3
+          /_/
+    
+    Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.8.0_151)
+    Type in expressions to have them evaluated.
+    Type :help for more information.
+    Spark context available as sc.
+    SQL context available as sqlContext.
+    ~~~
+    
+    * **_Create instance of `org.apache.spark.sql.SQLContext`:_**
+    
+    ~~~
+    scala> import org.apache.spark.sql.SQLContext
+    import org.apache.spark.sql.SQLContext
+    
+    scala> val sqlContext = new SQLContext(sc)
+    sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7ab7a4eb
+
+    scala> import sqlContext.implicits._
+    import sqlContext.implicits._
+    ~~~
+
   * **From Existing RDD:**
     
     * _**Inferring the schema using reflection i.e. using case class:**_
+    
     ~~~
     scala> case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String) 
     defined class OrderRDD
@@ -85,6 +91,7 @@ import sqlContext.implicits._
     ~~~
     
     * _**Programmatically specifying the schema using StructField:**_
+    
     ~~~
     scala> import org.apache.spark.sql.Row
     import org.apache.spark.sql.Row
@@ -128,6 +135,7 @@ import sqlContext.implicits._
     ~~~
 
     * _**Programmatically specifying the schema using toDF:**_
+    
     ~~~
     scala> val orderDF3 = sc.
     textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
@@ -155,6 +163,7 @@ import sqlContext.implicits._
   * **From Data Source:**
     
     * **_JSON File_**
+    
     ~~~
     scala> val categoriesDF = sqlContext.
     read.
@@ -277,6 +286,7 @@ import sqlContext.implicits._
     ~~~
       
     * **_Parquet File_**
+    
     ~~~
     scala> val categoriesDF = sqlContext.
     read.
