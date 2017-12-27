@@ -1,0 +1,6 @@
+{"department_id":{"int":2},"department_name":{"string":"Fitness"}}
+{"department_id":{"int":3},"department_name":{"string":"Footwear"}}
+{"department_id":{"int":4},"department_name":{"string":"Apparel"}}
+{"department_id":{"int":5},"department_name":{"string":"Golf"}}
+{"department_id":{"int":6},"department_name":{"string":"Outdoors"}}
+{"department_id":{"int":7},"department_name":{"string":"Fan Shop"}}

@@ -1,0 +1,58 @@
+{"category_id":{"int":1},"category_department_id":{"int":2},"category_name":{"string":"Football"}}
+{"category_id":{"int":2},"category_department_id":{"int":2},"category_name":{"string":"Soccer"}}
+{"category_id":{"int":3},"category_department_id":{"int":2},"category_name":{"string":"Baseball & Softball"}}
+{"category_id":{"int":4},"category_department_id":{"int":2},"category_name":{"string":"Basketball"}}
+{"category_id":{"int":5},"category_department_id":{"int":2},"category_name":{"string":"Lacrosse"}}
+{"category_id":{"int":6},"category_department_id":{"int":2},"category_name":{"string":"Tennis & Racquet"}}
+{"category_id":{"int":7},"category_department_id":{"int":2},"category_name":{"string":"Hockey"}}
+{"category_id":{"int":8},"category_department_id":{"int":2},"category_name":{"string":"More Sports"}}
+{"category_id":{"int":9},"category_department_id":{"int":3},"category_name":{"string":"Cardio Equipment"}}
+{"category_id":{"int":10},"category_department_id":{"int":3},"category_name":{"string":"Strength Training"}}
+{"category_id":{"int":11},"category_department_id":{"int":3},"category_name":{"string":"Fitness Accessories"}}
+{"category_id":{"int":12},"category_department_id":{"int":3},"category_name":{"string":"Boxing & MMA"}}
+{"category_id":{"int":13},"category_department_id":{"int":3},"category_name":{"string":"Electronics"}}
+{"category_id":{"int":14},"category_department_id":{"int":3},"category_name":{"string":"Yoga & Pilates"}}
+{"category_id":{"int":15},"category_department_id":{"int":3},"category_name":{"string":"Training by Sport"}}
+{"category_id":{"int":16},"category_department_id":{"int":3},"category_name":{"string":"As Seen on  TV!"}}
+{"category_id":{"int":17},"category_department_id":{"int":4},"category_name":{"string":"Cleats"}}
+{"category_id":{"int":18},"category_department_id":{"int":4},"category_name":{"string":"Men's Footwear"}}
+{"category_id":{"int":19},"category_department_id":{"int":4},"category_name":{"string":"Women's Footwear"}}
+{"category_id":{"int":20},"category_department_id":{"int":4},"category_name":{"string":"Kids' Footwear"}}
+{"category_id":{"int":21},"category_department_id":{"int":4},"category_name":{"string":"Featured Shops"}}
+{"category_id":{"int":22},"category_department_id":{"int":4},"category_name":{"string":"Accessories"}}
+{"category_id":{"int":23},"category_department_id":{"int":5},"category_name":{"string":"Men's Apparel"}}
+{"category_id":{"int":24},"category_department_id":{"int":5},"category_name":{"string":"Women's Apparel"}}
+{"category_id":{"int":25},"category_department_id":{"int":5},"category_name":{"string":"Boys' Apparel"}}
+{"category_id":{"int":26},"category_department_id":{"int":5},"category_name":{"string":"Girls' Apparel"}}
+{"category_id":{"int":27},"category_department_id":{"int":5},"category_name":{"string":"Accessories"}}
+{"category_id":{"int":28},"category_department_id":{"int":5},"category_name":{"string":"Top Brands"}}
+{"category_id":{"int":29},"category_department_id":{"int":5},"category_name":{"string":"Shop By Sport"}}
+{"category_id":{"int":30},"category_department_id":{"int":6},"category_name":{"string":"Men's Golf Clubs"}}
+{"category_id":{"int":31},"category_department_id":{"int":6},"category_name":{"string":"Women's Golf Clubs"}}
+{"category_id":{"int":32},"category_department_id":{"int":6},"category_name":{"string":"Golf Apparel"}}
+{"category_id":{"int":33},"category_department_id":{"int":6},"category_name":{"string":"Golf Shoes"}}
+{"category_id":{"int":34},"category_department_id":{"int":6},"category_name":{"string":"Golf Bags & Carts"}}
+{"category_id":{"int":35},"category_department_id":{"int":6},"category_name":{"string":"Golf Gloves"}}
+{"category_id":{"int":36},"category_department_id":{"int":6},"category_name":{"string":"Golf Balls"}}
+{"category_id":{"int":37},"category_department_id":{"int":6},"category_name":{"string":"Electronics"}}
+{"category_id":{"int":38},"category_department_id":{"int":6},"category_name":{"string":"Kids' Golf Clubs"}}
+{"category_id":{"int":39},"category_department_id":{"int":6},"category_name":{"string":"Team Shop"}}
+{"category_id":{"int":40},"category_department_id":{"int":6},"category_name":{"string":"Accessories"}}
+{"category_id":{"int":41},"category_department_id":{"int":6},"category_name":{"string":"Trade-In"}}
+{"category_id":{"int":42},"category_department_id":{"int":7},"category_name":{"string":"Bike & Skate Shop"}}
+{"category_id":{"int":43},"category_department_id":{"int":7},"category_name":{"string":"Camping & Hiking"}}
+{"category_id":{"int":44},"category_department_id":{"int":7},"category_name":{"string":"Hunting & Shooting"}}
+{"category_id":{"int":45},"category_department_id":{"int":7},"category_name":{"string":"Fishing"}}
+{"category_id":{"int":46},"category_department_id":{"int":7},"category_name":{"string":"Indoor/Outdoor Games"}}
+{"category_id":{"int":47},"category_department_id":{"int":7},"category_name":{"string":"Boating"}}
+{"category_id":{"int":48},"category_department_id":{"int":7},"category_name":{"string":"Water Sports"}}
+{"category_id":{"int":49},"category_department_id":{"int":8},"category_name":{"string":"MLB"}}
+{"category_id":{"int":50},"category_department_id":{"int":8},"category_name":{"string":"NFL"}}
+{"category_id":{"int":51},"category_department_id":{"int":8},"category_name":{"string":"NHL"}}
+{"category_id":{"int":52},"category_department_id":{"int":8},"category_name":{"string":"NBA"}}
+{"category_id":{"int":53},"category_department_id":{"int":8},"category_name":{"string":"NCAA"}}
+{"category_id":{"int":54},"category_department_id":{"int":8},"category_name":{"string":"MLS"}}
+{"category_id":{"int":55},"category_department_id":{"int":8},"category_name":{"string":"International Soccer"}}
+{"category_id":{"int":56},"category_department_id":{"int":8},"category_name":{"string":"World Cup Shop"}}
+{"category_id":{"int":57},"category_department_id":{"int":8},"category_name":{"string":"MLB Players"}}
+{"category_id":{"int":58},"category_department_id":{"int":8},"category_name":{"string":"NFL Players"}}
