@@ -54,7 +54,9 @@ Type in expressions to have them evaluated.
 Type :help for more information.
 Spark context available as sc.
 SQL context available as sqlContext.
+~~~
 
+~~~
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
 
@@ -63,7 +65,9 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@74
 
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
+~~~
 
+~~~
 scala> case class OrderRDD(orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)
 defined class Order
 
@@ -176,7 +180,9 @@ foreach(println)
   Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_131).
   Type in expressions to have them evaluated.
   Type :help for more information.
+  ~~~
   
+  ~~~
   scala> import org.apache.spark.SparkConf
   import org.apache.spark.SparkConf
   
@@ -190,7 +196,9 @@ foreach(println)
       
   scala> val sc = new SparkContext(conf)
   sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@2f45c5cb
+  ~~~
   
+  ~~~
   scala> import org.apache.spark.sql.SQLContext
   import org.apache.spark.sql.SQLContext
   
@@ -199,7 +207,9 @@ foreach(println)
   
   scala> import sqlContext.implicits._
   import sqlContext.implicits._
+  ~~~
   
+  ~~~
   scala> val ordersDF = sc.
   textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
   map((rec: String) => rec.split(",")).
