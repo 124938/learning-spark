@@ -169,6 +169,7 @@ foreach(println)
 * **Using SBT:** 
   
   * Open terminal window and execute below code to see the result
+  
   ~~~
   asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/sql-api-features
   asus@asus-GL553VD:~/source_code/github/124938/learning-spark/sql-api-features$ sbt console
