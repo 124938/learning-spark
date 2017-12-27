@@ -52,24 +52,20 @@ Welcome to
 Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.8.0_131)
 Type in expressions to have them evaluated.
 Type :help for more information.
-17/11/04 20:44:01 WARN Utils: Your hostname, asus-GL553VD resolves to a loopback address: 127.0.1.1; using 192.168.0.103 instead (on interface enp3s0)
-17/11/04 20:44:01 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 Spark context available as sc.
-17/11/04 20:44:19 WARN ObjectStore: Version information not found in metastore. hive.metastore.schema.verification is not enabled so recording the schema version 1.2.0
-17/11/04 20:44:19 WARN ObjectStore: Failed to get database default, returning NoSuchObjectException
 SQL context available as sqlContext.
 
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
 
 scala> val sqlContext = new SQLContext(sc)
-sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7ab7a4eb
-
-scala> case class Order(orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)
-defined class Order
+sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@743e906b
 
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
+
+scala> case class OrderRDD(orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)
+defined class Order
 
 scala> val orderDF = sc.
 textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
@@ -184,14 +180,14 @@ foreach(println)
   scala> import org.apache.spark.SparkConf
   import org.apache.spark.SparkConf
   
-  scala> import org.apache.spark.SparkContext
-  import org.apache.spark.SparkContext
-  
   scala> val conf = new SparkConf().
   setAppName("Data Frame - Demo").
   setMaster("local[2]")
   conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@19306988
   
+  scala> import org.apache.spark.SparkContext
+  import org.apache.spark.SparkContext
+      
   scala> val sc = new SparkContext(conf)
   sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@2f45c5cb
   
