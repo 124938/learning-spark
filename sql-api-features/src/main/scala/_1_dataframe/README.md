@@ -110,7 +110,9 @@
     StructField("order_customer_id", IntegerType),
     StructField("order_status", StringType)
   ))
-  orderRowSchema: org.apache.spark.sql.types.StructType = StructType(StructField(order_id,IntegerType,true), StructField(order_date,StringType,true), StructField  (der_customer_id,IntegerType,true), StructField(order_status,StringType,true))  scala> val orderDF2 = sqlContext.
+  orderRowSchema: org.apache.spark.sql.types.StructType = StructType(StructField(order_id,IntegerType,true), StructField(order_date,StringType,true), StructField  (der_customer_id,IntegerType,true), StructField(order_status,StringType,true))  
+  
+  scala> val orderDF2 = sqlContext.
   createDataFrame(orderRowRDD, orderRowSchema)
   orderDF2: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
   
