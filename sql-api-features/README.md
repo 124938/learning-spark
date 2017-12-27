@@ -35,7 +35,7 @@
   
 ### Getting Started
 
-**Start with REPL:**
+* **Start with REPL:**
 
 ~~~
 $ spark-shell  --master local[*]
