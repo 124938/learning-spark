@@ -62,6 +62,7 @@
   ~~~
   scala> case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String) 
   defined class OrderRDD
+  
   scala> val orderDF1 = sc.
   textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
   map((rec: String) => {
@@ -70,6 +71,7 @@
   }).
   toDF()
   orderDF1: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
+  
   scala> orderDF1.
   show(5)
   +--------+--------------------+-----------------+---------------+
@@ -88,6 +90,7 @@
   ~~~
   scala> import org.apache.spark.sql.Row
   import org.apache.spark.sql.Row
+  
   scala> val orderRowRDD = sc.
   textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
   map((rec: String) => {
@@ -95,8 +98,10 @@
     Row(recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
   })
   orderRowRDD: org.apache.spark.rdd.RDD[org.apache.spark.sql.Row] = MapPartitionsRDD[7] at map at <console>:31
+  
   scala> import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
   import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+  
   scala> val orderRowSchema = StructType(
   List(
     StructField("order_id", IntegerType),
@@ -107,6 +112,7 @@
   orderRowSchema: org.apache.spark.sql.types.StructType = StructType(StructField(order_id,IntegerType,true), StructField(order_date,StringType,true), StructField  (der_customer_id,IntegerType,true), StructField(order_status,StringType,true))  scala> val orderDF2 = sqlContext.
   createDataFrame(orderRowRDD, orderRowSchema)
   orderDF2: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
+  
   scala> orderDF2.
   show(5)
   +--------+--------------------+-----------------+---------------+
@@ -131,6 +137,7 @@
   }).
   toDF("order_id", "order_date", "order_customer_id", "order_status")
   orderDF3: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
+  
   scala> orderDF3.
   show(5)
   +--------+--------------------+-----------------+---------------+
