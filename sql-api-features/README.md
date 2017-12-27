@@ -114,9 +114,11 @@ foreach(println)
 ~~~
 
 * **Using IDE:**
+  
   * Create SBT project called sql-api-features in IntelliJ Idea
   
   * Add below dependency to use Spark SQL module
+  
   ~~~
   name := "sql-api-features"
   version := "0.1"
@@ -126,6 +128,7 @@ foreach(println)
   ~~~
   
   * Create below sample scala program
+  
   ~~~
   import org.apache.spark.sql.SQLContext
   import org.apache.spark.{SparkConf, SparkContext}
