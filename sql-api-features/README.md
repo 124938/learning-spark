@@ -34,7 +34,9 @@
   ![Alt text](_images/spark-sql-architecture.jpeg?raw=true "Spark SQL - Architecture")
   
 ### Getting Started
-* **Start with REPL:**
+
+**Start with REPL:**
+
 ~~~
 $ spark-shell  --master local[*]
 log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
