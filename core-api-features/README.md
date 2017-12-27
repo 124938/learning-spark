@@ -12,7 +12,7 @@ Spark provides supports of following execution modes:
 
 * **Local:** Mode to be used by developer while doing development of spark application on local machine (default mode on local machine)
   
-  * `spark-shell --master local[*]` => Launch spark shell in local mode
+  * Launch spark shell in local mode using `spark-shell --master local[*]`
   
   ~~~
   asus@asus-GL553VD:~$ spark-shell --master local[*]
