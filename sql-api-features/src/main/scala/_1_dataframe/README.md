@@ -52,6 +52,7 @@
   
   scala> val sqlContext = new SQLContext(sc)
   sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@7ab7a4eb
+  
   scala> import sqlContext.implicits._
   import sqlContext.implicits._
   ~~~
