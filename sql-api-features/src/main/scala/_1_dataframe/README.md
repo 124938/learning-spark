@@ -19,7 +19,7 @@
 
 ### Creating DataFrame
 
-**Start `spark-shell` in local mode:**
+**Pre-Requisite - Start `spark-shell` in local mode:**
 ~~~
 asus@asus-GL553VD:~$ spark-shell --master local[*]
 log4j:WARN Please initialize the log4j system properly.
@@ -56,7 +56,7 @@ import sqlContext.implicits._
   
   * **From Existing RDD:**
     
-    * _Inferring the schema using reflection i.e. using case class:_
+    * _**Inferring the schema using reflection i.e. using case class:**_
     ~~~
     scala> case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String) 
     defined class OrderRDD
@@ -84,7 +84,7 @@ import sqlContext.implicits._
     only showing top 5 rows
     ~~~
     
-    * _Programmatically specifying the schema using StructField:_
+    * _**Programmatically specifying the schema using StructField:**_
     ~~~
     scala> import org.apache.spark.sql.Row
     import org.apache.spark.sql.Row
@@ -127,7 +127,7 @@ import sqlContext.implicits._
     only showing top 5 rows
     ~~~
 
-    * _Programmatically specifying the schema using toDF:_
+    * _**Programmatically specifying the schema using toDF:**_
     ~~~
     scala> val orderDF3 = sc.
     textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/text").
@@ -153,8 +153,8 @@ import sqlContext.implicits._
     ~~~
 
   * **From Data Source:**
-    * JSON file
     
+    * **_JSON File_**
     ~~~
     scala> val categoriesDF = sqlContext.
     read.
@@ -276,7 +276,7 @@ import sqlContext.implicits._
     
     ~~~
       
-    * Parquet file
+    * **_Parquet File_**
     ~~~
     scala> val categoriesDF = sqlContext.
     read.
@@ -397,15 +397,16 @@ import sqlContext.implicits._
     only showing top 5 rows
     ~~~
     
-    * Avro file
+    * **_Avro File_**
     ~~~
     scala> val categoriesDF = sqlContext.
     read.
     avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/categories/avro")
     ~~~
     
-    * JDBC
-    * Many more...
+    * **_Others_**
+      * JDBC
+      * Many more...
     
 **(2) : Using Hive Context (aka org.apache.spark.sql.hive.HiveContext)** HiveContext is an extension of SQLContext, which provides supports for reading/writing data from/to Apache Hive & below is Pre-Requisites to use HiveContext:
   
