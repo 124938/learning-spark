@@ -151,11 +151,11 @@ Hello world on spark REPL
 
 ## Launch Spark Shell
 
-* Spark provides supports of following execution modes:
+Spark provides supports of following execution modes:
 
 ### (1) Local Mode:
 
-* To be used by developer while doing development of spark application on local machine (default mode on local machine)
+To be used by developer while doing development of spark application on local machine (default mode on local machine)
 
 * **Launch spark shell in local mode using `spark-shell --master local[*]`**
 
@@ -201,7 +201,7 @@ scala> sc.getConf.getAll.foreach(println)
 
 ### (2) Standalone Mode: 
 
-* Recommended mode to be used by developer before deploying application to production (binaries available within spark distribution)
+Recommended mode to be used by developer before deploying application to production (binaries available within spark distribution)
 
 * **Start Master using `start-master.sh`**
 
@@ -285,7 +285,7 @@ scala> sc.getConf.getAll.foreach(println)
 
 ### (3) YARN Mode: 
 
-* It's a default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
+Default mode in popular distribution like Cloudera, Hortonworkds, MapR etc.
     
 * **Pre-Requisite:**
   * Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on it)
