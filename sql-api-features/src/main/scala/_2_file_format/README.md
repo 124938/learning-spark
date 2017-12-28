@@ -1,14 +1,14 @@
 ## File Format
 
-### Pre-Requisite
+### Launch `spark-shell` in YARN mode:
 
-* Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on same)
-* Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup) to know more details on same)
-* Make sure to configure Spark history server (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_2_spark_history_server_setup/README.md) to know more details on same)
-* Make sure to configure Hive under spark (Click [here](https://github.com/124938/learning-hadoop-vendors/blob/master/cloudera/_1_quickstart_vm/_1_3_spark_hive_setup/README.md) to know more details on same)
+* **Pre-Requisite:**
+  * Cloudera QuickStart VM should be up & running (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/README.md) to know more details on same)
+  * Make sure to configure Retail dataset setup (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_1_retail_dataset_setup) to know more details on same)
+  * Make sure to configure Spark history server (Click [here](https://github.com/124938/learning-hadoop-vendors/tree/master/cloudera/_1_quickstart_vm/_1_2_spark_history_server_setup/README.md) to know more details on same)
+  * Make sure to configure Hive under spark (Click [here](https://github.com/124938/learning-hadoop-vendors/blob/master/cloudera/_1_quickstart_vm/_1_3_spark_hive_setup/README.md) to know more details on same)
 
-### Start `spark-shell` in YARN mode
-* Login to Quick Start VM or gateway node of hadoop cluster using ssh
+* **Login to Quick Start VM or gateway node of hadoop cluster using ssh:**
 ~~~
 asus@asus-GL553VD:~$ ssh cloudera@192.168.211.142
 cloudera@192.168.211.142's password: 
@@ -16,7 +16,7 @@ Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
 [cloudera@quickstart ~]$
 ~~~
 
-* Launch spark shell in YARN mode
+* **Start `spark-shell`:**
 ~~~
 [cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1
 Setting default log level to "WARN".
@@ -44,6 +44,19 @@ Type :help for more information.
 17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
 Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
 SQL context available as sqlContext.
+
+scala>
+~~~
+
+~~~
+scala> import org.apache.hadoop.io.compress.SnappyCodec
+import org.apache.hadoop.io.compress.SnappyCodec
+
+scala> import org.apache.hadoop.io.compress.GzipCodec
+import org.apache.hadoop.io.compress.GzipCodec
+
+scala> import org.apache.hadoop.io.compress.BZip2Codec
+import org.apache.hadoop.io.compress.BZip2Codec
 ~~~
 
 ### (1) Text File
@@ -54,57 +67,55 @@ SQL context available as sqlContext.
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
 * Refer below code snippet to Read/Write text file using above compression codec
+
 ~~~
-scala> import org.apache.hadoop.io.compress.SnappyCodec
-import org.apache.hadoop.io.compress.SnappyCodec
-
-scala> import org.apache.hadoop.io.compress.GzipCodec
-import org.apache.hadoop.io.compress.GzipCodec
-
-scala> import org.apache.hadoop.io.compress.BZip2Codec
-import org.apache.hadoop.io.compress.BZip2Codec
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+saveAsTextFile("tmp/orders/text")
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     saveAsTextFile("tmp/orders/text")
-
-scala> sc.
-     textFile("tmp/orders/text").
-     take(2).
-     foreach(println)
+textFile("tmp/orders/text").
+take(2).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+saveAsTextFile("tmp/orders/text_snappy", classOf[SnappyCodec])
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     saveAsTextFile("tmp/orders/text_snappy", classOf[SnappyCodec])
-
-scala> sc.
-     textFile("tmp/orders/text_snappy").
-     take(2).
-     foreach(println)
+textFile("tmp/orders/text_snappy").
+take(2).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+saveAsTextFile("tmp/orders/text_gzip", classOf[GzipCodec])
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     saveAsTextFile("tmp/orders/text_gzip", classOf[GzipCodec])
-
-scala> sc.
-     textFile("tmp/orders/text_gzip").
-     take(2).
-     foreach(println)
+textFile("tmp/orders/text_gzip").
+take(2).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+saveAsTextFile("tmp/orders/text_bzip2", classOf[BZip2Codec])
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     saveAsTextFile("tmp/orders/text_bzip2", classOf[BZip2Codec])
-
-scala> sc.
-     textFile("tmp/orders/text_bzip2").
-     take(2).
-     foreach(println)
+textFile("tmp/orders/text_bzip2").
+take(2).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
@@ -138,7 +149,9 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_snappy/part-00000.snappy | more
 17/12/24 03:43:59 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
 1,2013-07-25 00:00:00.0,11599,CLOSED
@@ -146,14 +159,18 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_gzip/part-00000.gz | more
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/text_bzip2/part-00000.bz2 | more
 17/12/24 03:46:00 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
 17/12/24 03:46:00 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
@@ -178,71 +195,78 @@ import org.apache.hadoop.io.IntWritable
 
 scala> import org.apache.hadoop.io.Text
 import org.apache.hadoop.io.Text
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => (rec.split(",")(0).toInt, rec)).
+saveAsSequenceFile("tmp/orders/seq")
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     saveAsSequenceFile("tmp/orders/seq")
-
-scala> sc.
-     sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
-     map((t: (IntWritable, Text)) => t._2.toString).
-     take(5).
-     foreach(println)
+sequenceFile("tmp/orders/seq", classOf[IntWritable], classOf[Text]).
+map((t: (IntWritable, Text)) => t._2.toString).
+take(5).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => (rec.split(",")(0).toInt, rec)).
+saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
-
-scala> sc.
-     sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
-     map((t: (IntWritable, Text)) => t._2.toString).
-     take(5).
-     foreach(println)
+sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
+map((t: (IntWritable, Text)) => t._2.toString).
+take(5).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => (rec.split(",")(0).toInt, rec)).
+saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
-
-scala> sc.
-     sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
-     map((t: (IntWritable, Text)) => t._2.toString).
-     take(5).
-     foreach(println)
+sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
+map((t: (IntWritable, Text)) => t._2.toString).
+take(5).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
+
+~~~
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => (rec.split(",")(0).toInt, rec)).
+saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
 
 scala> sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     map((rec: String) => (rec.split(",")(0).toInt, rec)).
-     saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
-
-scala> sc.
-     sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
-     map((t: (IntWritable, Text)) => t._2.toString).
-     take(5).
-     foreach(println)
+sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
+map((t: (IntWritable, Text)) => t._2.toString).
+take(5).
+foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 3,2013-07-25 00:00:00.0,12111,COMPLETE
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
-
 ~~~
 
 * Refer below HDFS command to display list of generated sequence files
@@ -274,7 +298,9 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 3	3,2013-07-25 00:00:00.0,12111,COMPLETE
 4	4,2013-07-25 00:00:00.0,8827,CLOSED
 5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_snappy/part-00000 | more
 17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
 17/12/24 03:38:38 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
@@ -285,7 +311,9 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 3	3,2013-07-25 00:00:00.0,12111,COMPLETE
 4	4,2013-07-25 00:00:00.0,8827,CLOSED
 5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_gzip/part-00000 | more
 17/12/24 03:40:33 INFO zlib.ZlibFactory: Successfully loaded & initialized native-zlib library
 17/12/24 03:40:33 INFO compress.CodecPool: Got brand-new decompressor [.gz]
@@ -297,7 +325,9 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 3	3,2013-07-25 00:00:00.0,12111,COMPLETE
 4	4,2013-07-25 00:00:00.0,8827,CLOSED
 5	5,2013-07-25 00:00:00.0,11318,COMPLETE
+~~~
 
+~~~
 [cloudera@quickstart conf]$ hadoop fs -text tmp/orders/seq_bzip2/part-00000 | more
 17/12/24 03:41:05 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
 17/12/24 03:41:05 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
@@ -319,6 +349,7 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
 * Refer below code snippet to Read/Write JSON file using above compression codec
+
 ~~~
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
@@ -328,40 +359,32 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@4a
 
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
+~~~
 
+~~~
 scala> val ordersDF = sc.
-     textFile("sqoop/import-all-tables-text/orders").
-     map((rec: String) => {
-       val recArray = rec.split(",")
-       (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
-     }).
-     toDF("order_id", "order_date", "order_customer_id", "order_status")
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status")
 ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
+~~~
 
-scala> ordersDF.
-     show(3)
-+--------+--------------------+-----------------+---------------+
-|order_id|          order_date|order_customer_id|   order_status|
-+--------+--------------------+-----------------+---------------+
-|       1|2013-07-25 00:00:...|            11599|         CLOSED|
-|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
-|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
-+--------+--------------------+-----------------+---------------+
-only showing top 3 rows
-
-
+~~~
 scala> import org.apache.spark.sql.SaveMode
 import org.apache.spark.sql.SaveMode
 
 scala> ordersDF.
-     write.
-     mode(SaveMode.Overwrite).
-     json("tmp/orders/json")
+write.
+mode(SaveMode.Overwrite).
+json("tmp/orders/json")
 
 scala> sqlContext.
-     read.
-     json("tmp/orders/json").
-     show(3)
+read.
+json("tmp/orders/json").
+show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -370,15 +393,17 @@ scala> sqlContext.
 |            12111|2013-07-25 00:00:...|       3|       COMPLETE|
 +-----------------+--------------------+--------+---------------+
 only showing top 3 rows
+~~~
 
+~~~
 scala> ordersDF.
-     toJSON.
-     saveAsTextFile("tmp/orders/json_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
+toJSON.
+saveAsTextFile("tmp/orders/json_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
 
 scala> sqlContext.
-     read.
-     json("tmp/orders/json_gzip").
-     show(3)
+read.
+json("tmp/orders/json_gzip").
+show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -387,15 +412,17 @@ scala> sqlContext.
 |            12111|2013-07-25 00:00:...|       3|       COMPLETE|
 +-----------------+--------------------+--------+---------------+
 only showing top 3 rows
+~~~
 
+~~~
 scala> ordersDF.
-     toJSON.
-     saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
+toJSON.
+saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
 
 scala> sqlContext.
-     read.
-     json("tmp/orders/json_bzip2").
-     show(3)
+read.
+json("tmp/orders/json_bzip2").
+show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+
@@ -404,15 +431,17 @@ scala> sqlContext.
 |            12111|2013-07-25 00:00:...|       3|       COMPLETE|
 +-----------------+--------------------+--------+---------------+
 only showing top 3 rows
+~~~
 
+~~~
 scala> ordersDF.
-     toJSON.
-     saveAsTextFile("tmp/orders/json_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
+toJSON.
+saveAsTextFile("tmp/orders/json_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
 
 scala> sqlContext.
-     read.
-     json("tmp/orders/json_snappy").
-     show(3)
+read.
+json("tmp/orders/json_snappy").
+show(3)
 +-----------------+--------------------+--------+---------------+
 |order_customer_id|          order_date|order_id|   order_status|
 +-----------------+--------------------+--------+---------------+

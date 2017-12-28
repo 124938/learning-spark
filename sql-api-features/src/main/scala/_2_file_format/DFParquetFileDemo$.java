@@ -1,7 +1,4 @@
-package _1_dataframe._1_0_file_format
-
-import org.apache.spark.sql.{SQLContext, SaveMode}
-import org.apache.spark.{SparkConf, SparkContext}
+package _2_file_format;
 
 object DFParquetFileDemo {
   def main(args: Array[String]): Unit = {

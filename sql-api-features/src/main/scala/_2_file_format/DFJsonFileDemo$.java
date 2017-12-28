@@ -1,7 +1,4 @@
-package _1_dataframe._1_0_file_format
-
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.{SQLContext, SaveMode}
+package _2_file_format;
 
 object DFJsonFileDemo {
   def main(args: Array[String]): Unit = {
