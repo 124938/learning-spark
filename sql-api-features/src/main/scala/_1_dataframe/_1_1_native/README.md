@@ -1,12 +1,11 @@
 ## DataFrame - Using Native Context (aka org.apache.spark.sql.SQLContext)
 
-
-### Create
-* With a SQLContext, application can create dataFrame in following ways:
+### DataFrame - Creation
+With a SQLContext, application can create DataFrame in multiple ways:
 
 * **Pre-Requisite:**
   
-  * **_Start `spark-shell` in local mode:_**
+  * **Start `spark-shell`:**
   
   ~~~
   asus@asus-GL553VD:~$ spark-shell --master local[*]
@@ -29,7 +28,7 @@
   SQL context available as sqlContext.
   ~~~
   
-  * **_Create instance of `org.apache.spark.sql.SQLContext`:_**
+  * **Create instance of `org.apache.spark.sql.SQLContext`:**
   
   ~~~
   scala> import org.apache.spark.sql.SQLContext
@@ -44,7 +43,7 @@
 
 * **From Existing RDD:**
   
-  * _**Inferring the schema using reflection i.e. using case class:**_
+  * **By inferring the schema using reflection i.e. using case class:**
   
   ~~~
   scala> case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String) 
@@ -73,7 +72,7 @@
   only showing top 5 rows
   ~~~
   
-  * _**Programmatically specifying the schema using StructField:**_
+  * **By specifying the schema using StructField:**
   
   ~~~
   scala> import org.apache.spark.sql.Row
@@ -117,7 +116,7 @@
   only showing top 5 rows
   ~~~
    
-  * _**Programmatically specifying the schema using toDF:**_
+  * **By specifying the schema using toDF:**
   
   ~~~
   scala> val orderDF3 = sc.
@@ -145,7 +144,7 @@
 
 * **From Data Source:**
   
-  * **_JSON File_**
+  * **JSON File**
   
   ~~~
   scala> val categoriesDF = sqlContext.
@@ -268,7 +267,7 @@
   
   ~~~
       
-  * **_Parquet File_**
+  * **Parquet File**
     
   ~~~
   scala> val categoriesDF = sqlContext.
@@ -390,7 +389,7 @@
   only showing top 5 rows
   ~~~
     
-  * **_Avro File_**
+  * **Avro File**
   
   ~~~
   asus@asus-GL553VD:~/source_code/github/124938/learning-spark/sql-api-features$ spark-shell --master local[*] --packages com.databricks:spark-avro_2.10:2.0.1
@@ -601,8 +600,8 @@
   only showing top 5 rows
   ~~~  
    
-  * **_Others_**
+  * **Others**
     * JDBC
     * Many more...
     
-  
+### DataFrame - Operation
