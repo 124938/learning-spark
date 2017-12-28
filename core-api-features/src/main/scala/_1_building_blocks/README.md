@@ -1,4 +1,4 @@
-## SparkConf and SparkContext
+## SparkConf & SparkContext
 
 ### In context of `spark-shell`
 When we launch spark shell...
@@ -6,12 +6,8 @@ When we launch spark shell...
 * Below is the reference code to create instance of SparkConf & SparkContext manually from spark-shell
 
 ~~~
-$spark-shell
+asus@asus-GL553VD:$ spark-shell
 
-log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-Using Spark's repl log4j profile: org/apache/spark/log4j-defaults-repl.properties
 To adjust logging level use sc.setLogLevel("INFO")
 Welcome to
       ____              __
@@ -54,33 +50,47 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object SparkDemo {
   def main(args: Array[String]): Unit = {
+    
+    // Create instance of SparkConf
     val conf = new SparkConf().
       setAppName("Spark Demo").
       setMaster("local[2]").
       set("spark.ui.port", "65869").
       set("spark.executor.memory", "1g")
-
+    
+    // Create instance of SparkContext
     val sc = new SparkContext(conf)
   }
 }
 ~~~
 
-### SparkConf
-Below are several important set methods to override parameter values OR environment variables
+### SparkConf i.e. `org.apache.spark.SparkConf`
+Below are several important set methods to override parameter values OR environment variables:
+
 * `conf.setAppName("Spark Demo")` => Set unique name to application
 * `conf.setMaster("local[2]")` => Should get used to start application in local mode
 * `conf.setMaster("spark://localhost:7077")` => Should get used to start application in stand alone mode
 * `conf.set("spark.ui.port", "65869")` => Set port on which spark UI should get exposed
 * `conf.set("spark.executor.memory", "1g")` => Set executor memory
 
-### SparkContext 
+### SparkContext i.e. `org.apache.spark.SparkContext`
 It's the starting point of spark application and typical life cycle of spark application performs following steps:
 
-* **Read Data from file system:** 
+* **Read data from file system:** 
   
   * SparkContext supports following protocols:
     * `file://` => To read data from local file system
     * `hdfs://` => To read data from HDFS
+
+  * When to use which protocol?
+      
+    * On Cloudera Quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
+      * No need to specify `hdfs://` while reading/writing data from/to HDFS
+      * Mandatory to specify `file://` while reading/writing data from/to local file system
+      
+    * On Local Machine: As spark is independently installed on local machine and `file://` is set as default protocol
+      * No need to specify `file://` while reading/writing data from/to local file system
+      * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
   
   * SparkContext supports following APIs:
     * `sc.textFile`
@@ -102,23 +112,13 @@ It's the starting point of spark application and typical life cycle of spark app
     * `rdd.saveAsHadoopFile`
     * `rdd.saveAsNewAPIHadoopFile`
 
-### When to use which protocol?
-  
-* On Cloudera quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
-  * No need to specify `hdfs://` while reading/writing data from/to HDFS
-  * Mandatory to specify `file://` while reading/writing data from/to local file system
-  
-* On local machine: As spark is independently installed on local machine and `file://` is set as default protocol
-  * No need to specify `file://` while reading/writing data from/to local file system
-  * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
-
-
-### Reading & Writing File - Using SBT console
+### Reading & Writing File - Using SBT
 
 * Below is the sample code to read/write file (very famous word count program)
 
 ~~~
 asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/core-api-features
+
 asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt console
 [info] Loading global plugins from /home/asus/.sbt/0.13/plugins
 [info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/core-api-features/project
@@ -128,6 +128,8 @@ asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ 
 Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_151).
 Type in expressions to have them evaluated.
 Type :help for more information.
+
+scala> 
 ~~~
 
 ~~~

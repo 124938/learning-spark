@@ -6,11 +6,8 @@
 ## Getting Started - Using REPL
 
 ~~~
-$ spark-shell  --master local[*]
-log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
-log4j:WARN Please initialize the log4j system properly.
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
-Using Spark's repl log4j profile: org/apache/spark/log4j-defaults-repl.properties
+asus@asus-GL553VD:$ spark-shell
+
 To adjust logging level use sc.setLogLevel("INFO")
 Welcome to
       ____              __
