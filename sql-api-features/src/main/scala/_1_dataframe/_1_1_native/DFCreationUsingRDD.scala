@@ -1,8 +1,7 @@
-package _1_dataframe._1_1_create._native
+package _1_dataframe._1_1_native
 
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.Row
 import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import org.apache.spark.sql.{Row, SQLContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
 case class OrderRDD(order_id: Int, order_date: String, order_customer_id: Int, order_status: String)
