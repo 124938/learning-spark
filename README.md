@@ -197,7 +197,7 @@ scala> sc.getConf.getAll.foreach(println)
 
 * **Monitor Spark UI for local mode (Refer below screenshot)**
     
-  ![Alt text](_images/exec_mode/local/1.png?raw=true "Spark UI - Local Mode")
+![Alt text](_images/exec_mode/local/1.png?raw=true "Spark UI - Local Mode")
 
 ### (2) Standalone Mode: 
 
@@ -281,7 +281,7 @@ scala> sc.getConf.getAll.foreach(println)
     
 * **Monitor Spark UI for Standalone cluster (Refer below screenshot)**
 
-  ![Alt text](_images/exec_mode/standalone/1.png?raw=true "Spark UI - Standalone Mode")
+![Alt text](_images/exec_mode/standalone/1.png?raw=true "Spark UI - Standalone Mode")
 
 ### (3) YARN Mode: 
 
@@ -353,9 +353,9 @@ scala> sc.getConf.getAll.foreach(println)
 
 * **Monitor Spark UI from YARN (Refer below screenshot)**
 
-  ![Alt text](_images/exec_mode/yarn/1.png?raw=true "Resource Manager - YARN")
+![Alt text](_images/exec_mode/yarn/1.png?raw=true "Resource Manager - YARN")
 
-  ![Alt text](_images/exec_mode/yarn/2.png?raw=true "Spark UI - YARN Mode")
+![Alt text](_images/exec_mode/yarn/2.png?raw=true "Spark UI - YARN Mode")
 
 ### (4) Mesos Mode: 
 
