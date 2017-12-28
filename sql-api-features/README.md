@@ -33,9 +33,7 @@
 
   ![Alt text](_images/spark-sql-architecture.jpeg?raw=true "Spark SQL - Architecture")
   
-## Getting Started
-
-### Using - REPL
+## Getting Started - Using REPL
 
 ~~~
 $ spark-shell  --master local[*]
@@ -115,8 +113,10 @@ foreach(println)
 [10,2013-07-25 00:00:00.0,5648,PENDING_PAYMENT]
 ~~~
 
-### Using - IDE
-  
+## Getting Started - Using IDE
+
+### Launch IDE
+
 * Create SBT project called `sql-api-features` in IntelliJ Idea
   
 * Add below dependency to use Spark SQL module
@@ -169,7 +169,7 @@ object DFDemo {
     
 * Run above program from IDE to see the result
     
-### Using - SBT
+### Launch SBT
   
 ~~~
 asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/sql-api-features
