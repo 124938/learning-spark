@@ -81,7 +81,7 @@ toDF()
 orderDF: org.apache.spark.sql.DataFrame = [orderId: int, orderDate: string, orderCustomerId: int, orderStatus: string]
 
 scala> orderDF.
-show(10)
+show(5)
 +-------+--------------------+---------------+---------------+
 |orderId|           orderDate|orderCustomerId|    orderStatus|
 +-------+--------------------+---------------+---------------+
@@ -90,36 +90,27 @@ show(10)
 |      3|2013-07-25 00:00:...|          12111|       COMPLETE|
 |      4|2013-07-25 00:00:...|           8827|         CLOSED|
 |      5|2013-07-25 00:00:...|          11318|       COMPLETE|
-|      6|2013-07-25 00:00:...|           7130|       COMPLETE|
-|      7|2013-07-25 00:00:...|           4530|       COMPLETE|
-|      8|2013-07-25 00:00:...|           2911|     PROCESSING|
-|      9|2013-07-25 00:00:...|           5657|PENDING_PAYMENT|
-|     10|2013-07-25 00:00:...|           5648|PENDING_PAYMENT|
 +-------+--------------------+---------------+---------------+
-only showing top 10 rows
+only showing top 5 rows
 
 scala> orderDF.
-take(10).
+take(5).
 foreach(println)
 [1,2013-07-25 00:00:00.0,11599,CLOSED]
 [2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT]
 [3,2013-07-25 00:00:00.0,12111,COMPLETE]
 [4,2013-07-25 00:00:00.0,8827,CLOSED]
 [5,2013-07-25 00:00:00.0,11318,COMPLETE]
-[6,2013-07-25 00:00:00.0,7130,COMPLETE]
-[7,2013-07-25 00:00:00.0,4530,COMPLETE]
-[8,2013-07-25 00:00:00.0,2911,PROCESSING]
-[9,2013-07-25 00:00:00.0,5657,PENDING_PAYMENT]
-[10,2013-07-25 00:00:00.0,5648,PENDING_PAYMENT]
 ~~~
 
 ## Getting Started - Using IDE
 
 ### Launch IDE
 
-* Create SBT project called `sql-api-features` in IntelliJ Idea
+* Create SBT project called `sql-api-features` in IntelliJ Idea/Edlipse
   
-* Add below dependency to use Spark SQL module
+* Refer below code snippet to add Spark SQL module dependency in `build.sbt`
+
 ~~~
 name := "sql-api-features"
 version := "0.1"
@@ -128,7 +119,8 @@ scalaVersion := "2.10.6"
 libraryDependencies += "org.apache.spark" % "spark-sql_2.10" % "1.6.3"
 ~~~
   
-* Create below sample scala program
+* Refer below code snippet to create sample scala program in IDE
+
 ~~~
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
@@ -167,7 +159,7 @@ object DFDemo {
 }
 ~~~
     
-* Run above program from IDE to see the result
+* Execute above program under IDE to see the result
     
 ### Launch SBT
   
