@@ -1,17 +1,21 @@
-## Spark 
+## Spark
 
 ### Introduction
+
 * As against a common belief... 
   * Spark is NOT a modified version of Hadoop 
   * Spark is NOT really dependent on Hadoop because it has its own cluster management (Hadoop is just one of the ways to implement Spark)
   * Spark is NOT programming language
+
 * **What is Spark**?
   * Apache Spark is a cluster computing platform designed to be fast and general-purpose
   * Spark provides API to create distributed application for processing data in distributed fashion
+
 * **Evolution:**
   * Spark is one of Hadoop’s sub project developed in 2009 in UC Berkeley’s AMPLab by Matei Zaharia.
   * It was Open Sourced in 2010 under a BSD license.
   * It was donated to Apache software foundation in 2013, and now Apache Spark has become a top level Apache project from Feb-2014.
+
 * **Features:** Apache Spark has following features:
   * _Speed_
     * Spark helps to run an application in Hadoop cluster, up to 100 times faster in memory, and 10 times faster when running on disk. 
@@ -74,50 +78,57 @@
   * There is a driver that talks to a single coordinator called master that manages workers in which executor runs
   * The driver and executors runs in their own Java processes
 
-![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
+  ![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
-## Getting Started - Using REPL (i.e. Spark Shell)
+## Spark - Installation (On local machine)
 
-### Configure REPL
+### Pre-Requisite:
+  
+* 64 bit OD
 
-* **Pre-Requisite**
-  
-  * 64 bit OD
-  
-  * 4 GB RAM
-  
-  * Make sure to have scala configured
+* 4 GB RAM
 
-* **Setup**
-  
-  * Download apache spark gzip file from https://spark.apache.org/downloads.html
-  
-  * Unzip downloaded file using below command
-    * `tar -xvf spark-1.6.3-bin-hadoop2.6.tgz`
-  
-  * Create environment variable called SPARK_HOME
-    * `SPARK_HOME=/path/to/spark-1.6.3-bin-hadoop2.6`
-  
-  * Update environment variable called PATH 
-    * `PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin`
-  
-  * `$SPARK_HOME/bin` contains following important binaries
-    * Launch spark shell using scala using `spark-shell` 
-    * Launch spark shell using python using `pyspark` 
-    * Submit spark application using `spark-submit`
-    * Many more...
-  
-  * `$SPARK_HOME/sbin` contains following important binaries
-    * Start master of standalone cluster using `start-master`
-    * Start slave of standalone cluster using `start-slave`
-    * Many more...
+* Make sure to have scala configured
 
-### Launch REPL
+### Setup:
+  
+* Download apache spark gzip file from https://spark.apache.org/downloads.html
+  
+* Refer below command to unzip downloaded file
+  * `tar -xvf spark-1.6.3-bin-hadoop2.6.tgz`
+  
+* Create environment variable called SPARK_HOME
+  * `SPARK_HOME=/path/to/spark-1.6.3-bin-hadoop2.6`
+  
+* Update environment variable called PATH 
+  * `PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin`
 
-* Open terminal window and execute below command to start Spark Shell
+### Configuration:
+
+* `$SPARK_HOME/conf` OR `/etc/spark/conf` contains following important configuration files:
+  * `spark-defaults.conf` => Config file contains default parameters to be used while starting Spark application
+  * `spark-env.sh` => Script contains environment variable to conrol run time behavior or Spark application
+  * `hive-site.xml` => Should be present to create SQL Context to interact with hive
+
+### Executable:
+
+* `$SPARK_HOME/bin` contains following important binaries:
+  * `spark-shell` => To launch spark shell using scala  
+  * `pyspark` => To launch spark shell using python  
+  * `spark-submit` => To submit spark application 
+  * Many more...
+  
+* `$SPARK_HOME/sbin` contains following important binaries:
+  * `start-master` => To start master of standalone cluster using 
+  * `start-slave` => To start slave of standalone cluster using 
+  * Many more...
+
+### Verification:
+
+* Refer below snippet to launch `spark-shell` on terminal
 
 ~~~
-$spark-shell
+asus@asus-GL553VD:$ spark-shell
 
 To adjust logging level use sc.setLogLevel("INFO")
 Welcome to
@@ -138,69 +149,6 @@ scala> println("Hello world on spark REPL")
 Hello world on spark REPL
 ~~~
 
-~~~
-scala> sc.getConf.getAll.foreach(println)
-(spark.repl.class.uri,http://192.168.0.100:34219)
-(spark.externalBlockStore.folderName,spark-2f849430-ad28-4992-8d0a-a5bd3a75db55)
-(spark.app.name,Spark shell)
-(spark.driver.host,192.168.0.100)
-(spark.driver.port,37767)
-(spark.jars,)
-(spark.master,local[*])
-(spark.executor.id,driver)
-(spark.submit.deployMode,client)
-(spark.app.id,local-1507464750766)
-~~~
+## Launching Spark Shell
 
-## Getting Started - Using IDE
-
-### Launch IDE
-
-* Create new SBT project called `core-api-features` in IntelliJ Idea/Eclipse
-
-* Update build.sbt file with below spark core dependency
-
-~~~
-name := "core-api-features"
-version := "0.1"
-scalaVersion := "2.10.6"
-
-libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.3"
-~~~
-
-### Launch SBT
-
-* Open terminal window and execute below command to start SBT console
-
-~~~
-asus@asus-GL553VD:~$ cd source_code/github/124938/learning-spark/core-api-features/
-asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt console
-[info] Loading global plugins from /home/asus/.sbt/0.13/plugins
-[info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/core-api-features/project
-[info] Set current project to core-api-features (in build file:/home/asus/source_code/github/124938/learning-spark/core-api-features/)
-[info] Starting scala interpreter...
-[info] 
-Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_151).
-Type in expressions to have them evaluated.
-Type :help for more information.
-
-scala> println("Hello world on spark REPL - Using SBT")
-Hello world on spark REPL - Using SBT
-~~~
-
-~~~
-scala> import org.apache.spark.SparkConf
-import org.apache.spark.SparkConf
-
-scala> val conf = new SparkConf().setMaster("local[2]").setAppName("first spark demo")
-conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@47b1c217
-
-scala> import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext
-
-scala> val sc = new SparkContext(conf)
-sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@71ea9c44
-
-scala> sc.textFile("/path/to/file.txt").count
-res1: Long = 187
-~~~
+* Spark provides supports of following execution modes:
