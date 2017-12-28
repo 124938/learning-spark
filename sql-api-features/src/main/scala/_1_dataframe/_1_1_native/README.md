@@ -1,6 +1,6 @@
 ## DataFrame - Using Native Context (aka org.apache.spark.sql.SQLContext)
 
-### Create DataFrame - Pre-Requisite:
+### Pre-Requisite:
   
 * **Start `spark-shell`:**
 
