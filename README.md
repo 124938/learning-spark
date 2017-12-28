@@ -76,36 +76,45 @@
 
 ![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
-## Getting Started - Using REPL
+## Getting Started - Using REPL (i.e. Spark Shell)
 
-### Configure REPL (On local machine)
+### Configure REPL
 
 * **Pre-Requisite**
+  
   * 64 bit OD
+  
   * 4 GB RAM
+  
   * Make sure to have scala configured
 
 * **Setup**
+  
   * Download apache spark gzip file from https://spark.apache.org/downloads.html
+  
   * Unzip downloaded file using below command
     * `tar -xvf spark-1.6.3-bin-hadoop2.6.tgz`
+  
   * Create environment variable called SPARK_HOME
     * `SPARK_HOME=/path/to/spark-1.6.3-bin-hadoop2.6`
+  
   * Update environment variable called PATH 
     * `PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin`
+  
   * `$SPARK_HOME/bin` contains following important binaries
-    * spark-shell  => To launch spark shell using scala
-    * pyspark      => To launch spark shell using python
-    * spark-submit => To submit spark application
+    * Launch spark shell using scala using `spark-shell` 
+    * Launch spark shell using python using `pyspark` 
+    * Submit spark application using `spark-submit`
     * Many more...
+  
   * `$SPARK_HOME/sbin` contains following important binaries
-    * start-master => To start master of standalone cluster
-    * start-slave  => To start slave of standalone cluster
+    * Start master of standalone cluster using `start-master`
+    * Start slave of standalone cluster using `start-slave`
     * Many more...
 
 ### Launch REPL
 
-* Open terminal window and execute below command to start Spark REPL
+* Open terminal window and execute below command to start Spark Shell
 
 ~~~
 $spark-shell
@@ -127,7 +136,9 @@ Spark context available as sc.
 
 scala> println("Hello world on spark REPL")
 Hello world on spark REPL
+~~~
 
+~~~
 scala> sc.getConf.getAll.foreach(println)
 (spark.repl.class.uri,http://192.168.0.100:34219)
 (spark.externalBlockStore.folderName,spark-2f849430-ad28-4992-8d0a-a5bd3a75db55)
@@ -158,7 +169,9 @@ libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.3"
 ~~~
 
 ### Launch SBT
+
 * Open terminal window and execute below command to start SBT console
+
 ~~~
 asus@asus-GL553VD:~$ cd source_code/github/124938/learning-spark/core-api-features/
 asus@asus-GL553VD:~/source_code/github/124938/learning-spark/core-api-features$ sbt console
@@ -171,6 +184,11 @@ Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_151).
 Type in expressions to have them evaluated.
 Type :help for more information.
 
+scala> println("Hello world on spark REPL - Using SBT")
+Hello world on spark REPL - Using SBT
+~~~
+
+~~~
 scala> import org.apache.spark.SparkConf
 import org.apache.spark.SparkConf
 
