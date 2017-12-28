@@ -117,7 +117,7 @@ foreach(println)
 
 ### Using - IDE
   
-* Create SBT project called sql-api-features in IntelliJ Idea
+* Create SBT project called `sql-api-features` in IntelliJ Idea
   
 * Add below dependency to use Spark SQL module
 ~~~
