@@ -76,9 +76,9 @@
 
 ![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
-## Getting Started
+## Getting Started - Using REPL
 
-### Setting Up Development Environment (On local machine)
+### Configure REPL (On local machine)
 
 * **Pre-Requisite**
   * 64 bit OD
@@ -103,9 +103,10 @@
     * start-slave  => To start slave of standalone cluster
     * Many more...
 
-### Using REPL
+### Launch REPL
 
 * Open terminal window and execute below command to start Spark REPL
+
 ~~~
 $spark-shell
 
@@ -140,11 +141,14 @@ scala> sc.getConf.getAll.foreach(println)
 (spark.app.id,local-1507464750766)
 ~~~
 
-### Using IDE
+## Getting Started - Using IDE
 
-* Create new SBT project called core-api-features in IntelliJ Idea/Eclipse
+### Launch IDE
+
+* Create new SBT project called `core-api-features` in IntelliJ Idea/Eclipse
 
 * Update build.sbt file with below spark core dependency
+
 ~~~
 name := "core-api-features"
 version := "0.1"
@@ -153,8 +157,7 @@ scalaVersion := "2.10.6"
 libraryDependencies += "org.apache.spark" % "spark-core_2.10" % "1.6.3"
 ~~~
 
-### Using SBT
-
+### Launch SBT
 * Open terminal window and execute below command to start SBT console
 ~~~
 asus@asus-GL553VD:~$ cd source_code/github/124938/learning-spark/core-api-features/
