@@ -75,7 +75,8 @@ Below are several important set methods to override parameter values OR environm
 
 ### SparkContext 
 It's the starting point of spark application and typical life cycle of spark application performs following steps:
-* _Read Data from file system:_ 
+
+* **Read Data from file system:** 
   
   * SparkContext supports following protocols:
     * `file://` => To read data from local file system
@@ -88,11 +89,11 @@ It's the starting point of spark application and typical life cycle of spark app
     * `sc.hadoopFile`
     * `sc.newAPIHadoopFile`
   
-* _Process data:_
+* **Process data:**
   
   * RDD is getting used to process data in distributed fashion
   
-* _Write data back to file system:_   
+* **Write data back to file system:**   
   
   * RDD supports following APIs
     * `rdd.saveAsTextFile`
@@ -101,7 +102,7 @@ It's the starting point of spark application and typical life cycle of spark app
     * `rdd.saveAsHadoopFile`
     * `rdd.saveAsNewAPIHadoopFile`
 
-## When to use which protocol?
+### When to use which protocol?
   
 * On Cloudera quickstart VM OR HortonWorks Sandbox: As spark is integrated with hadoop and `hdfs://` is set as default protocol
   * No need to specify `hdfs://` while reading/writing data from/to HDFS
@@ -112,7 +113,8 @@ It's the starting point of spark application and typical life cycle of spark app
   * Mandatory to specify `hdfs://` while reading/writing data from/to HDFS
 
 
-## Reading & Writing File - Using SBT console
+### Reading & Writing File - Using SBT console
+
 * Below is the sample code to read/write file (very famous word count program)
 
 ~~~
@@ -132,31 +134,38 @@ Type :help for more information.
 scala> import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
-scala> val conf = new SparkConf().setAppName("Spark Demo - SBT Console").setMaster("local[2]")
+scala> val conf = new SparkConf().
+setAppName("Spark Demo - SBT Console").setMaster("local[2]")
 conf: org.apache.spark.SparkConf = org.apache.spark.SparkConf@a1866f0
 
 scala> val sc = new SparkContext(conf)
 sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@238082b6
 
-scala> val rdd = sc.textFile("/home/asus/tech_soft/apache-maven-3.5.0/README.txt")
+scala> val rdd = sc.
+textFile("/home/asus/tech_soft/apache-maven-3.5.0/README.txt")
 rdd: org.apache.spark.rdd.RDD[String] = /home/asus/tech_soft/apache-maven-3.5.0/README.txt MapPartitionsRDD[1] at textFile at <console>:10
 
-scala> val wordCountRdd = rdd.flatMap((line: String) => line.split(",")).map((word: String) => (word, 1)).reduceByKey((agg, ele) => agg + ele)
+scala> val wordCountRdd = rdd.
+flatMap((line: String) => line.split(",")).
+map((word: String) => (word, 1)).
+reduceByKey((agg, ele) => agg + ele)
 wordCountRdd: org.apache.spark.rdd.RDD[(String, Int)] = ShuffledRDD[7] at reduceByKey at <console>:11
 
-scala> wordCountRdd.saveAsTextFile("/home/asus/tech_soft/apache-maven-3.5.0/out")
+scala> wordCountRdd.
+saveAsTextFile("/home/asus/tech_soft/apache-maven-3.5.0/out")
 ~~~
 
 ## Spark Web UI
+
 * A typical spark application usually executes multiple JOBs
   
-![Alt text](images/spark-web-ui-jobs.png?raw=true "Spark Web UI - Jobs")
+  ![Alt text](images/spark-web-ui-jobs.png?raw=true "Spark Web UI - Jobs")
 
 * A JOB consists of multiple tasks and tasks are grouped as stages
 
-![Alt text](images/spark-web-ui-job-details.png?raw=true "Spark Web UI - Job Details")
+  ![Alt text](images/spark-web-ui-job-details.png?raw=true "Spark Web UI - Job Details")
 
-![Alt text](images/spark-web-ui-job-stage.png?raw=true "Spark Web UI - Stage")
+  ![Alt text](images/spark-web-ui-job-stage.png?raw=true "Spark Web UI - Stage")
 
 * A JOB always ends with executing "action" on RDD e.g. `rdd.saveAsTextFile`
 
