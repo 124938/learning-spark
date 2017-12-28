@@ -35,6 +35,8 @@
   
 ## Getting Started - Using REPL
 
+* **Start `spark-shell`:**
+
 ~~~
 $ spark-shell  --master local[*]
 log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
@@ -56,6 +58,8 @@ Spark context available as sc.
 SQL context available as sqlContext.
 ~~~
 
+* **Create instance of `org.apache.spark.sql.SQLContext`:**
+
 ~~~
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
@@ -66,6 +70,8 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@74
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
 ~~~
+
+* **Create DataFrame `org.apache.spark.sql.DataFrame` from RDD:**
 
 ~~~
 scala> case class OrderRDD(orderId: Int, orderDate: String, orderCustomerId: Int, orderStatus: String)
@@ -162,7 +168,9 @@ object DFDemo {
 * Execute above program under IDE to see the result
     
 ### Launch SBT
-  
+
+* **Start `sbt console`:**
+
 ~~~
 asus@asus-GL553VD:~$ cd /home/asus/source_code/github/124938/learning-spark/sql-api-features
 asus@asus-GL553VD:~/source_code/github/124938/learning-spark/sql-api-features$ sbt console
@@ -175,7 +183,9 @@ Welcome to Scala version 2.10.6 (OpenJDK 64-Bit Server VM, Java 1.8.0_131).
 Type in expressions to have them evaluated.
 Type :help for more information.
 ~~~
-  
+
+* **Create instance of `org.apache.spark.SparkContext`:**
+
 ~~~
 scala> import org.apache.spark.SparkConf
 import org.apache.spark.SparkConf
@@ -191,7 +201,9 @@ import org.apache.spark.SparkContext
 scala> val sc = new SparkContext(conf)
 sc: org.apache.spark.SparkContext = org.apache.spark.SparkContext@2f45c5cb
 ~~~
-  
+
+* **Create instance of `org.apache.spark.sql.SQLContext`:**
+
 ~~~
 scala> import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SQLContext
@@ -202,6 +214,8 @@ sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@2d
 scala> import sqlContext.implicits._
 import sqlContext.implicits._
 ~~~
+
+* **Create DataFrame `org.apache.spark.sql.DataFrame` from RDD:**
 
 ~~~
 scala> val ordersDF = sc.
