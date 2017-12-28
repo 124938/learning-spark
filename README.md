@@ -208,7 +208,9 @@ Recommended mode to be used by developer before deploying application to product
 ~~~
 asus@asus-GL553VD:~$ start-master.sh 
 starting org.apache.spark.deploy.master.Master, logging to /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.master.Master-1-asus-GL553VD.out
-  
+~~~
+
+~~~  
 asus@asus-GL553VD:~$ tail -f /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.master.Master-1-asus-GL553VD.out
 17/12/09 20:25:14 INFO SecurityManager: Changing modify acls to: asus
 17/12/09 20:25:14 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(asus); users with modify permissions: Set(asus)
@@ -227,6 +229,9 @@ asus@asus-GL553VD:~$ tail -f /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs
 ~~~
 asus@asus-GL553VD:~$ start-slave.sh spark://asus-GL553VD:7077
 starting org.apache.spark.deploy.worker.Worker, logging to /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.worker.Worker-1-asus-GL553VD.out
+~~~
+
+~~~
 asus@asus-GL553VD:~$ tail -f /home/asus/tech_soft/spark-1.6.3-bin-hadoop2.6/logs/spark-asus-org.apache.spark.deploy.worker.Worker-1-asus-GL553VD.out
 17/12/09 20:34:30 INFO SecurityManager: Changing modify acls to: asus
 17/12/09 20:34:30 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(asus); users with modify permissions: Set(asus)
