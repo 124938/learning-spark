@@ -37,7 +37,7 @@ scala> import sqlContext.implicits._
 import sqlContext.implicits._
 ~~~
 
-## Create DataFrame - From Existing RDD
+### Create DataFrame - From Existing RDD
 
 * **By inferring the schema using reflection i.e. using case class:**
 
