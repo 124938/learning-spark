@@ -1,4 +1,6 @@
-package _2_file_format;
+package _2_file_format
+
+import org.apache.spark.{SparkConf, SparkContext}
 
 object RDDTextFileDemo {
   def main(args: Array[String]): Unit = {
