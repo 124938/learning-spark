@@ -21,7 +21,7 @@
 
 ### DataFrame - Creation
 
-**(1) : Using Native Context (aka org.apache.spark.sql.SQLContext)** 
+**(1) Using Native Context (aka org.apache.spark.sql.SQLContext)** 
 * With a SQLContext, application can create DataFrame in following ways:
   * From Existing RDD
   * From Data Sources i.e.
@@ -31,7 +31,7 @@
     * JDBC
     * Many more...
 
-**(2) : Using Hive Context (aka org.apache.spark.sql.hive.HiveContext)** 
+**(2) Using Hive Context (aka org.apache.spark.sql.hive.HiveContext)** 
 * HiveContext is an extension of SQLContext, which provides supports for reading/writing data from/to Apache Hive
 * With a HiveContext, application can create DataFrame in following ways:
   * TODO
