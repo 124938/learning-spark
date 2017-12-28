@@ -1,5 +1,5 @@
 ## Spark Core
-* Spark Core is the underlying general execution engine for the Spark platform that all other functionality is built on top of. 
+* Spark Core is the underlying general execution engine for the Spark platform that all other functionality is built on top of
 * It provides in-memory computing capabilities to deliver speed, a generalized execution model to support a wide variety of applications
 * It supports Java, Scala, and Python APIs for ease of development
 
