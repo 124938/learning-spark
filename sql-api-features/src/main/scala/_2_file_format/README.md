@@ -48,15 +48,17 @@ SQL context available as sqlContext.
 scala>
 ~~~
 
+* **Create instance of `org.apache.spark.sql.SQLContext`:**
+
 ~~~
-scala> import org.apache.hadoop.io.compress.SnappyCodec
-import org.apache.hadoop.io.compress.SnappyCodec
+scala> import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SQLContext
 
-scala> import org.apache.hadoop.io.compress.GzipCodec
-import org.apache.hadoop.io.compress.GzipCodec
+scala> val sqlContext = new SQLContext(sc)
+sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@4afb3566
 
-scala> import org.apache.hadoop.io.compress.BZip2Codec
-import org.apache.hadoop.io.compress.BZip2Codec
+scala> import sqlContext.implicits._
+import sqlContext.implicits._
 ~~~
 
 ### (1) Text File
@@ -84,7 +86,7 @@ foreach(println)
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
-saveAsTextFile("tmp/orders/text_snappy", classOf[SnappyCodec])
+saveAsTextFile("tmp/orders/text_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
 
 scala> sc.
 textFile("tmp/orders/text_snappy").
@@ -97,7 +99,7 @@ foreach(println)
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
-saveAsTextFile("tmp/orders/text_gzip", classOf[GzipCodec])
+saveAsTextFile("tmp/orders/text_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
 
 scala> sc.
 textFile("tmp/orders/text_gzip").
@@ -110,7 +112,7 @@ foreach(println)
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
-saveAsTextFile("tmp/orders/text_bzip2", classOf[BZip2Codec])
+saveAsTextFile("tmp/orders/text_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
 
 scala> sc.
 textFile("tmp/orders/text_bzip2").
@@ -219,7 +221,7 @@ foreach(println)
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
 map((rec: String) => (rec.split(",")(0).toInt, rec)).
-saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[SnappyCodec]))
+saveAsSequenceFile("tmp/orders/seq_snappy", Some(classOf[org.apache.hadoop.io.compress.SnappyCodec]))
 
 scala> sc.
 sequenceFile("tmp/orders/seq_snappy", classOf[IntWritable], classOf[Text]).
@@ -237,7 +239,7 @@ foreach(println)
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
 map((rec: String) => (rec.split(",")(0).toInt, rec)).
-saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[GzipCodec]))
+saveAsSequenceFile("tmp/orders/seq_gzip", Some(classOf[org.apache.hadoop.io.compress.GzipCodec]))
 
 scala> sc.
 sequenceFile("tmp/orders/seq_gzip", classOf[IntWritable], classOf[Text]).
@@ -255,7 +257,7 @@ foreach(println)
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
 map((rec: String) => (rec.split(",")(0).toInt, rec)).
-saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[BZip2Codec]))
+saveAsSequenceFile("tmp/orders/seq_bzip2", Some(classOf[org.apache.hadoop.io.compress.BZip2Codec]))
 
 scala> sc.
 sequenceFile("tmp/orders/seq_bzip2", classOf[IntWritable], classOf[Text]).
@@ -351,36 +353,19 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
 * Refer below code snippet to Read/Write JSON file using above compression codec
 
 ~~~
-scala> import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SQLContext
-
-scala> val sqlContext = new SQLContext(sc)
-sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@4afb3566
-
-scala> import sqlContext.implicits._
-import sqlContext.implicits._
-~~~
-
-~~~
-scala> val ordersDF = sc.
+scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
 map((rec: String) => {
   val recArray = rec.split(",")
   (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
 }).
-toDF("order_id", "order_date", "order_customer_id", "order_status")
-ordersDF: org.apache.spark.sql.DataFrame = [order_id: int, order_date: string, order_customer_id: int, order_status: string]
-~~~
-
-~~~
-scala> import org.apache.spark.sql.SaveMode
-import org.apache.spark.sql.SaveMode
-
-scala> ordersDF.
+toDF("order_id", "order_date", "order_customer_id", "order_status").
 write.
-mode(SaveMode.Overwrite).
+mode(org.apache.spark.sql.SaveMode.Overwrite).
 json("tmp/orders/json")
+~~~
 
+~~~
 scala> sqlContext.
 read.
 json("tmp/orders/json").
@@ -396,7 +381,13 @@ only showing top 3 rows
 ~~~
 
 ~~~
-scala> ordersDF.
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
 toJSON.
 saveAsTextFile("tmp/orders/json_gzip", classOf[org.apache.hadoop.io.compress.GzipCodec])
 
@@ -415,7 +406,13 @@ only showing top 3 rows
 ~~~
 
 ~~~
-scala> ordersDF.
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
 toJSON.
 saveAsTextFile("tmp/orders/json_bzip2", classOf[org.apache.hadoop.io.compress.BZip2Codec])
 
@@ -434,7 +431,13 @@ only showing top 3 rows
 ~~~
 
 ~~~
-scala> ordersDF.
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
 toJSON.
 saveAsTextFile("tmp/orders/json_snappy", classOf[org.apache.hadoop.io.compress.SnappyCodec])
 
@@ -513,3 +516,236 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 20:05 tmp/orders/json_sna
 {"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
 ~~~
 
+### (3) Parquet File
+
+* Parquet file supports following compression codec:
+  * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
+  * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
+
+* Refer below code snippet to Read/Write Parquet file using above compression codec
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.parquet.compression.codec", "uncompressed")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+parquet("tmp/orders/parquet")
+~~~
+
+~~~
+scala> sqlContext.
+read.
+parquet("tmp/orders/parquet").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.parquet.compression.codec", "snappy")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+parquet("tmp/orders/parquet_snappy")
+~~~
+
+~~~
+scala> sqlContext.
+read.
+parquet("tmp/orders/parquet_snappy").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.parquet.compression.codec", "gzip")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+parquet("tmp/orders/parquet_gzip")
+~~~
+
+~~~
+scala> sqlContext.
+read.
+parquet("tmp/orders/parquet_gzip").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.parquet.compression.codec", "lzo")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+parquet("tmp/orders/parquet_lzo")
+
+17/12/28 21:52:58 WARN scheduler.TaskSetManager: Lost task 0.0 in stage 21.0 (TID 35, 192.168.211.142, executor 1): parquet.hadoop.BadConfigurationException: Class com.hadoop.compression.lzo.LzoCodec was not found
+	at parquet.hadoop.CodecFactory.getCodec(CodecFactory.java:161)
+	at parquet.hadoop.CodecFactory.getCompressor(CodecFactory.java:168)
+	at parquet.hadoop.ParquetOutputFormat.getRecordWriter(ParquetOutputFormat.java:326)
+	at parquet.hadoop.ParquetOutputFormat.getRecordWriter(ParquetOutputFormat.java:282)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetOutputWriter.<init>(ParquetRelation.scala:94)
+	at org.apache.spark.sql.execution.datasources.parquet.ParquetRelation$$anon$3.newInstance(ParquetRelation.scala:286)
+	at org.apache.spark.sql.execution.datasources.BaseWriterContainer.newOutputWriter(WriterContainer.scala:129)
+	at org.apache.spark.sql.execution.datasources.DefaultWriterContainer.writeRows(WriterContainer.scala:255)
+	at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelation$$anonfun$run$1$$anonfun$apply$mcV$sp$3.apply(InsertIntoHadoopFsRelation.scala:148)
+	at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelation$$anonfun$run$1$$anonfun$apply$mcV$sp$3.apply(InsertIntoHadoopFsRelation.scala:148)
+	at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:66)
+	at org.apache.spark.scheduler.Task.run(Task.scala:89)
+	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:242)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassNotFoundException: com.hadoop.compression.lzo.LzoCodec
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:354)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:425)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:190)
+	at parquet.hadoop.CodecFactory.getCodec(CodecFactory.java:156)
+	... 15 more
+~~~
+
+* Refer below HDFS command to display list of generated Parquet files
+
+~~~
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders | grep parquet
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 21:46 tmp/orders/parquet
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 21:46 tmp/orders/parquet/_SUCCESS
+-rw-r--r--   1 cloudera cloudera        534 2017-12-28 21:46 tmp/orders/parquet/_common_metadata
+-rw-r--r--   1 cloudera cloudera      1.6 K 2017-12-28 21:46 tmp/orders/parquet/_metadata
+-rw-r--r--   1 cloudera cloudera    263.9 K 2017-12-28 21:46 tmp/orders/parquet/part-r-00000-aad03abf-b696-4cce-a739-cf1863ebe7bd.parquet
+-rw-r--r--   1 cloudera cloudera    268.6 K 2017-12-28 21:46 tmp/orders/parquet/part-r-00001-aad03abf-b696-4cce-a739-cf1863ebe7bd.parquet
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 21:49 tmp/orders/parquet_gzip
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 21:49 tmp/orders/parquet_gzip/_SUCCESS
+-rw-r--r--   1 cloudera cloudera        534 2017-12-28 21:49 tmp/orders/parquet_gzip/_common_metadata
+-rw-r--r--   1 cloudera cloudera      1.6 K 2017-12-28 21:49 tmp/orders/parquet_gzip/_metadata
+-rw-r--r--   1 cloudera cloudera    148.3 K 2017-12-28 21:49 tmp/orders/parquet_gzip/part-r-00000-173a801a-5273-4124-9cb3-03655a151edb.gz.parquet
+-rw-r--r--   1 cloudera cloudera    149.9 K 2017-12-28 21:49 tmp/orders/parquet_gzip/part-r-00001-173a801a-5273-4124-9cb3-03655a151edb.gz.parquet
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 21:52 tmp/orders/parquet_lzo
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 21:48 tmp/orders/parquet_snappy
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 21:48 tmp/orders/parquet_snappy/_SUCCESS
+-rw-r--r--   1 cloudera cloudera        534 2017-12-28 21:48 tmp/orders/parquet_snappy/_common_metadata
+-rw-r--r--   1 cloudera cloudera      1.6 K 2017-12-28 21:48 tmp/orders/parquet_snappy/_metadata
+-rw-r--r--   1 cloudera cloudera    259.7 K 2017-12-28 21:48 tmp/orders/parquet_snappy/part-r-00000-0edb18bc-a295-4228-aaa4-68c5844216b2.snappy.parquet
+-rw-r--r--   1 cloudera cloudera    261.4 K 2017-12-28 21:48 tmp/orders/parquet_snappy/part-r-00001-0edb18bc-a295-4228-aaa4-68c5844216b2.snappy.parquet
+~~~
+
+* Refer below HDFS command to view Parquet file on terminal
+
+~~~
+[cloudera@quickstart ~]$ parquet-tools cat hdfs://quickstart.cloudera/user/cloudera/tmp/orders/parquet/part-r-00000-aad03abf-b696-4cce-a739-cf1863ebe7bd.parquet | more
+order_id = 1
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 11599
+order_status = CLOSED
+
+order_id = 2
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 256
+order_status = PENDING_PAYMENT
+
+order_id = 3
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 12111
+order_status = COMPLETE
+~~~
+
+~~~
+[cloudera@quickstart ~]$ parquet-tools cat hdfs://quickstart.cloudera/user/cloudera/tmp/orders/parquet_gzip/part-r-00000-173a801a-5273-4124-9cb3-03655a151edb.gz.parquet | more
+order_id = 1
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 11599
+order_status = CLOSED
+
+order_id = 2
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 256
+order_status = PENDING_PAYMENT
+
+order_id = 3
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 12111
+order_status = COMPLETE
+~~~
+
+~~~
+[cloudera@quickstart ~]$ parquet-tools cat hdfs://quickstart.cloudera/user/cloudera/tmp/orders/parquet_snappy/part-r-00000-0edb18bc-a295-4228-aaa4-68c5844216b2.snappy.parquet | more
+order_id = 1
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 11599
+order_status = CLOSED
+
+order_id = 2
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 256
+order_status = PENDING_PAYMENT
+
+order_id = 3
+order_date = 2013-07-25 00:00:00.0
+order_customer_id = 12111
+order_status = COMPLETE
+~~~
