@@ -9,7 +9,7 @@ object DFCreationFromJson {
 
     // Create Spark Configuration
     val conf = new SparkConf().
-      setAppName("DF Creation From Json").
+      setAppName("DF Creation From Json File").
       setMaster("local[2]")
 
     // Create Spark Context
@@ -18,7 +18,7 @@ object DFCreationFromJson {
     // Create SQL Context
     val sqlContext = new SQLContext(sc)
 
-    println("**** Problem Statement : Create DataFrame - Using JSON ****")
+    println("**** Problem Statement : Create DataFrame - Using JSON File****")
     val orderDF1 = sqlContext.
       read.
       json("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/json")
