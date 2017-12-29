@@ -18,7 +18,60 @@ Last login: Sun Oct 29 18:49:10 2017 from 192.168.211.1
 
 * **Start `spark-shell`:**
 ~~~
-[cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1
+[cloudera@quickstart ~]$ spark-shell --master yarn --num-executors 1 --packages com.databricks:spark-avro_2.10:2.0.1
+Ivy Default Cache set to: /home/cloudera/.ivy2/cache
+The jars for the packages stored in: /home/cloudera/.ivy2/jars
+:: loading settings :: url = jar:file:/usr/lib/spark/lib/spark-assembly-1.6.0-cdh5.12.0-hadoop2.6.0-cdh5.12.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+com.databricks#spark-avro_2.10 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent;1.0
+	confs: [default]
+	found com.databricks#spark-avro_2.10;2.0.1 in central
+	found org.apache.avro#avro;1.7.6 in central
+	found org.codehaus.jackson#jackson-core-asl;1.9.13 in central
+	found org.codehaus.jackson#jackson-mapper-asl;1.9.13 in central
+	found com.thoughtworks.paranamer#paranamer;2.3 in central
+	found org.xerial.snappy#snappy-java;1.0.5 in central
+	found org.apache.commons#commons-compress;1.4.1 in central
+	found org.tukaani#xz;1.0 in central
+	found org.slf4j#slf4j-api;1.6.4 in central
+downloading https://repo1.maven.org/maven2/com/databricks/spark-avro_2.10/2.0.1/spark-avro_2.10-2.0.1.jar ...
+	[SUCCESSFUL ] com.databricks#spark-avro_2.10;2.0.1!spark-avro_2.10.jar (1131ms)
+downloading https://repo1.maven.org/maven2/org/apache/avro/avro/1.7.6/avro-1.7.6.jar ...
+	[SUCCESSFUL ] org.apache.avro#avro;1.7.6!avro.jar(bundle) (3255ms)
+downloading https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar ...
+	[SUCCESSFUL ] org.codehaus.jackson#jackson-core-asl;1.9.13!jackson-core-asl.jar (1943ms)
+downloading https://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar ...
+	[SUCCESSFUL ] org.codehaus.jackson#jackson-mapper-asl;1.9.13!jackson-mapper-asl.jar (4492ms)
+downloading https://repo1.maven.org/maven2/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar ...
+	[SUCCESSFUL ] com.thoughtworks.paranamer#paranamer;2.3!paranamer.jar (669ms)
+downloading https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.0.5/snappy-java-1.0.5.jar ...
+	[SUCCESSFUL ] org.xerial.snappy#snappy-java;1.0.5!snappy-java.jar(bundle) (5487ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar ...
+	[SUCCESSFUL ] org.apache.commons#commons-compress;1.4.1!commons-compress.jar (1157ms)
+downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar ...
+	[SUCCESSFUL ] org.slf4j#slf4j-api;1.6.4!slf4j-api.jar (617ms)
+downloading https://repo1.maven.org/maven2/org/tukaani/xz/1.0/xz-1.0.jar ...
+	[SUCCESSFUL ] org.tukaani#xz;1.0!xz.jar (747ms)
+:: resolution report :: resolve 55805ms :: artifacts dl 19550ms
+	:: modules in use:
+	com.databricks#spark-avro_2.10;2.0.1 from central in [default]
+	com.thoughtworks.paranamer#paranamer;2.3 from central in [default]
+	org.apache.avro#avro;1.7.6 from central in [default]
+	org.apache.commons#commons-compress;1.4.1 from central in [default]
+	org.codehaus.jackson#jackson-core-asl;1.9.13 from central in [default]
+	org.codehaus.jackson#jackson-mapper-asl;1.9.13 from central in [default]
+	org.slf4j#slf4j-api;1.6.4 from central in [default]
+	org.tukaani#xz;1.0 from central in [default]
+	org.xerial.snappy#snappy-java;1.0.5 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   9   |   9   |   9   |   0   ||   9   |   9   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent
+	confs: [default]
+	9 artifacts copied, 0 already retrieved (3100kB/22ms)
 Setting default log level to "WARN".
 To adjust logging level use sc.setLogLevel(newLevel).
 SLF4J: Class path contains multiple SLF4J bindings.
@@ -38,11 +91,11 @@ Welcome to
 Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.7.0_67)
 Type in expressions to have them evaluated.
 Type :help for more information.
-17/11/12 18:11:06 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-17/11/12 18:11:06 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
-17/11/12 18:11:06 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
-17/11/12 18:11:09 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
-Spark context available as sc (master = yarn-client, app id = application_1509278183296_0023).
+17/12/28 22:34:46 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/12/28 22:34:47 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
+17/12/28 22:34:47 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+17/12/28 22:34:48 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
+Spark context available as sc (master = yarn-client, app id = application_1514521302404_0003).
 SQL context available as sqlContext.
 
 scala>
@@ -767,4 +820,203 @@ order_id = 3
 order_date = 2013-07-25 00:00:00.0
 order_customer_id = 12111
 order_status = COMPLETE
+~~~
+
+### (5) Avro File
+
+* Avro file supports following compression codec:
+  * Deflate i.e. `org.apache.hadoop.io.compress.DeflateCodec`
+  * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
+
+* Import Avro classes from `com.databricks.spark.avro`:
+
+~~~
+scala> import com.databricks.spark.avro._
+import com.databricks.spark.avro._
+~~~
+
+* Create instance of `org.apache.spark.sql.SQLContext`:
+
+~~~
+scala> import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SQLContext
+
+scala> val sqlContext = new SQLContext(sc)
+sqlContext: org.apache.spark.sql.SQLContext = org.apache.spark.sql.SQLContext@4afb3566
+
+scala> import sqlContext.implicits._
+import sqlContext.implicits._
+~~~
+
+* Refer below code snippet to Read/Write Avro file without compression
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.avro.compression.codec", "uncompressed")
+       
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+avro("tmp/orders/avro")
+
+scala> sqlContext.
+read.
+avro("tmp/orders/avro").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+* Refer below code snippet to Read/Write Avro file with `org.apache.hadoop.io.compress.DeflateCodec` compression
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.avro.compression.codec", "deflate")
+       
+scala> sqlContext.
+setConf("spark.sql.avro.deflate.level", "5")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+avro("tmp/orders/avro_deflate")
+
+scala> sqlContext.
+read.
+avro("tmp/orders/avro_deflate").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+* Refer below code snippet to Read/Write Avro file with `org.apache.hadoop.io.compress.SnappyCodec` compression
+
+~~~
+scala> sqlContext.
+setConf("spark.sql.avro.compression.codec", "snappy")
+
+scala> sc.
+textFile("sqoop/import-all-tables-text/orders").
+map((rec: String) => {
+  val recArray = rec.split(",")
+  (recArray(0).toInt, recArray(1), recArray(2).toInt, recArray(3))
+}).
+toDF("order_id", "order_date", "order_customer_id", "order_status").
+write.
+mode(org.apache.spark.sql.SaveMode.Overwrite).
+avro("tmp/orders/avro_snappy")
+
+scala> sqlContext.
+read.
+avro("tmp/orders/avro_snappy").
+show(5)
++--------+--------------------+-----------------+---------------+
+|order_id|          order_date|order_customer_id|   order_status|
++--------+--------------------+-----------------+---------------+
+|       1|2013-07-25 00:00:...|            11599|         CLOSED|
+|       2|2013-07-25 00:00:...|              256|PENDING_PAYMENT|
+|       3|2013-07-25 00:00:...|            12111|       COMPLETE|
+|       4|2013-07-25 00:00:...|             8827|         CLOSED|
+|       5|2013-07-25 00:00:...|            11318|       COMPLETE|
++--------+--------------------+-----------------+---------------+
+only showing top 5 rows
+~~~
+
+* Refer below HDFS command to display list of generated Avro files
+
+~~~
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders | grep avro
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 23:18 tmp/orders/avro
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 23:18 tmp/orders/avro/_SUCCESS
+-rw-r--r--   1 cloudera cloudera      1.4 M 2017-12-28 23:18 tmp/orders/avro/part-r-00000-60d67d0d-a9ea-4da2-841f-907b4012365d.avro
+-rw-r--r--   1 cloudera cloudera      1.4 M 2017-12-28 23:18 tmp/orders/avro/part-r-00001-60d67d0d-a9ea-4da2-841f-907b4012365d.avro
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 23:07 tmp/orders/avro_deflate
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 23:07 tmp/orders/avro_deflate/_SUCCESS
+-rw-r--r--   1 cloudera cloudera    213.4 K 2017-12-28 23:07 tmp/orders/avro_deflate/part-r-00000-53b50484-60e3-41d6-91c1-cb8f1389123c.avro
+-rw-r--r--   1 cloudera cloudera    214.2 K 2017-12-28 23:07 tmp/orders/avro_deflate/part-r-00001-53b50484-60e3-41d6-91c1-cb8f1389123c.avro
+drwxr-xr-x   - cloudera cloudera          0 2017-12-28 23:13 tmp/orders/avro_snappy
+-rw-r--r--   1 cloudera cloudera          0 2017-12-28 23:13 tmp/orders/avro_snappy/_SUCCESS
+-rw-r--r--   1 cloudera cloudera    359.7 K 2017-12-28 23:13 tmp/orders/avro_snappy/part-r-00000-0122beab-39de-42d2-bf8d-79d3230afe28.avro
+-rw-r--r--   1 cloudera cloudera    360.7 K 2017-12-28 23:13 tmp/orders/avro_snappy/part-r-00001-0122beab-39de-42d2-bf8d-79d3230afe28.avro
+~~~
+
+* Refer below HDFS command to view Avro file on terminal
+
+~~~
+[cloudera@quickstart ~]$ avro-tools tojson hdfs://quickstart.cloudera/user/cloudera/tmp/orders/avro/part-r-00000-60d67d0d-a9ea-4da2-841f-907b4012365d.avro | tail
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+{"order_id":{"int":34555},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":443},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34556},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":10877},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34557},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":5585},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34558},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1024},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34559},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":8676},"order_status":{"string":"PROCESSING"}}
+{"order_id":{"int":34560},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":7036},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34561},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":2027},"order_status":{"string":"COMPLETE"}}
+{"order_id":{"int":34562},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1497},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34563},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":477},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34564},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":12151},"order_status":{"string":"CLOSED"}}
+~~~
+
+~~~
+[cloudera@quickstart ~]$ avro-tools tojson hdfs://quickstart.cloudera/user/cloudera/tmp/orders/avro_deflate/part-r-00000-53b50484-60e3-41d6-91c1-cb8f1389123c.avro | tail
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+{"order_id":{"int":34555},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":443},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34556},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":10877},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34557},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":5585},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34558},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1024},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34559},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":8676},"order_status":{"string":"PROCESSING"}}
+{"order_id":{"int":34560},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":7036},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34561},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":2027},"order_status":{"string":"COMPLETE"}}
+{"order_id":{"int":34562},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1497},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34563},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":477},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34564},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":12151},"order_status":{"string":"CLOSED"}}
+~~~
+
+~~~
+[cloudera@quickstart ~]$ avro-tools tojson hdfs://quickstart.cloudera/user/cloudera/tmp/orders/avro_snappy/part-r-00000-0122beab-39de-42d2-bf8d-79d3230afe28.avro | tail
+log4j:WARN No appenders could be found for logger (org.apache.hadoop.metrics2.lib.MutableMetricsFactory).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+{"order_id":{"int":34555},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":443},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34556},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":10877},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34557},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":5585},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34558},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1024},"order_status":{"string":"PENDING_PAYMENT"}}
+{"order_id":{"int":34559},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":8676},"order_status":{"string":"PROCESSING"}}
+{"order_id":{"int":34560},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":7036},"order_status":{"string":"PENDING"}}
+{"order_id":{"int":34561},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":2027},"order_status":{"string":"COMPLETE"}}
+{"order_id":{"int":34562},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":1497},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34563},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":477},"order_status":{"string":"CLOSED"}}
+{"order_id":{"int":34564},"order_date":{"string":"2014-02-23 00:00:00.0"},"order_customer_id":{"int":12151},"order_status":{"string":"CLOSED"}}
 ~~~
