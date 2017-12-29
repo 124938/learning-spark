@@ -122,7 +122,7 @@ foreach(println)
 
 * Refer below HDFS command to display list of generated text files
 ~~~
-[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders | grep text
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:19 tmp/orders/text
 -rw-r--r--   1 cloudera cloudera          0 2017-11-12 18:19 tmp/orders/text/_SUCCESS
 -rw-r--r--   1 cloudera cloudera      1.4 M 2017-11-12 18:19 tmp/orders/text/part-00000
@@ -271,7 +271,7 @@ foreach(println)
 
 * Refer below HDFS command to display list of generated sequence files
 ~~~
-[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders | grep seq
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq
 -rw-r--r--   1 cloudera cloudera          0 2017-11-12 18:54 tmp/orders/seq/_SUCCESS
 -rw-r--r--   1 cloudera cloudera      1.8 M 2017-11-12 18:54 tmp/orders/seq/part-00000
@@ -452,9 +452,9 @@ show(3)
 only showing top 3 rows
 ~~~
 
-* Display list of generated sequence files using HDFS commands (Refer below snapshot)
+* Refer below HDFS command to display list of generated JSON files
 ~~~
-[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders
+[cloudera@quickstart ~]$ hadoop fs -ls -h -R tmp/orders | grep json
 drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:52 tmp/orders/json
 -rw-r--r--   1 cloudera cloudera          0 2017-11-12 19:52 tmp/orders/json/_SUCCESS
 -rw-r--r--   1 cloudera cloudera      3.6 M 2017-11-12 19:52 tmp/orders/json/part-r-00000-7e356a9d-8d82-4e0d-8916-6b47f71e0213
@@ -473,21 +473,43 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 20:05 tmp/orders/json_sna
 -rw-r--r--   1 cloudera cloudera    523.0 K 2017-11-12 20:05 tmp/orders/json_snappy/part-00001.snappy
 ~~~
 
-* View JSON file using HDFS command (Refer below snapshot)
+* Refer below HDFS command to view JSON file on terminal
 ~~~
-[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/text_bzip2/part-00000.bz2 | more
-17/11/12 20:10:51 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
-17/11/12 20:10:51 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
-1,2013-07-25 00:00:00.0,11599,CLOSED
-2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
-3,2013-07-25 00:00:00.0,12111,COMPLETE
-4,2013-07-25 00:00:00.0,8827,CLOSED
-5,2013-07-25 00:00:00.0,11318,COMPLETE
-6,2013-07-25 00:00:00.0,7130,COMPLETE
-7,2013-07-25 00:00:00.0,4530,COMPLETE
-8,2013-07-25 00:00:00.0,2911,PROCESSING
-9,2013-07-25 00:00:00.0,5657,PENDING_PAYMENT
-10,2013-07-25 00:00:00.0,5648,PENDING_PAYMENT
-11,2013-07-25 00:00:00.0,918,PAYMENT_REVIEW
-12,2013-07-25 00:00:00.0,1837,CLOSED
+[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/json/part-r-00000-8d09d113-b984-40c4-b875-0ae400fce382 | more
+{"order_id":1,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11599,"order_status":"CLOSED"}
+{"order_id":2,"order_date":"2013-07-25 00:00:00.0","order_customer_id":256,"order_status":"PENDING_PAYMENT"}
+{"order_id":3,"order_date":"2013-07-25 00:00:00.0","order_customer_id":12111,"order_status":"COMPLETE"}
+{"order_id":4,"order_date":"2013-07-25 00:00:00.0","order_customer_id":8827,"order_status":"CLOSED"}
+{"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
 ~~~
+
+~~~
+[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/json_bzip2/part-00000.bz2 | more
+17/12/28 20:43:30 INFO bzip2.Bzip2Factory: Successfully loaded & initialized native-bzip2 library system-native
+17/12/28 20:43:30 INFO compress.CodecPool: Got brand-new decompressor [.bz2]
+{"order_id":1,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11599,"order_status":"CLOSED"}
+{"order_id":2,"order_date":"2013-07-25 00:00:00.0","order_customer_id":256,"order_status":"PENDING_PAYMENT"}
+{"order_id":3,"order_date":"2013-07-25 00:00:00.0","order_customer_id":12111,"order_status":"COMPLETE"}
+{"order_id":4,"order_date":"2013-07-25 00:00:00.0","order_customer_id":8827,"order_status":"CLOSED"}
+{"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
+~~~
+
+~~~
+[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/json_gzip/part-00000.gz | more
+{"order_id":1,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11599,"order_status":"CLOSED"}
+{"order_id":2,"order_date":"2013-07-25 00:00:00.0","order_customer_id":256,"order_status":"PENDING_PAYMENT"}
+{"order_id":3,"order_date":"2013-07-25 00:00:00.0","order_customer_id":12111,"order_status":"COMPLETE"}
+{"order_id":4,"order_date":"2013-07-25 00:00:00.0","order_customer_id":8827,"order_status":"CLOSED"}
+{"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
+~~~
+
+~~~
+[cloudera@quickstart ~]$ hadoop fs -text tmp/orders/json_snappy/part-00000.snappy | more
+17/12/28 20:45:25 INFO compress.CodecPool: Got brand-new decompressor [.snappy]
+{"order_id":1,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11599,"order_status":"CLOSED"}
+{"order_id":2,"order_date":"2013-07-25 00:00:00.0","order_customer_id":256,"order_status":"PENDING_PAYMENT"}
+{"order_id":3,"order_date":"2013-07-25 00:00:00.0","order_customer_id":12111,"order_status":"COMPLETE"}
+{"order_id":4,"order_date":"2013-07-25 00:00:00.0","order_customer_id":8827,"order_status":"CLOSED"}
+{"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
+~~~
+
