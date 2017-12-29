@@ -68,7 +68,7 @@ import sqlContext.implicits._
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Refer below code snippet to Read/Write text file using above compression codec
+* Refer below code snippet to Read/Write text file without compression
 
 ~~~
 scala> sc.
@@ -83,6 +83,8 @@ foreach(println)
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
 
+* Refer below code snippet to Read/Write text file with `org.apache.hadoop.io.compress.SnappyCodec` compression
+
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
@@ -96,6 +98,8 @@ foreach(println)
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
 
+* Refer below code snippet to Read/Write text file with `org.apache.hadoop.io.compress.GzipCodec` compression
+
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
@@ -108,6 +112,8 @@ foreach(println)
 1,2013-07-25 00:00:00.0,11599,CLOSED
 2,2013-07-25 00:00:00.0,256,PENDING_PAYMENT
 ~~~
+
+* Refer below code snippet to Read/Write text file with `org.apache.hadoop.io.compress.BZip2Codec` compression
 
 ~~~
 scala> sc.
@@ -190,7 +196,8 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 18:20 tmp/orders/text_sna
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Refer below code snippet to Read/Write sequence file using above compression codec
+* Import classes required to write sequence file
+
 ~~~
 scala> import org.apache.hadoop.io.IntWritable
 import org.apache.hadoop.io.IntWritable
@@ -198,6 +205,8 @@ import org.apache.hadoop.io.IntWritable
 scala> import org.apache.hadoop.io.Text
 import org.apache.hadoop.io.Text
 ~~~
+
+* Refer below code snippet to Read/Write Sequence file without compression
 
 ~~~
 scala> sc.
@@ -217,6 +226,8 @@ foreach(println)
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 ~~~
 
+* Refer below code snippet to Read/Write Sequence file with `org.apache.hadoop.io.compress.SnappyCodec` compression
+
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
@@ -235,6 +246,8 @@ foreach(println)
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 ~~~
 
+* Refer below code snippet to Read/Write Sequence file with `org.apache.hadoop.io.compress.GzipCodec` compression
+
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
@@ -252,6 +265,8 @@ foreach(println)
 4,2013-07-25 00:00:00.0,8827,CLOSED
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 ~~~
+
+* Refer below code snippet to Read/Write Sequence file with `org.apache.hadoop.io.compress.BZip2Codec` compression
 
 ~~~
 scala> sc.
@@ -350,7 +365,7 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 19:04 tmp/orders/seq_snap
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * BZip2 i.e. `org.apache.hadoop.io.compress.BZip2Codec`
 
-* Refer below code snippet to Read/Write JSON file using above compression codec
+* Refer below code snippet to Read/Write JSON file without compression
 
 ~~~
 scala> sc.
@@ -363,9 +378,7 @@ toDF("order_id", "order_date", "order_customer_id", "order_status").
 write.
 mode(org.apache.spark.sql.SaveMode.Overwrite).
 json("tmp/orders/json")
-~~~
 
-~~~
 scala> sqlContext.
 read.
 json("tmp/orders/json").
@@ -379,6 +392,8 @@ show(3)
 +-----------------+--------------------+--------+---------------+
 only showing top 3 rows
 ~~~
+
+* Refer below code snippet to Read/Write JSON file with `org.apache.hadoop.io.compress.GzipCodec` compression
 
 ~~~
 scala> sc.
@@ -405,6 +420,8 @@ show(3)
 only showing top 3 rows
 ~~~
 
+* Refer below code snippet to Read/Write JSON file with `org.apache.hadoop.io.compress.BZip2Codec` compression
+
 ~~~
 scala> sc.
 textFile("sqoop/import-all-tables-text/orders").
@@ -429,6 +446,8 @@ show(3)
 +-----------------+--------------------+--------+---------------+
 only showing top 3 rows
 ~~~
+
+* Refer below code snippet to Read/Write JSON file with `org.apache.hadoop.io.compress.SnappyCodec` compression
 
 ~~~
 scala> sc.
@@ -516,13 +535,13 @@ drwxr-xr-x   - cloudera cloudera          0 2017-11-12 20:05 tmp/orders/json_sna
 {"order_id":5,"order_date":"2013-07-25 00:00:00.0","order_customer_id":11318,"order_status":"COMPLETE"}
 ~~~
 
-### (3) Parquet File
+### (4) Parquet File
 
 * Parquet file supports following compression codec:
   * GZip i.e. `org.apache.hadoop.io.compress.GzipCodec`
   * Snappy i.e. `org.apache.hadoop.io.compress.SnappyCodec`
 
-* Refer below code snippet to Read/Write Parquet file using above compression codec
+* Refer below code snippet to Read/Write Parquet file without compression
 
 ~~~
 scala> sqlContext.
@@ -538,9 +557,7 @@ toDF("order_id", "order_date", "order_customer_id", "order_status").
 write.
 mode(org.apache.spark.sql.SaveMode.Overwrite).
 parquet("tmp/orders/parquet")
-~~~
 
-~~~
 scala> sqlContext.
 read.
 parquet("tmp/orders/parquet").
@@ -557,6 +574,8 @@ show(5)
 only showing top 5 rows
 ~~~
 
+* Refer below code snippet to Read/Write JSON file with `org.apache.hadoop.io.compress.SnappyCodec` compression
+
 ~~~
 scala> sqlContext.
 setConf("spark.sql.parquet.compression.codec", "snappy")
@@ -571,9 +590,7 @@ toDF("order_id", "order_date", "order_customer_id", "order_status").
 write.
 mode(org.apache.spark.sql.SaveMode.Overwrite).
 parquet("tmp/orders/parquet_snappy")
-~~~
 
-~~~
 scala> sqlContext.
 read.
 parquet("tmp/orders/parquet_snappy").
@@ -590,6 +607,8 @@ show(5)
 only showing top 5 rows
 ~~~
 
+* Refer below code snippet to Read/Write JSON file with `org.apache.hadoop.io.compress.GzipCodec` compression
+
 ~~~
 scala> sqlContext.
 setConf("spark.sql.parquet.compression.codec", "gzip")
@@ -604,9 +623,7 @@ toDF("order_id", "order_date", "order_customer_id", "order_status").
 write.
 mode(org.apache.spark.sql.SaveMode.Overwrite).
 parquet("tmp/orders/parquet_gzip")
-~~~
 
-~~~
 scala> sqlContext.
 read.
 parquet("tmp/orders/parquet_gzip").
@@ -622,6 +639,8 @@ show(5)
 +--------+--------------------+-----------------+---------------+
 only showing top 5 rows
 ~~~
+
+* Refer below code snippet to Read/Write JSON file with `com.hadoop.compression.lzo.LzoCodec` compression
 
 ~~~
 scala> sqlContext.
