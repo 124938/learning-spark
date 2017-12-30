@@ -1,0 +1,63 @@
+package _1_dataframe._1_1_native._1_1_1_transformation
+
+import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.functions._
+import org.apache.spark.{SparkConf, SparkContext}
+
+object DFAggregationDemo1 {
+
+  def main(args: Array[String]): Unit = {
+
+    // Create instance of SparkConf
+    val conf = new SparkConf().
+      setAppName("Aggregation Demo - Using DataFrame SQLContext").
+      setMaster("local[2]")
+
+    // Create instance of SparkContext
+    val sc = new SparkContext(conf)
+
+    // Create instance of SQLContext
+    val sqlContext = new SQLContext(sc)
+
+    // this is used to implicitly convert an RDD to DataFrame
+    import sqlContext.implicits._
+
+    println("******** Problem Statement : Generate order revenue with number of items for each order *******")
+
+    // Create DataFrame for order_items
+    val orderItemsDF = sc.
+      textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/text/part-00000").
+      map((rec: String) => {
+        val recArray = rec.split(",")
+        (recArray(1).toInt, recArray(4).toFloat)
+      }).
+      toDF("order_item_order_id", "order_item_sub_total")
+
+    // Print schema from DataFrame
+    orderItemsDF.
+      printSchema()
+
+    // Preview records from DataFrame
+    orderItemsDF.
+      show(10)
+
+    println("******** Approach 1 - Using DSL Way (groupBy, agg, sort, select)********")
+    orderItemsDF.
+      groupBy($"order_item_order_id".as("order_id")).
+      agg(sum($"order_item_sub_total").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
+      sort($"order_id".asc).
+      select($"order_id", $"order_revenue", $"order_item_count").
+      show(30)
+
+    println("******** Approach 2 - Using SQL Way ********")
+    orderItemsDF.
+      registerTempTable("order_items")
+
+    sqlContext.
+      sql("SELECT order_item_order_id as order_id, sum(order_item_sub_total) as order_revenue, count(order_item_order_id) as order_item_count "+
+        "FROM order_items "+
+        "GROUP BY order_item_order_id "+
+        "SORT BY order_id").
+      show(30)
+  }
+}
