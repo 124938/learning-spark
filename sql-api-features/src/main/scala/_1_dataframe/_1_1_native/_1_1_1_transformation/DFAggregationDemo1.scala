@@ -51,12 +51,12 @@ object DFAggregationDemo1 {
       select($"order_id", $"order_revenue", $"order_item_count").
       show(30)
 
-    println("===== Approach 2 - Using SQL Way =====")
+    println("===== Approach 2 - Using SQL Way (GROUP BY, SUM, COUNT, ORDER BY) =====")
     orderItemsDF.
       registerTempTable("order_items")
 
     sqlContext.
-      sql("SELECT order_item_order_id as order_id, sum(order_item_sub_total) as order_revenue, count(order_item_order_id) as order_item_count "+
+      sql("SELECT order_item_order_id as order_id, SUM(order_item_sub_total) as order_revenue, COUNT(order_item_order_id) as order_item_count "+
         "FROM order_items "+
         "GROUP BY order_item_order_id "+
         "ORDER BY order_id").
