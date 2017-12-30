@@ -39,17 +39,17 @@ object DFFilterDemo {
 
     println("===== Approach 1 - Using DSL Way (filter) =====")
     ordersDF.
-      filter( (ordersDF.apply("order_status").===("NEW")).or(ordersDF.apply("order_status").===("PENDING"))).
+      filter( (ordersDF.apply("order_status").===("NEW")).or(ordersDF.apply("order_status").contains("PENDING"))).
       show(20)
 
-    println("===== Approach 1 - Using SQL Way (WHERE) =====")
+    println("===== Approach 2 - Using SQL Way (WHERE) =====")
     ordersDF.
       registerTempTable("ORDERS")
 
     sqlContext.
       sql("SELECT * "+
         "FROM ORDERS "+
-        "WHERE order_status = 'NEW' OR order_status = 'PENDING'").
+        "WHERE (order_status = 'NEW' OR order_status like '%PENDING%')").
       show(20)
   }
 
