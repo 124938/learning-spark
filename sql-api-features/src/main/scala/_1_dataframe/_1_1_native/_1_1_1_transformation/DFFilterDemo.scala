@@ -19,9 +19,6 @@ object DFFilterDemo {
     sqlContext.
       setConf("spark.sql.shuffle.partitions", "2")
 
-    // Below is used to implicitly convert RDD to DataFrame
-    import sqlContext.implicits._
-
     println("***** Problem Statement : Filter out all NEW & PENDING orders *****")
 
     // Create DataFrame of orders from parquet data source
