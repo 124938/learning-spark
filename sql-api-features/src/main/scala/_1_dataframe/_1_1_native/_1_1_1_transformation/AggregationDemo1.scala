@@ -18,11 +18,13 @@ object DFAggregationDemo1 {
 
     // Create instance of SQLContext
     val sqlContext = new SQLContext(sc)
+    sqlContext.
+      setConf("spark.sql.shuffle.partitions", "2")
 
     // this is used to implicitly convert an RDD to DataFrame
     import sqlContext.implicits._
 
-    println("******** Problem Statement : Generate order revenue with number of items for each order *******")
+    println("******** Problem Statement : Generate order revenue with item count for each order *******")
 
     // Create DataFrame for order_items
     val orderItemsDF = sc.
@@ -57,7 +59,7 @@ object DFAggregationDemo1 {
       sql("SELECT order_item_order_id as order_id, sum(order_item_sub_total) as order_revenue, count(order_item_order_id) as order_item_count "+
         "FROM order_items "+
         "GROUP BY order_item_order_id "+
-        "SORT BY order_id").
+        "ORDER BY order_id").
       show(30)
   }
 }
