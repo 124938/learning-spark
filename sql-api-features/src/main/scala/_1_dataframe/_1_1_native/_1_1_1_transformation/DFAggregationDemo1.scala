@@ -24,16 +24,15 @@ object DFAggregationDemo1 {
     // this is used to implicitly convert an RDD to DataFrame
     import sqlContext.implicits._
 
+    // this is used to import
+    import com.databricks.spark.avro._
+
     println("******** Problem Statement : Generate order revenue with item count for each order *******")
 
     // Create DataFrame for order_items
-    val orderItemsDF = sc.
-      textFile("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/text/part-00000").
-      map((rec: String) => {
-        val recArray = rec.split(",")
-        (recArray(1).toInt, recArray(4).toFloat)
-      }).
-      toDF("order_item_order_id", "order_item_sub_total")
+    val orderItemsDF = sqlContext.
+      read.
+      avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/avro")
 
     // Print schema from DataFrame
     orderItemsDF.
@@ -46,7 +45,7 @@ object DFAggregationDemo1 {
     println("===== Approach 1 - Using DSL Way (groupBy, agg, sort, select) ===")
     orderItemsDF.
       groupBy($"order_item_order_id".as("order_id")).
-      agg(sum($"order_item_sub_total").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
+      agg(sum($"order_item_subtotal").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
       sort($"order_id".asc).
       select($"order_id", $"order_revenue", $"order_item_count").
       show(30)
@@ -56,7 +55,7 @@ object DFAggregationDemo1 {
       registerTempTable("order_items")
 
     sqlContext.
-      sql("SELECT order_item_order_id as order_id, SUM(order_item_sub_total) as order_revenue, COUNT(order_item_order_id) as order_item_count "+
+      sql("SELECT order_item_order_id as order_id, SUM(order_item_subtotal) as order_revenue, COUNT(order_item_order_id) as order_item_count "+
         "FROM order_items "+
         "GROUP BY order_item_order_id "+
         "ORDER BY order_id").
