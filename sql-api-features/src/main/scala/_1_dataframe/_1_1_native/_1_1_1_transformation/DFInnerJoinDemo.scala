@@ -62,14 +62,16 @@ object DFInnerJoinDemo {
       registerTempTable("ORDER_ITEMS")
 
     sqlContext.
-      sql(" SELECT "+
-          "   FROM_UNIXTIME(CAST(o.order_date / 1000 as BIGINT), 'YYYY-MM-dd') as order_date, " +
-          "   ROUND(CAST(SUM(oi.order_item_subtotal) as FLOAT), 3) as order_revenue " +
-          " FROM "+
-          "   ORDERS o JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
-          " GROUP BY "+
-          "   o.order_date "+
-          " ORDER BY order_date DESC ").
+      sql(
+        " SELECT "+
+        "   FROM_UNIXTIME(CAST(o.order_date / 1000 as BIGINT), 'YYYY-MM-dd') as order_date, " +
+        "   ROUND(CAST(SUM(oi.order_item_subtotal) as FLOAT), 3) as order_revenue " +
+        " FROM "+
+        "   ORDERS o JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
+        " GROUP BY "+
+        "   o.order_date "+
+        " ORDER BY order_date DESC "
+      ).
       show(20)
   }
 }

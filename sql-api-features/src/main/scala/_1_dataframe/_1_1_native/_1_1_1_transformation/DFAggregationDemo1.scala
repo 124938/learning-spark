@@ -47,7 +47,11 @@ object DFAggregationDemo1 {
       groupBy($"order_item_order_id".as("order_id")).
       agg(sum($"order_item_subtotal").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
       orderBy($"order_id".asc).
-      select($"order_id", $"order_revenue", $"order_item_count").
+      select(
+        $"order_id",
+        $"order_revenue",
+        $"order_item_count"
+      ).
       show(30)
 
     println("===== Approach 2 - Using SQL Way (GROUP BY, [SUM, COUNT], ORDER BY) =====")
@@ -55,10 +59,18 @@ object DFAggregationDemo1 {
       registerTempTable("order_items")
 
     sqlContext.
-      sql("SELECT order_item_order_id as order_id, SUM(order_item_subtotal) as order_revenue, COUNT(order_item_order_id) as order_item_count "+
-        "FROM order_items "+
-        "GROUP BY order_item_order_id "+
-        "ORDER BY order_id").
+      sql(
+        " SELECT "+
+        "   order_item_order_id as order_id, "+
+        "   SUM(order_item_subtotal) as order_revenue, "+
+        "   COUNT(order_item_order_id) as order_item_count "+
+        " FROM "+
+        "   order_items "+
+        " GROUP BY "+
+        "   order_item_order_id "+
+        " ORDER BY "+
+        "   order_id"
+      ).
       show(30)
   }
 }

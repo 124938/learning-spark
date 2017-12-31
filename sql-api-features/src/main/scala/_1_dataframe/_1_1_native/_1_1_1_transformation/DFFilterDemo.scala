@@ -44,9 +44,14 @@ object DFFilterDemo {
       registerTempTable("ORDERS")
 
     sqlContext.
-      sql("SELECT * "+
-        "FROM ORDERS "+
-        "WHERE (order_status = 'NEW' OR order_status like '%PENDING%')").
+      sql(
+        " SELECT "+
+        "  * "+
+        " FROM "+
+        "   ORDERS "+
+        " WHERE "+
+        "   (order_status = 'NEW' OR order_status like '%PENDING%')"
+      ).
       show(20)
   }
 

@@ -51,22 +51,31 @@ object DFCommonOperationDemo {
 
     println("****** Select multiple columns from DataFrame ******")
     ordersDF.
-      select($"order_date", $"order_status").
+      select(
+        $"order_date",
+        $"order_status"
+      ).
       show(20)
 
     println("****** Find maximum order_id from DataFrame ******")
     ordersDF.
-      select(org.apache.spark.sql.functions.max($"order_id").as("max_order_id")).
+      select(
+        org.apache.spark.sql.functions.max($"order_id").as("max_order_id")
+      ).
       show(20)
 
     println("****** Find minimum order_id from DataFrame ******")
     ordersDF.
-      select(org.apache.spark.sql.functions.min($"order_id").as("min_order_id")).
+      select(
+        org.apache.spark.sql.functions.min($"order_id").as("min_order_id")
+      ).
       show(20)
 
     println("****** Find average order_id from DataFrame ******")
     ordersDF.
-      select(org.apache.spark.sql.functions.avg($"order_id").as("avg_order_id")).
+      select(
+        org.apache.spark.sql.functions.avg($"order_id").as("avg_order_id")
+      ).
       show(20)
   }
 }
