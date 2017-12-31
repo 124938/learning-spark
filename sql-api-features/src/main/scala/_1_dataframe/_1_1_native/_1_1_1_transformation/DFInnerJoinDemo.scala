@@ -9,7 +9,7 @@ object DFInnerJoinDemo {
 
     // Create instance of SparkConf
     val conf = new SparkConf().
-      setAppName("Join Demo 1 - Using DataFrame SQLContext").
+      setAppName("Inner Join Demo - Using DataFrame SQLContext").
       setMaster("local[2]")
 
     // Create instance of SparkContext
