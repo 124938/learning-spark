@@ -64,7 +64,7 @@ object DFRightOuterJoinDemo {
     sqlContext.
       sql(
         " SELECT "+
-        "   COUNT(1) as order_count"+
+        "   COUNT(1) as order_item_count"+
         " FROM "+
         "   ORDERS o RIGHT OUTER JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
         " WHERE " +
