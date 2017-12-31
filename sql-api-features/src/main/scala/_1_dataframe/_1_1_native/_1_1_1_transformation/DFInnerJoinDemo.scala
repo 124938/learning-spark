@@ -3,7 +3,7 @@ package _1_dataframe._1_1_native._1_1_1_transformation
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 
-object DFInnerJoinDemo1 {
+object DFInnerJoinDemo {
 
   def main(args: Array[String]): Unit = {
 
