@@ -1,9 +1,9 @@
-package _1_dataframe._1_1_native._1_1_1_transformation
+package _1_dataframe._1_1_native._1_1_3_join
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 
-object DFRightOuterJoinDemo {
+object DFFullOuterJoinDemo {
 
   def main(args: Array[String]): Unit = {
 
@@ -21,16 +21,15 @@ object DFRightOuterJoinDemo {
       setConf("spark.sql.shuffle.partitions", "2")
 
     // Below is used to convert RDD to DataFrame implicitly
+    import com.databricks.spark.avro._
     import sqlContext.implicits._
 
-    import com.databricks.spark.avro._
-
-    println("***** Problem Statement : Find out number of order items, which does not linked with order *****")
+    println("***** Problem Statement : Find out total number of records by full joining order & order items *****")
 
     // Create DataFrame using JSON of order
     val ordersDF = sqlContext.
       read.
-      parquet("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/parquet")
+      avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/avro")
 
     // Print schema
     ordersDF.
@@ -39,18 +38,17 @@ object DFRightOuterJoinDemo {
     // Create DataFrame using JSON of order items
     val orderItemsDF = sqlContext.
       read.
-      avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/avro")
+      parquet("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/parquet")
 
     // Print schema
     orderItemsDF.
       printSchema
 
-    println("===== Approach 1 - Using DSL Way (join [rightouter], where) =====")
+    println("===== Approach 1 - Using DSL Way (join [fullouter], select) =====")
     ordersDF.
-      join(orderItemsDF, $"order_id" === $"order_item_order_id", "rightouter").
-      where($"order_id" isNull).
+      join(orderItemsDF, $"order_id" === $"order_item_order_id", "fullouter").
       select(
-        org.apache.spark.sql.functions.count($"order_item_id") as "order_item_count"
+        org.apache.spark.sql.functions.count($"order_id") as "total_count"
       ).
       show
 
@@ -64,11 +62,9 @@ object DFRightOuterJoinDemo {
     sqlContext.
       sql(
         " SELECT "+
-        "   COUNT(1) as order_item_count"+
+        "   COUNT(1) as total_count"+
         " FROM "+
-        "   ORDERS o RIGHT OUTER JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
-        " WHERE " +
-        "   o.order_id IS NULL").
+        "   ORDERS o FULL OUTER JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) ").
       show
   }
 }

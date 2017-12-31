@@ -1,9 +1,9 @@
-package _1_dataframe._1_1_native._1_1_1_transformation
+package _1_dataframe._1_1_native._1_1_3_join
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 
-object DFFullOuterJoinDemo {
+object DFRightOuterJoinDemo {
 
   def main(args: Array[String]): Unit = {
 
@@ -24,12 +24,12 @@ object DFFullOuterJoinDemo {
     import com.databricks.spark.avro._
     import sqlContext.implicits._
 
-    println("***** Problem Statement : Find out total number of records by full joining order & order items *****")
+    println("***** Problem Statement : Find out number of order items, which does not linked with order *****")
 
     // Create DataFrame using JSON of order
     val ordersDF = sqlContext.
       read.
-      avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/avro")
+      parquet("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/parquet")
 
     // Print schema
     ordersDF.
@@ -38,17 +38,18 @@ object DFFullOuterJoinDemo {
     // Create DataFrame using JSON of order items
     val orderItemsDF = sqlContext.
       read.
-      parquet("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/parquet")
+      avro("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/order_items/avro")
 
     // Print schema
     orderItemsDF.
       printSchema
 
-    println("===== Approach 1 - Using DSL Way (join [fullouter], select) =====")
+    println("===== Approach 1 - Using DSL Way (join [rightouter], where) =====")
     ordersDF.
-      join(orderItemsDF, $"order_id" === $"order_item_order_id", "fullouter").
+      join(orderItemsDF, $"order_id" === $"order_item_order_id", "rightouter").
+      where($"order_id" isNull).
       select(
-        org.apache.spark.sql.functions.count($"order_id") as "total_count"
+        org.apache.spark.sql.functions.count($"order_item_id") as "order_item_count"
       ).
       show
 
@@ -62,9 +63,11 @@ object DFFullOuterJoinDemo {
     sqlContext.
       sql(
         " SELECT "+
-        "   COUNT(1) as total_count"+
+        "   COUNT(1) as order_item_count"+
         " FROM "+
-        "   ORDERS o FULL OUTER JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) ").
+        "   ORDERS o RIGHT OUTER JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
+        " WHERE " +
+        "   o.order_id IS NULL").
       show
   }
 }
