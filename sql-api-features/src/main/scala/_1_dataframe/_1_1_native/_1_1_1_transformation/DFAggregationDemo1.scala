@@ -42,15 +42,15 @@ object DFAggregationDemo1 {
     orderItemsDF.
       show(10)
 
-    println("===== Approach 1 - Using DSL Way (groupBy, agg, sort, select) ===")
+    println("===== Approach 1 - Using DSL Way (groupBy, agg [sum, count], orderBy, select) ===")
     orderItemsDF.
       groupBy($"order_item_order_id".as("order_id")).
       agg(sum($"order_item_subtotal").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
-      sort($"order_id".asc).
+      orderBy($"order_id".asc).
       select($"order_id", $"order_revenue", $"order_item_count").
       show(30)
 
-    println("===== Approach 2 - Using SQL Way (GROUP BY, SUM, COUNT, ORDER BY) =====")
+    println("===== Approach 2 - Using SQL Way (GROUP BY, [SUM, COUNT], ORDER BY) =====")
     orderItemsDF.
       registerTempTable("order_items")
 
