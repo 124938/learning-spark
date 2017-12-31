@@ -9,7 +9,7 @@ object DFSortDemo3 {
 
     // Create instance of SparkConf
     val conf = new SparkConf().
-      setAppName("Sort Demo 2 - Using DataFrame SQLContext").
+      setAppName("Sort Demo 3 - Using DataFrame SQLContext").
       setMaster("local[2]")
 
     // Create instance of SparkContext
