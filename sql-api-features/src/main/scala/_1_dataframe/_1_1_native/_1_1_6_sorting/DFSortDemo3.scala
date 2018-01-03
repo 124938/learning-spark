@@ -42,16 +42,20 @@ object DFSortDemo3 {
     ordersDF.
       registerTempTable("ORDERS")
 
+    val query =
+      """
+      SELECT
+        *
+      FROM
+        ORDERS
+      ORDER BY
+        order_status asc,
+        order_customer_id desc
+      """
+
+    // Execute query to preview result
     sqlContext.
-      sql(
-        " SELECT "+
-        "   *  "+
-        " FROM "+
-        "   ORDERS "+
-        " ORDER BY "+
-        "   order_status asc, "+
-        "   order_customer_id desc "
-      ).
+      sql(query).
       show(20)
   }
 }
