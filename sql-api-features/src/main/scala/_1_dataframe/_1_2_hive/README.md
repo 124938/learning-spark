@@ -19,7 +19,7 @@
 ### Create
     
 ### Operations
-* DataFrame supports following type of transformations:
+* DataFrame created from Hive Context (aka org.apache.spark.sql.hive.HiveContext) supports following type of transformations:
   * Filter
   * Aggregation
   * Join
@@ -27,4 +27,3 @@
   * Soring & Ranking
   * Analytical or Windowing functions
   * RDD conversion
-  

@@ -595,4 +595,11 @@ only showing top 5 rows
   * JDBC
   * Many more...
     
-### DataFrame - Operation
+### Operations
+* DataFrame created from Native Context (aka org.apache.spark.sql.SQLContext) supports following type of transformations:
+  * Filter
+  * Aggregation
+  * Join
+  * Set
+  * Soring
+  * RDD conversion
