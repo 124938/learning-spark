@@ -26,7 +26,7 @@ object DFAggregationDemo3 {
     // this is used to import
     import com.databricks.spark.avro._
 
-    println("******** Problem Statement : Generate order revenue per order date & product name for NEW & COMPLETE orders only *******")
+    println("******** Problem Statement : Generate order revenue per order date & product name for COMPLETE & CLOSED orders only *******")
 
     // Create DataFrame for products
     val productsDF = sqlContext.
@@ -59,6 +59,9 @@ object DFAggregationDemo3 {
     ordersDF.
       join(orderItemsDF, $"order_id" === $"order_item_order_id").
       join(productsDF, $"order_item_product_id" === $"product_id").
+      where(
+        $"order_status" === "COMPLETE" or $"order_status" === "CLOSED"
+      ).
       groupBy(
         $"order_date",
         $"product_name"
@@ -96,6 +99,8 @@ object DFAggregationDemo3 {
         " FROM "+
         "   ORDERS o JOIN ORDER_ITEMS oi ON (o.order_id = oi.order_item_order_id) "+
         "            JOIN PRODUCTS p ON (oi.order_item_product_id = p.product_id) "+
+        " WHERE "+
+        "   o.order_status IN ('COMPLETE', 'CLOSED') "+
         " GROUP BY "+
         "   o.order_date, p.product_name "+
         " ORDER BY "+
