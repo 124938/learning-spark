@@ -22,21 +22,24 @@ object DFRankDemo1 {
       setConf("spark.sql.shuffle.partitions", "2")
 
     println("**** Problem Statement : Find out top 5 priced product per category (including product category, product id, product price) *****")
-    val query = """SELECT
-                    *
-                  FROM
-                  (
-                    SELECT
-                      product_category_id,
-                      product_id,
-                      product_name,
-                      product_price,
-                      dense_rank() over (PARTITION BY product_category_id ORDER BY product_price DESC) as product_rank
-                    FROM
-                      retail_db.products
-                  ) q
-                  WHERE
-                    product_rank <= 5"""
+    val query =
+      """
+      SELECT
+        *
+      FROM
+      (
+        SELECT
+          product_category_id,
+          product_id,
+          product_name,
+          product_price,
+          dense_rank() over (PARTITION BY product_category_id ORDER BY product_price DESC) as product_rank
+        FROM
+          retail_db.products
+      ) q
+      WHERE
+        product_rank <= 5
+      """
 
     // Preview data by executing query
     hiveContext.
