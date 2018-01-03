@@ -1,15 +1,15 @@
-package _1_dataframe._1_1_native
+package _1_dataframe._1_1_native._1_1_0_create
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
 
-object DFCreationFromParquet {
+object DFCreationFromJson {
 
   def main(args: Array[String]): Unit = {
 
     // Create Spark Configuration
     val conf = new SparkConf().
-      setAppName("DF Creation From Parquet File").
+      setAppName("DF Creation From Json File").
       setMaster("local[2]")
 
     // Create Spark Context
@@ -18,10 +18,10 @@ object DFCreationFromParquet {
     // Create SQL Context
     val sqlContext = new SQLContext(sc)
 
-    println("**** Problem Statement : Create DataFrame - Using Parquet File ****")
+    println("**** Problem Statement : Create DataFrame - Using JSON File****")
     val orderDF1 = sqlContext.
       read.
-      parquet("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/parquet")
+      json("/home/asus/source_code/github/124938/learning-spark/sql-api-features/src/main/resources/retail_db/orders/json")
 
     // Preview schema
     orderDF1.
