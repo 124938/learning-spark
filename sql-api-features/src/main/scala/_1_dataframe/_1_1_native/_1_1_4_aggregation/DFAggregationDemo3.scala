@@ -1,7 +1,6 @@
 package _1_dataframe._1_1_native._1_1_4_aggregation
 
 import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.functions._
 import org.apache.spark.{SparkConf, SparkContext}
 
 object DFAggregationDemo3 {
@@ -56,23 +55,27 @@ object DFAggregationDemo3 {
     orderItemsDF.
       printSchema()
 
-    // Preview records from DataFrame
-    orderItemsDF.
-      show(10)
-
-    /*
     println("===== Approach 1 - Using DSL Way (groupBy, agg [sum, count], orderBy, select) ===")
-    orderItemsDF.
-      groupBy($"order_item_order_id".as("order_id")).
-      agg(sum($"order_item_subtotal").as("order_revenue"), count($"order_item_order_id").as("order_item_count")).
-      orderBy($"order_id".asc).
+    ordersDF.
+      join(orderItemsDF, $"order_id" === $"order_item_order_id").
+      join(productsDF, $"order_item_product_id" === $"product_id").
+      groupBy(
+        $"order_date",
+        $"product_name"
+      ).
+      agg(
+        org.apache.spark.sql.functions.round(org.apache.spark.sql.functions.sum($"order_item_subtotal") cast "FLOAT", 3) as "order_revenue"
+      ).
+      orderBy(
+        $"order_date",
+        $"order_revenue" desc
+      ).
       select(
-        $"order_id",
-        $"order_revenue",
-        $"order_item_count"
+        org.apache.spark.sql.functions.from_unixtime(($"order_date" / 1000) cast "BIGINT", "YYYY-MM-dd") as "order_date",
+        $"product_name",
+        $"order_revenue"
       ).
       show(30)
-    */
 
     println("===== Approach 2 - Using SQL Way (GROUP BY, [SUM], ORDER BY) =====")
     productsDF.
