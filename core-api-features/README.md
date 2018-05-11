@@ -1,9 +1,12 @@
-## Spark Core
+## Spark Core - Introduction
+
+### Overview
+
 * Spark Core is the underlying general execution engine for the Spark platform that all other functionality is built on top of
 * It provides in-memory computing capabilities to deliver speed, a generalized execution model to support a wide variety of applications
 * It supports Java, Scala, and Python APIs for ease of development
 
-## Getting Started - Using REPL
+## Spark Core - Getting Started with REPL
 
 ~~~
 asus@asus-GL553VD:$ spark-shell
@@ -38,7 +41,7 @@ foreach(println)
 5,2013-07-25 00:00:00.0,11318,COMPLETE
 ~~~
 
-## Getting Started - Using IDE
+## Spark Core - Getting Started with application development
 
 ### Launch IDE
 
