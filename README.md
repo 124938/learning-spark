@@ -1,4 +1,4 @@
-## Introduction
+## Spark - Introduction
 
 ### As against a common belief... 
 
@@ -28,12 +28,12 @@
   * Spark provides built-in APIs in Java, Scala, or Python. Therefore, you can write applications in different languages. 
 
 * **Advanced Analytics**
-  * Spark not only supports ‘Map’ and ‘reduce’. 
+  * Spark not only supports `Map` and `reduce`. 
   * It also supports SQL queries, Streaming data, Machine learning (ML), and Graph algorithms.
 
-## Architectural Overview
+## Spark - Architectural Overview
 
-### Spark Stack
+### Modules
 
 * **Spark Core**
   * Heart of the Spark architecture is core engine of Spark, commonly referred as spark-core, which forms the foundation of this powerful architecture.
