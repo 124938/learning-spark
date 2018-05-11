@@ -93,7 +93,7 @@
   ![Alt text](_images/spark-architecture-high-level-view.png?raw=true "Spark Architecture")
 
 
-## Installation (On local machine)
+## Spark - Installation (On local machine)
 
 ### Pre-Requisite:
   
