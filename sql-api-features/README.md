@@ -1,11 +1,13 @@
-## Spark SQL
+## Spark SQL - Introduction
 
-### Introduction
+### Overview
+
 * Spark SQL is one of the most popular module of Spark, developed for structured data processing
 * It provides a programming abstraction called DataFrame & DataSet, which act as a distributed SQL query engine
 * As per Michael Armbrust, Spark SQL = Catalyst optimizer framework  + Implementation of SQL & HiveQL on Spark
 
 ### Features
+
 * **Integrated:**
   * Seamlessly mix SQL queries with Spark programs
   * It lets developer to query structured data with Spark programs (written in Scala, Java, Python, R), which makes it easy to run SQL queries alongside complex analytic algorithm
@@ -24,7 +26,8 @@
 * **Standard Connectivity:**
   * Spark SQL includes a server mode utility with industry standard JDBC & ODBC connectivity
   
-### Architecture
+## Spark SQL - Architecture
+
 * Spark SQL is a library on top of Spark Core execution engine (as shown in below figure)
 * It exposes.. 
   * DataFrame & DataSet API to read/write data from and to variety of data sources using programming language Scala, Java, Python, R
@@ -33,7 +36,9 @@
 
   ![Alt text](_images/spark-sql-architecture.jpeg?raw=true "Spark SQL - Architecture")
   
-## Getting Started - Using REPL
+## Spark SQL - Getting started with REPL
+
+### Launch REPL
 
 * **Start `spark-shell`:**
 
@@ -109,7 +114,7 @@ foreach(println)
 [5,2013-07-25 00:00:00.0,11318,COMPLETE]
 ~~~
 
-## Getting Started - Using IDE
+## Spark SQL - Getting started with application development
 
 ### Launch IDE
 
