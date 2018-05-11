@@ -108,7 +108,7 @@
 * Refer below command to unzip downloaded file
   * `tar -xvf spark-1.6.3-bin-hadoop2.6.tgz`
   
-* Create environment variable called SPARK_HOME
+* Create environment variable called `SPARK_HOME`
   * `SPARK_HOME=/path/to/spark-1.6.3-bin-hadoop2.6`
   
 * Update environment variable called PATH 
