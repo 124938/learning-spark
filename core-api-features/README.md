@@ -3,8 +3,8 @@
 ### Overview
 
 * Spark Core is the underlying general execution engine for the Spark platform that all other functionality is built on top of
-* It provides in-memory computing capabilities to deliver speed, a generalized execution model to support a wide variety of applications
-* It supports Java, Scala, and Python APIs for ease of development
+* It provides services such as managing the memory pool, scheduling of tasks on the cluster, recovering failed jobs, and providing support to work with a wide variety of storage systems such as HDFS, S3, and so on.
+* It provides in-memory computing capabilities with help of RDD to deliver speed, a generalized execution model to support a wide variety of applications
 
 ## Spark Core - Getting Started with REPL
 
