@@ -11,6 +11,9 @@ sql-api-features/metastore_db/*
 sql-api-features/.idea/*
 sql-api-features/project/*
 sql-api-features/target/*
+streaming-api-features/.idea/*
+streaming-api-features/project/*
+streaming-api-features/target/*
 metastore_db/*
 *.log
 hive_context
