@@ -42,15 +42,15 @@
 
 ## Spark Streaming - Getting started with REPL
 
-### Launch terminal
-* Start web service from terminal using `netcat`
+### (1) Launch REPL in local model
+
+* Start web service from terminal using `netcat` command
 
 ~~~
 asus@asus-GL553VD:~$ netcat -lk 9999
 ~~~
 
-### Launch REPL
-* Launch `spark-shell`
+* Launch spark from terminal using `spark-shell` command
 
 ~~~
 asus@asus-GL553VD:~$ spark-shell \
