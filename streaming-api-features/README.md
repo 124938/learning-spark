@@ -25,18 +25,26 @@
 * Spark Streaming is an extension of the core spark API that enables scalable, high-throughput, fault tolerant processing of live streaming data
 * Typical life cycle of spark streaming application includes following steps: 
   * Pulling data from various sources like Kafka, Flume, Kinesis, TCP sockets etc.
-  * Processed data using complex algorithms expressed with high level functions like `map`, `reduce`, `join` and `window`
-  * Pushing processed data to file system, database, live dashboards etc.
+  * Processed data using complex algorithms expressed with high level functions like `map`, `reduce`, `join` and `window`. In fact, we can apply machine learning algorithms, graph algorithms on data streams.
+  * Pushing processed data to file system, database, live dashboards etc. 
 
 ## Spark Streaming - Architecture
+
+  ![Alt text](_images/_1_spark_streaming_model.png?raw=true "Spark Streaming - Architecture")
+
+### Data Flow
 * Spark Streaming application receives live data streams and divides the data into batches, which are then processed by the spark engine to generate the final stream of result in batches
 * It provides a high-level abstraction called DStream (Discretized Stream), which can be considered as:
   * Continuous stream of data
   * Sequence of RDDs
 
+  ![Alt text](_images/_2_spark_streaming_data_flow.png?raw=true "Spark Streaming - Data Flow")
+
 ## Spark Streaming - Getting started with REPL
 
+
 ## Spark Streaming - Getting started with application development
+
 
 ## Understanding of different context in Spark
 
