@@ -42,7 +42,7 @@
 
 ## Spark Streaming - Getting started with REPL
 
-### (1) Launch REPL in local model
+### (1) Launch `spark-shell` in local model
 
 * Start web service from terminal using `netcat` command
 
@@ -177,8 +177,13 @@ Time: 1526625310000 ms
 
 ## Spark Streaming - Getting started with application development
 
+### Launch IDE
 
-## Understanding of different context in Spark
+### Launch SBT
+
+### Launch `spark-submit`
+
+## Spark - Understanding of different context
 
 | Metrics| `org.apache.spark.SparkContext` | `org.apache.spark.sql.SQLContext` | `org.apache.spark.streaming.StreamingContext` |
 |--------|---------------------------------|-----------------------------------|-----------------------------------------------|
