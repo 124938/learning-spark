@@ -51,7 +51,6 @@ asus@asus-GL553VD:~$ netcat -lk 9999
 ~~~
 
 * Launch spark from terminal using `spark-shell` command
-
 ~~~
 asus@asus-GL553VD:~$ spark-shell \
   --master local[*] \
@@ -81,7 +80,6 @@ scala>
 ~~~
 
 * Create instance of `org.apache.spark.streaming.StreamingContext`
-
 ~~~
 scala> import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.StreamingContext
@@ -94,14 +92,12 @@ ssc: org.apache.spark.streaming.StreamingContext = org.apache.spark.streaming.St
 ~~~
 
 * Create instance of `org.apache.spark.streaming.dstream.DStream` from socket
-
 ~~~
 scala> val lines = ssc.socketTextStream("localhost", 9999)
 lines: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] = org.apache.spark.streaming.dstream.SocketInputDStream@1c63aa5d
 ~~~
 
 * Create word count program
-
 ~~~
 scala> val words = lines.flatMap((line: String) => line.split(" "))
 words: org.apache.spark.streaming.dstream.DStream[String] = org.apache.spark.streaming.dstream.FlatMappedDStream@452888c2
@@ -113,12 +109,14 @@ scala> val wordCount = wordMap.reduceByKey((aggCount: Int, element: Int) => aggC
 wordCount: org.apache.spark.streaming.dstream.DStream[(String, Int)] = org.apache.spark.streaming.dstream.ShuffledDStream@1c49ae29
 
 scala> wordCount.print
+~~~
 
+* Start streaming context
+~~~
 scala> ssc.start
 ~~~
 
-* Add text on `netcat` terminal
-
+* Add lines on `netcat` terminal
 ~~~
 asus@asus-GL553VD:~$ netcat -lk 9999
 this is the first message
@@ -139,7 +137,6 @@ again
 ~~~
 
 * Verify output on `spark-shell`
-
 ~~~
 18/05/18 12:04:51 WARN BlockManager: Block input-0-1526625291600 replicated to only 0 peer(s) instead of 1 peers
 -------------------------------------------
