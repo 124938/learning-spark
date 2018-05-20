@@ -40,14 +40,18 @@
 
   ![Alt text](_images/_2_spark_streaming_data_flow.png?raw=true "Spark Streaming - Data Flow")
 
-## Spark Streaming - Getting started with REPL
+## Spark Streaming - Pre-Requisite
 
-### Launch `spark-shell` in local model
+### Launch `netcat` web service 
 
 * Start web service from terminal using `netcat` command
 ~~~
-asus@asus-GL553VD:~$ netcat -lk 9999
+asus@asus-GL553VD:~$ netcat -lk localhost 9999
 ~~~
+
+## Spark Streaming - Getting started with REPL
+
+### Launch `spark-shell` in local model
 
 * Launch spark from terminal using `spark-shell` command
 ~~~
@@ -533,15 +537,11 @@ Time: 1526804595000 ms
 
 ### Launch `spark-submit` in YARN mode
 
-* Copy `streaming-api-features.jar` to cluster
+* Copy `streaming-api-features.jar` to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
 ~~~
 
-* Login to cloudera quickstart VM or gateway node of hadoop cluster
-~~~
-~~~
-
-* Start web service from terminal using netcat
+* Login to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
 ~~~
 
