@@ -42,10 +42,9 @@
 
 ## Spark Streaming - Getting started with REPL
 
-### (1) Launch `spark-shell` in local model
+### Launch `spark-shell` in local model
 
 * Start web service from terminal using `netcat` command
-
 ~~~
 asus@asus-GL553VD:~$ netcat -lk 9999
 ~~~
@@ -289,37 +288,47 @@ scalaVersion := "2.10.6"
 libraryDependencies += "org.apache.spark" % "spark-streaming_2.10" % "1.6.3"
 ~~~
   
-* Refer below code snippet to create sample scala program in IDE
+* Refer below code snippet to create sample program in IDE
 
 ~~~
+package _1_dstream
+
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.{StreamingContext, Seconds}
-    
+
 object NetworkWordCount {
 
   def main(args: Array[String]): Unit = {
+    // Get arguments from program
+    val mode = args(0)
+    val host = args(1)
+    val port = args(2).toInt
+
     // Create Spark Config
     val conf = new SparkConf().
-      setMaster("local[*]").
+      setMaster(mode).
       setAppName("Network word count")
-    
+
     // Create Spark Context
     val sc = new SparkContext(conf)
-    
+
     // Create Spark Streaming Context
     val ssc = new StreamingContext(sc, Seconds(5))
-    
+
     // Create word count program
-    val lines = ssc.socketStream("localhost", 9999)
+    val lines = ssc.socketTextStream(host, port)
     val words = lines.flatMap((line: String) => line.split(" "))
     val wordsMap = words.map((word: String) => (word, 1))
     val wordCount = wordsMap.reduceByKey((agg: Int, ele: Int) => agg + ele)
+
+    // Print output
     wordCount.print
-    
-    // Start streaming context
+
+    // Start spark streaming
     ssc.start
-    ssc.awaitTermination  
+    ssc.awaitTermination
   }
+
 }
 ~~~
     
@@ -414,10 +423,10 @@ Time: 1526804585000 ms
 18/05/20 13:53:10 INFO DAGScheduler: ResultStage 12 (print at NetworkWordCount.scala:32) finished in 0.009 s
 18/05/20 13:53:10 INFO TaskSchedulerImpl: Removed TaskSet 12.0, whose tasks have all completed, from pool 
 18/05/20 13:53:10 INFO DAGScheduler: Job 6 finished: print at NetworkWordCount.scala:32, took 0.012473 s
+
 -------------------------------------------
 Time: 1526804590000 ms
 -------------------------------------------
-
 18/05/20 13:53:15 INFO Executor: Running task 2.0 in stage 16.0 (TID 22)
 18/05/20 13:53:15 INFO Executor: Running task 1.0 in stage 16.0 (TID 20)
 18/05/20 13:53:15 INFO Executor: Running task 0.0 in stage 16.0 (TID 19)
@@ -441,6 +450,33 @@ Time: 1526804590000 ms
 18/05/20 13:53:15 INFO TaskSchedulerImpl: Removed TaskSet 16.0, whose tasks have all completed, from pool 
 18/05/20 13:53:15 INFO DAGScheduler: ResultStage 16 (print at NetworkWordCount.scala:32) finished in 0.006 s
 18/05/20 13:53:15 INFO DAGScheduler: Job 8 finished: print at NetworkWordCount.scala:32, took 0.010708 s
+~~~
+
+* Add lines on `netcat` terminal
+~~~
+hi hello world
+Hi hello world
+this is the first time i am doing testing
+again doing testing
+hi hello world
+Hi hello world
+this is the first time i am doing testing
+again doing testing
+hi hello world
+hi hello world
+Hi hello world
+this is the first time i am doing testing
+again doing testing
+hi hello world
+Hi hello world
+this is the first time i am doing testing
+again doing testing
+hi hello world
+~~~
+
+* Verify sbt terminal to see the result
+~~~
+
 -------------------------------------------
 Time: 1526804595000 ms
 -------------------------------------------
@@ -470,19 +506,7 @@ Time: 1526804595000 ms
 18/05/20 13:53:15 INFO ReceivedBlockTracker: Deleting batches ArrayBuffer(1526804585000 ms)
 18/05/20 13:53:15 INFO InputInfoTracker: remove old batch metadata: 1526804585000 ms
 ^C18/05/20 13:53:17 INFO StreamingContext: Invoking stop(stopGracefully=false) from shutdown hook
-18/05/20 13:53:17 INFO ReceiverTracker: Sent stop signal to all 1 receivers
-18/05/20 13:53:17 INFO ReceiverSupervisorImpl: Received stop signal
-18/05/20 13:53:17 INFO ReceiverSupervisorImpl: Stopping receiver with message: Stopped by driver: 
-18/05/20 13:53:17 INFO ReceiverSupervisorImpl: Called receiver onStop
-18/05/20 13:53:17 INFO ReceiverSupervisorImpl: Deregistering receiver 0
 18/05/20 13:53:17 ERROR ReceiverTracker: Deregistered receiver for stream 0: Stopped by driver
-18/05/20 13:53:17 INFO ReceiverSupervisorImpl: Stopped receiver 0
-18/05/20 13:53:17 INFO BlockGenerator: Stopping BlockGenerator
-18/05/20 13:53:18 INFO RecurringTimer: Stopped timer for BlockGenerator after time 1526804598000
-18/05/20 13:53:18 INFO BlockGenerator: Waiting for block pushing thread to terminate
-18/05/20 13:53:18 INFO BlockGenerator: Pushing out the last 0 blocks
-18/05/20 13:53:18 INFO BlockGenerator: Stopped block pushing thread
-18/05/20 13:53:18 INFO BlockGenerator: Stopped BlockGenerator
 18/05/20 13:53:18 INFO ReceiverSupervisorImpl: Stopped receiver without error
 18/05/20 13:53:18 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 915 bytes result sent to driver
 18/05/20 13:53:18 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 15763 ms on localhost (1/1)
@@ -507,7 +531,23 @@ Time: 1526804595000 ms
 18/05/20 13:53:18 INFO ShutdownHookManager: Deleting directory /tmp/spark-7907a965-755f-499b-88c7-8a29a67a2d2f
 ~~~
 
-### Launch `spark-submit`
+### Launch `spark-submit` in YARN mode
+
+* Copy `streaming-api-features.jar` to cluster
+~~~
+~~~
+
+* Login to cloudera quickstart VM or gateway node of hadoop cluster
+~~~
+~~~
+
+* Start web service from terminal using netcat
+~~~
+~~~
+
+* Execute network word count program
+~~~
+~~~
 
 ## Spark - Understanding of different context
 
