@@ -536,22 +536,41 @@ Time: 1526804595000 ms
 
 ## Spark Streaming - Getting started with application deployment
 
-### Copy generated artifact from local/development machine to deployment machine
+### Copy generated artifact from local/dev machine to deployment machine
 
 * Copy `streaming-api-features.jar` to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
+asus@asus-GL553VD:$ scp \
+/home/asus/source_code/github/124938/learning-spark/streaming-api-features/target/scala-2.10/streaming-api-features_2.10-0.1.jar \
+cloudera@192.168.211.142:~
 ~~~
 
 ### Login to deployment machine
 
 * Execute `ssh` command for login to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
+asus@asus-GL553VD:$ ssh cloudera@192.168.211.142
+cloudera@192.168.211.142's password: 
+Last login: Mon May  7 07:31:16 2018 from 192.168.211.1
+~~~
+
+* Verify copied artifact on cluster
+~~~
+[cloudera@quickstart ~]$ ls -ltr streaming-api-features_2.10-0.1.jar
+-rw-rw-r-- 1 cloudera cloudera 4928 May 20 04:16 streaming-api-features_2.10-0.1.jar
 ~~~
 
 ### Launch `spark-submit` (in YARN mode) to execute application
 
 * Execute `spark-submit` network word count program
 ~~~
+[cloudera@quickstart ~]$ spark-submit \
+  --class NetcatWordCount \
+  --master yarn \
+  --num-executors 1 \
+  --executor-memory 1g \
+  --conf spark.executor.heartbeatInterval=20s \
+  streaming-api-features_2.10-0.1.jar yarn-client localhost 9999
 ~~~
 
 ## Spark - Understanding of different context
