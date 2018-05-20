@@ -51,9 +51,9 @@ asus@asus-GL553VD:~$ netcat -lk localhost 9999
 
 ## Spark Streaming - Getting started with REPL
 
-### Launch `spark-shell` in local model
+### Launch `spark-shell` (in local model) to execute sample program
 
-* Launch spark from terminal using `spark-shell` command
+* Start `spark-shell` terminal
 ~~~
 asus@asus-GL553VD:~$ spark-shell \
   --master local[*] \
@@ -237,7 +237,7 @@ message again
 again
 ~~~
 
-* Verify output on `spark-shell`
+* Verify output on `spark-shell` terminal
 ~~~
 18/05/18 12:04:51 WARN BlockManager: Block input-0-1526625291600 replicated to only 0 peer(s) instead of 1 peers
 -------------------------------------------
@@ -278,7 +278,7 @@ Time: 1526625310000 ms
 
 ## Spark Streaming - Getting started with application development
 
-### Launch IDE to create project
+### Launch IDE to create application project
 
 * Create SBT project called `streaming-api-features` in IntelliJ Idea/Eclipse
   
@@ -292,7 +292,7 @@ scalaVersion := "2.10.6"
 libraryDependencies += "org.apache.spark" % "spark-streaming_2.10" % "1.6.3"
 ~~~
   
-* Refer below code snippet to create sample program in IDE
+* Refer below code snippet to create `NetworkWordCount` sample program in IDE
 
 ~~~
 import org.apache.spark.streaming.{Seconds, StreamingContext}
@@ -336,9 +336,9 @@ object NetworkWordCount {
     
 * Execute above program under IDE to see the result
 
-### Launch `sbt` for executing program
+### Launch `sbt` for executing application
 
-* Launch `sbt` terminal
+* Start `sbt` terminal
 ~~~
 asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-features$ sbt
 [info] Loading global plugins from /home/asus/.sbt/0.13/plugins
@@ -536,34 +536,6 @@ Time: 1526804595000 ms
 
 ## Spark Streaming - Getting started with application deployment
 
-### Launch `sbt` to generate artifact
-
-* Launch `sbt` terminal
-~~~
-asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-features$ sbt
-[info] Loading global plugins from /home/asus/.sbt/0.13/plugins
-[info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/streaming-api-features/project
-[info] Set current project to streaming-api-features (in build file:/home/asus/source_code/github/124938/learning-spark/streaming-api-features/)
-~~~
-
-* Execute `clean` command
-~~~
-> clean
-[success] Total time: 0 s, completed 20 May, 2018 1:50:20 PM
-~~~
-
-* Execute `package` command
-~~~
-> package
-[info] Updating {file:/home/asus/source_code/github/124938/learning-spark/streaming-api-features/}streaming-api-features...
-[info] Resolving org.fusesource.jansi#jansi;1.4 ...
-[info] Done updating.
-[info] Compiling 1 Scala source to /home/asus/source_code/github/124938/learning-spark/streaming-api-features/target/scala-2.10/classes...
-[info] Packaging /home/asus/source_code/github/124938/learning-spark/streaming-api-features/target/scala-2.10/streaming-api-features_2.10-0.1.jar ...
-[info] Done packaging.
-[success] Total time: 5 s, completed 20 May, 2018 1:50:28 PM
-~~~
-
 ### Copy generated artifact from local/development machine to deployment machine
 
 * Copy `streaming-api-features.jar` to Cloudera quickstart VM or gateway node of hadoop cluster
@@ -576,7 +548,7 @@ asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-featu
 ~~~
 ~~~
 
-### Launch `spark-submit` in YARN mode
+### Launch `spark-submit` (in YARN mode) to execute application
 
 * Execute `spark-submit` network word count program
 ~~~
