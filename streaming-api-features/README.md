@@ -40,7 +40,7 @@
 
   ![Alt text](_images/_2_spark_streaming_data_flow.png?raw=true "Spark Streaming - Data Flow")
 
-## Spark Streaming - Pre-Requisite
+## Pre-Requisite
 
 ### Launch `netcat` web service 
 
