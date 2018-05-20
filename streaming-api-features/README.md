@@ -278,7 +278,7 @@ Time: 1526625310000 ms
 
 ## Spark Streaming - Getting started with application development
 
-### Launch IDE
+### Launch IDE to create project
 
 * Create SBT project called `streaming-api-features` in IntelliJ Idea/Eclipse
   
@@ -295,8 +295,6 @@ libraryDependencies += "org.apache.spark" % "spark-streaming_2.10" % "1.6.3"
 * Refer below code snippet to create sample program in IDE
 
 ~~~
-package _1_dstream
-
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -311,7 +309,7 @@ object NetworkWordCount {
     // Create Spark Config
     val conf = new SparkConf().
       setMaster(mode).
-      setAppName("Network word count")
+      setAppName("Netcat word count")
 
     // Create Spark Context
     val sc = new SparkContext(conf)
@@ -338,7 +336,7 @@ object NetworkWordCount {
     
 * Execute above program under IDE to see the result
 
-### Launch SBT
+### Launch `sbt` for executing program
 
 * Launch `sbt` terminal
 ~~~
@@ -368,8 +366,8 @@ asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-featu
 
 * Execute `runMain` command
 ~~~
-> runMain _1_dstream.NetworkWordCount local[*] localhost 9999
-[info] Running _1_dstream.NetworkWordCount local[*] localhost 9999
+> runMain NetcatWordCount local[*] localhost 9999
+[info] Running NetcatWordCount local[*] localhost 9999
 Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 18/05/20 13:53:00 INFO SparkContext: Running Spark version 1.6.3
 18/05/20 13:53:00 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
@@ -509,7 +507,8 @@ Time: 1526804595000 ms
 18/05/20 13:53:15 INFO SocketInputDStream: Removing blocks of RDD BlockRDD[5] at socketTextStream at NetworkWordCount.scala:26 of time 1526804595000 ms
 18/05/20 13:53:15 INFO ReceivedBlockTracker: Deleting batches ArrayBuffer(1526804585000 ms)
 18/05/20 13:53:15 INFO InputInfoTracker: remove old batch metadata: 1526804585000 ms
-^C18/05/20 13:53:17 INFO StreamingContext: Invoking stop(stopGracefully=false) from shutdown hook
+^C
+18/05/20 13:53:17 INFO StreamingContext: Invoking stop(stopGracefully=false) from shutdown hook
 18/05/20 13:53:17 ERROR ReceiverTracker: Deregistered receiver for stream 0: Stopped by driver
 18/05/20 13:53:18 INFO ReceiverSupervisorImpl: Stopped receiver without error
 18/05/20 13:53:18 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 915 bytes result sent to driver
@@ -535,17 +534,51 @@ Time: 1526804595000 ms
 18/05/20 13:53:18 INFO ShutdownHookManager: Deleting directory /tmp/spark-7907a965-755f-499b-88c7-8a29a67a2d2f
 ~~~
 
-### Launch `spark-submit` in YARN mode
+## Spark Streaming - Getting started with application deployment
+
+### Launch `sbt` to generate artifact
+
+* Launch `sbt` terminal
+~~~
+asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-features$ sbt
+[info] Loading global plugins from /home/asus/.sbt/0.13/plugins
+[info] Loading project definition from /home/asus/source_code/github/124938/learning-spark/streaming-api-features/project
+[info] Set current project to streaming-api-features (in build file:/home/asus/source_code/github/124938/learning-spark/streaming-api-features/)
+~~~
+
+* Execute `clean` command
+~~~
+> clean
+[success] Total time: 0 s, completed 20 May, 2018 1:50:20 PM
+~~~
+
+* Execute `package` command
+~~~
+> package
+[info] Updating {file:/home/asus/source_code/github/124938/learning-spark/streaming-api-features/}streaming-api-features...
+[info] Resolving org.fusesource.jansi#jansi;1.4 ...
+[info] Done updating.
+[info] Compiling 1 Scala source to /home/asus/source_code/github/124938/learning-spark/streaming-api-features/target/scala-2.10/classes...
+[info] Packaging /home/asus/source_code/github/124938/learning-spark/streaming-api-features/target/scala-2.10/streaming-api-features_2.10-0.1.jar ...
+[info] Done packaging.
+[success] Total time: 5 s, completed 20 May, 2018 1:50:28 PM
+~~~
+
+### Copy generated artifact from local/development machine to deployment machine
 
 * Copy `streaming-api-features.jar` to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
 ~~~
 
-* Login to Cloudera quickstart VM or gateway node of hadoop cluster
+### Login to deployment machine
+
+* Execute `ssh` command for login to Cloudera quickstart VM or gateway node of hadoop cluster
 ~~~
 ~~~
 
-* Execute network word count program
+### Launch `spark-submit` in YARN mode
+
+* Execute `spark-submit` network word count program
 ~~~
 ~~~
 
