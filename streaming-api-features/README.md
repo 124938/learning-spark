@@ -46,7 +46,7 @@
 
 * Start web service from terminal using `netcat` command
 ~~~
-asus@asus-GL553VD:~$ netcat -lk localhost 9999
+asus@asus-GL553VD:~$ netcat -lk 172.16.252.1 9999
 ~~~
 
 ## Spark Streaming - Getting started with REPL
@@ -194,7 +194,7 @@ scala> val ssc = new StreamingContext(conf, Seconds(5))
 
 * Create instance of `org.apache.spark.streaming.dstream.DStream` from socket
 ~~~
-scala> val lines = ssc.socketTextStream("localhost", 9999)
+scala> val lines = ssc.socketTextStream("172.16.252.1", 9999)
 lines: org.apache.spark.streaming.dstream.ReceiverInputDStream[String] = org.apache.spark.streaming.dstream.SocketInputDStream@1c63aa5d
 ~~~
 
@@ -366,8 +366,8 @@ asus@asus-GL553VD:~/source_code/github/124938/learning-spark/streaming-api-featu
 
 * Execute `runMain` command
 ~~~
-> runMain NetcatWordCount local[*] localhost 9999
-[info] Running NetcatWordCount local[*] localhost 9999
+> runMain NetcatWordCount local[*] 172.16.252.1 9999
+[info] Running NetcatWordCount local[*] 172.16.252.1 9999
 Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 18/05/20 13:53:00 INFO SparkContext: Running Spark version 1.6.3
 18/05/20 13:53:00 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
@@ -376,9 +376,9 @@ Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 18/05/20 13:53:05 INFO SparkContext: Created broadcast 3 from broadcast at DAGScheduler.scala:1006
 18/05/20 13:53:05 INFO DAGScheduler: Submitting 3 missing tasks from ResultStage 6 (ShuffledRDD[4] at reduceByKey at NetworkWordCount.scala:29)
 18/05/20 13:53:05 INFO TaskSchedulerImpl: Adding task set 6.0 with 3 tasks
-18/05/20 13:53:05 INFO TaskSetManager: Starting task 0.0 in stage 6.0 (TID 6, localhost, partition 5,PROCESS_LOCAL, 1894 bytes)
-18/05/20 13:53:05 INFO TaskSetManager: Starting task 1.0 in stage 6.0 (TID 7, localhost, partition 6,PROCESS_LOCAL, 1894 bytes)
-18/05/20 13:53:05 INFO TaskSetManager: Starting task 2.0 in stage 6.0 (TID 8, localhost, partition 7,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:05 INFO TaskSetManager: Starting task 0.0 in stage 6.0 (TID 6, 172.16.252.1, partition 5,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:05 INFO TaskSetManager: Starting task 1.0 in stage 6.0 (TID 7, 172.16.252.1, partition 6,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:05 INFO TaskSetManager: Starting task 2.0 in stage 6.0 (TID 8, 172.16.252.1, partition 7,PROCESS_LOCAL, 1894 bytes)
 18/05/20 13:53:05 INFO Executor: Running task 0.0 in stage 6.0 (TID 6)
 18/05/20 13:53:05 INFO Executor: Running task 1.0 in stage 6.0 (TID 7)
 18/05/20 13:53:05 INFO ShuffleBlockFetcherIterator: Getting 0 non-empty blocks out of 0 blocks
@@ -386,14 +386,14 @@ Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 18/05/20 13:53:05 INFO ShuffleBlockFetcherIterator: Getting 0 non-empty blocks out of 0 blocks
 18/05/20 13:53:05 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 0 ms
 18/05/20 13:53:05 INFO Executor: Finished task 0.0 in stage 6.0 (TID 6). 1161 bytes result sent to driver
-18/05/20 13:53:05 INFO TaskSetManager: Finished task 0.0 in stage 6.0 (TID 6) in 6 ms on localhost (1/3)
+18/05/20 13:53:05 INFO TaskSetManager: Finished task 0.0 in stage 6.0 (TID 6) in 6 ms on 172.16.252.1 (1/3)
 18/05/20 13:53:05 INFO Executor: Finished task 1.0 in stage 6.0 (TID 7). 1161 bytes result sent to driver
 18/05/20 13:53:05 INFO Executor: Running task 2.0 in stage 6.0 (TID 8)
-18/05/20 13:53:05 INFO TaskSetManager: Finished task 1.0 in stage 6.0 (TID 7) in 6 ms on localhost (2/3)
+18/05/20 13:53:05 INFO TaskSetManager: Finished task 1.0 in stage 6.0 (TID 7) in 6 ms on 172.16.252.1 (2/3)
 18/05/20 13:53:05 INFO ShuffleBlockFetcherIterator: Getting 0 non-empty blocks out of 0 blocks
 18/05/20 13:53:05 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 0 ms
 18/05/20 13:53:05 INFO Executor: Finished task 2.0 in stage 6.0 (TID 8). 1161 bytes result sent to driver
-18/05/20 13:53:05 INFO TaskSetManager: Finished task 2.0 in stage 6.0 (TID 8) in 11 ms on localhost (3/3)
+18/05/20 13:53:05 INFO TaskSetManager: Finished task 2.0 in stage 6.0 (TID 8) in 11 ms on 172.16.252.1 (3/3)
 18/05/20 13:53:05 INFO TaskSchedulerImpl: Removed TaskSet 6.0, whose tasks have all completed, from pool 
 18/05/20 13:53:05 INFO DAGScheduler: ResultStage 6 (print at NetworkWordCount.scala:32) finished in 0.012 s
 18/05/20 13:53:05 INFO DAGScheduler: Job 3 finished: print at NetworkWordCount.scala:32, took 0.016338 s
@@ -404,9 +404,9 @@ Time: 1526804585000 ms
 18/05/20 13:53:10 INFO SparkContext: Created broadcast 6 from broadcast at DAGScheduler.scala:1006
 18/05/20 13:53:10 INFO DAGScheduler: Submitting 3 missing tasks from ResultStage 12 (ShuffledRDD[8] at reduceByKey at NetworkWordCount.scala:29)
 18/05/20 13:53:10 INFO TaskSchedulerImpl: Adding task set 12.0 with 3 tasks
-18/05/20 13:53:10 INFO TaskSetManager: Starting task 0.0 in stage 12.0 (TID 14, localhost, partition 5,PROCESS_LOCAL, 1894 bytes)
-18/05/20 13:53:10 INFO TaskSetManager: Starting task 1.0 in stage 12.0 (TID 15, localhost, partition 6,PROCESS_LOCAL, 1894 bytes)
-18/05/20 13:53:10 INFO TaskSetManager: Starting task 2.0 in stage 12.0 (TID 16, localhost, partition 7,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:10 INFO TaskSetManager: Starting task 0.0 in stage 12.0 (TID 14, 172.16.252.1, partition 5,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:10 INFO TaskSetManager: Starting task 1.0 in stage 12.0 (TID 15, 172.16.252.1, partition 6,PROCESS_LOCAL, 1894 bytes)
+18/05/20 13:53:10 INFO TaskSetManager: Starting task 2.0 in stage 12.0 (TID 16, 172.16.252.1, partition 7,PROCESS_LOCAL, 1894 bytes)
 18/05/20 13:53:10 INFO Executor: Running task 2.0 in stage 12.0 (TID 16)
 18/05/20 13:53:10 INFO Executor: Running task 0.0 in stage 12.0 (TID 14)
 18/05/20 13:53:10 INFO Executor: Running task 1.0 in stage 12.0 (TID 15)
@@ -416,12 +416,12 @@ Time: 1526804585000 ms
 18/05/20 13:53:10 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 0 ms
 18/05/20 13:53:10 INFO Executor: Finished task 0.0 in stage 12.0 (TID 14). 1161 bytes result sent to driver
 18/05/20 13:53:10 INFO Executor: Finished task 1.0 in stage 12.0 (TID 15). 1161 bytes result sent to driver
-18/05/20 13:53:10 INFO TaskSetManager: Finished task 0.0 in stage 12.0 (TID 14) in 5 ms on localhost (1/3)
-18/05/20 13:53:10 INFO TaskSetManager: Finished task 1.0 in stage 12.0 (TID 15) in 5 ms on localhost (2/3)
+18/05/20 13:53:10 INFO TaskSetManager: Finished task 0.0 in stage 12.0 (TID 14) in 5 ms on 172.16.252.1 (1/3)
+18/05/20 13:53:10 INFO TaskSetManager: Finished task 1.0 in stage 12.0 (TID 15) in 5 ms on 172.16.252.1 (2/3)
 18/05/20 13:53:10 INFO ShuffleBlockFetcherIterator: Getting 0 non-empty blocks out of 0 blocks
 18/05/20 13:53:10 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 0 ms
 18/05/20 13:53:10 INFO Executor: Finished task 2.0 in stage 12.0 (TID 16). 1161 bytes result sent to driver
-18/05/20 13:53:10 INFO TaskSetManager: Finished task 2.0 in stage 12.0 (TID 16) in 8 ms on localhost (3/3)
+18/05/20 13:53:10 INFO TaskSetManager: Finished task 2.0 in stage 12.0 (TID 16) in 8 ms on 172.16.252.1 (3/3)
 18/05/20 13:53:10 INFO DAGScheduler: ResultStage 12 (print at NetworkWordCount.scala:32) finished in 0.009 s
 18/05/20 13:53:10 INFO TaskSchedulerImpl: Removed TaskSet 12.0, whose tasks have all completed, from pool 
 18/05/20 13:53:10 INFO DAGScheduler: Job 6 finished: print at NetworkWordCount.scala:32, took 0.012473 s
@@ -443,12 +443,12 @@ Time: 1526804590000 ms
 18/05/20 13:53:15 INFO ShuffleBlockFetcherIterator: Getting 0 non-empty blocks out of 1 blocks
 18/05/20 13:53:15 INFO Executor: Finished task 3.0 in stage 16.0 (TID 21). 1308 bytes result sent to driver
 18/05/20 13:53:15 INFO ShuffleBlockFetcherIterator: Started 0 remote fetches in 2 ms
-18/05/20 13:53:15 INFO TaskSetManager: Finished task 3.0 in stage 16.0 (TID 21) in 5 ms on localhost (1/4)
+18/05/20 13:53:15 INFO TaskSetManager: Finished task 3.0 in stage 16.0 (TID 21) in 5 ms on 172.16.252.1 (1/4)
 18/05/20 13:53:15 INFO Executor: Finished task 2.0 in stage 16.0 (TID 22). 1161 bytes result sent to driver
-18/05/20 13:53:15 INFO TaskSetManager: Finished task 0.0 in stage 16.0 (TID 19) in 5 ms on localhost (2/4)
+18/05/20 13:53:15 INFO TaskSetManager: Finished task 0.0 in stage 16.0 (TID 19) in 5 ms on 172.16.252.1 (2/4)
 18/05/20 13:53:15 INFO Executor: Finished task 1.0 in stage 16.0 (TID 20). 1351 bytes result sent to driver
-18/05/20 13:53:15 INFO TaskSetManager: Finished task 2.0 in stage 16.0 (TID 22) in 5 ms on localhost (3/4)
-18/05/20 13:53:15 INFO TaskSetManager: Finished task 1.0 in stage 16.0 (TID 20) in 6 ms on localhost (4/4)
+18/05/20 13:53:15 INFO TaskSetManager: Finished task 2.0 in stage 16.0 (TID 22) in 5 ms on 172.16.252.1 (3/4)
+18/05/20 13:53:15 INFO TaskSetManager: Finished task 1.0 in stage 16.0 (TID 20) in 6 ms on 172.16.252.1 (4/4)
 18/05/20 13:53:15 INFO TaskSchedulerImpl: Removed TaskSet 16.0, whose tasks have all completed, from pool 
 18/05/20 13:53:15 INFO DAGScheduler: ResultStage 16 (print at NetworkWordCount.scala:32) finished in 0.006 s
 18/05/20 13:53:15 INFO DAGScheduler: Job 8 finished: print at NetworkWordCount.scala:32, took 0.010708 s
@@ -512,7 +512,7 @@ Time: 1526804595000 ms
 18/05/20 13:53:17 ERROR ReceiverTracker: Deregistered receiver for stream 0: Stopped by driver
 18/05/20 13:53:18 INFO ReceiverSupervisorImpl: Stopped receiver without error
 18/05/20 13:53:18 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 915 bytes result sent to driver
-18/05/20 13:53:18 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 15763 ms on localhost (1/1)
+18/05/20 13:53:18 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 15763 ms on 172.16.252.1 (1/1)
 18/05/20 13:53:18 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool 
 18/05/20 13:53:18 INFO DAGScheduler: ResultStage 0 (start at NetworkWordCount.scala:35) finished in 15.770 s
 18/05/20 13:53:18 INFO ReceiverTracker: All of the receivers have deregistered successfully
@@ -534,7 +534,7 @@ Time: 1526804595000 ms
 18/05/20 13:53:18 INFO ShutdownHookManager: Deleting directory /tmp/spark-7907a965-755f-499b-88c7-8a29a67a2d2f
 ~~~
 
-## Spark Streaming - Getting started with application deployment
+## Spark Streaming - Getting started with application deployment on hadoop cluster
 
 ### Copy generated artifact from local/dev machine to deployment machine
 
@@ -567,10 +567,198 @@ Last login: Mon May  7 07:31:16 2018 from 192.168.211.1
 [cloudera@quickstart ~]$ spark-submit \
   --class NetcatWordCount \
   --master yarn \
-  --num-executors 1 \
-  --executor-memory 1g \
-  --conf spark.executor.heartbeatInterval=20s \
-  streaming-api-features_2.10-0.1.jar yarn-client localhost 9999
+  --conf spark.rpc.netty.dispatcher.numThreads=2 \
+  streaming-api-features_2.10-0.1.jar yarn-client 172.16.252.1 9999
+
+18/06/02 07:49:25 INFO spark.SparkContext: Running Spark version 1.6.0
+18/06/02 07:49:26 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+18/06/02 07:49:26 WARN util.Utils: Your hostname, quickstart.cloudera resolves to a loopback address: 127.0.0.1; using 192.168.211.142 instead (on interface eth1)
+18/06/02 07:49:26 WARN util.Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+18/06/02 07:49:26 INFO spark.SecurityManager: Changing view acls to: cloudera
+18/06/02 07:49:26 INFO spark.SecurityManager: Changing modify acls to: cloudera
+18/06/02 07:49:26 INFO spark.SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(cloudera); users with modify permissions: Set(cloudera)
+18/06/02 07:49:27 INFO util.Utils: Successfully started service 'sparkDriver' on port 58704.
+18/06/02 07:49:27 INFO slf4j.Slf4jLogger: Slf4jLogger started
+18/06/02 07:49:27 INFO Remoting: Starting remoting
+18/06/02 07:49:27 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@192.168.211.142:50601]
+18/06/02 07:49:27 INFO Remoting: Remoting now listens on addresses: [akka.tcp://sparkDriverActorSystem@192.168.211.142:50601]
+18/06/02 07:49:27 INFO util.Utils: Successfully started service 'sparkDriverActorSystem' on port 50601.
+18/06/02 07:49:27 INFO spark.SparkEnv: Registering MapOutputTracker
+18/06/02 07:49:27 INFO spark.SparkEnv: Registering BlockManagerMaster
+18/06/02 07:49:27 INFO storage.DiskBlockManager: Created local directory at /tmp/blockmgr-62ca7b81-f82f-4d6c-8e50-e60f9c467735
+18/06/02 07:49:27 INFO storage.MemoryStore: MemoryStore started with capacity 534.5 MB
+18/06/02 07:49:27 INFO spark.SparkEnv: Registering OutputCommitCoordinator
+18/06/02 07:49:28 INFO server.Server: jetty-8.y.z-SNAPSHOT
+18/06/02 07:49:28 INFO server.AbstractConnector: Started SelectChannelConnector@0.0.0.0:4040
+18/06/02 07:49:28 INFO util.Utils: Successfully started service 'SparkUI' on port 4040.
+18/06/02 07:49:28 INFO ui.SparkUI: Started SparkUI at http://192.168.211.142:4040
+18/06/02 07:49:28 INFO spark.SparkContext: Added JAR file:/home/cloudera/streaming-api-features_2.10-0.1.jar at spark://192.168.211.142:58704/jars/streaming-api-features_2.10-0.1.jar with timestamp 1527950968246
+18/06/02 07:49:28 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+18/06/02 07:49:28 INFO yarn.Client: Requesting a new application from cluster with 1 NodeManagers
+18/06/02 07:49:28 INFO yarn.Client: Verifying our application has not requested more than the maximum memory capability of the cluster (8192 MB per container)
+18/06/02 07:49:28 INFO yarn.Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+18/06/02 07:49:28 INFO yarn.Client: Setting up container launch context for our AM
+18/06/02 07:49:28 INFO yarn.Client: Setting up the launch environment for our AM container
+18/06/02 07:49:28 INFO yarn.Client: Preparing resources for our AM container
+18/06/02 07:49:29 WARN shortcircuit.DomainSocketFactory: The short-circuit local reads feature cannot be used because libhadoop cannot be loaded.
+18/06/02 07:49:29 INFO yarn.Client: Uploading resource file:/usr/lib/spark/lib/spark-assembly-1.6.0-cdh5.12.0-hadoop2.6.0-cdh5.12.0.jar -> hdfs://quickstart.cloudera:8020/user/cloudera/.sparkStaging/application_1525607376030_0045/spark-assembly-1.6.0-cdh5.12.0-hadoop2.6.0-cdh5.12.0.jar
+18/06/02 07:49:30 INFO yarn.Client: Uploading resource file:/tmp/spark-b13c83e2-a407-404f-bb99-a2e6c69e4192/__spark_conf__5812997457036532763.zip -> hdfs://quickstart.cloudera:8020/user/cloudera/.sparkStaging/application_1525607376030_0045/__spark_conf__5812997457036532763.zip
+18/06/02 07:49:30 INFO spark.SecurityManager: Changing view acls to: cloudera
+18/06/02 07:49:30 INFO spark.SecurityManager: Changing modify acls to: cloudera
+18/06/02 07:49:30 INFO spark.SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(cloudera); users with modify permissions: Set(cloudera)
+18/06/02 07:49:30 INFO yarn.Client: Submitting application 45 to ResourceManager
+18/06/02 07:49:30 INFO impl.YarnClientImpl: Submitted application application_1525607376030_0045
+18/06/02 07:49:31 INFO yarn.Client: Application report for application_1525607376030_0045 (state: ACCEPTED)
+18/06/02 07:49:31 INFO yarn.Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: N/A
+	 ApplicationMaster RPC port: -1
+	 queue: root.cloudera
+	 start time: 1527950970567
+	 final status: UNDEFINED
+	 tracking URL: http://quickstart.cloudera:8088/proxy/application_1525607376030_0045/
+	 user: cloudera
+18/06/02 07:49:32 INFO yarn.Client: Application report for application_1525607376030_0045 (state: ACCEPTED)
+18/06/02 07:49:33 INFO yarn.Client: Application report for application_1525607376030_0045 (state: ACCEPTED)
+18/06/02 07:49:34 INFO yarn.Client: Application report for application_1525607376030_0045 (state: ACCEPTED)
+18/06/02 07:49:35 INFO cluster.YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(null)
+18/06/02 07:49:35 INFO cluster.YarnClientSchedulerBackend: Add WebUI Filter. org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter, Map(PROXY_HOSTS -> quickstart.cloudera, PROXY_URI_BASES -> http://quickstart.cloudera:8088/proxy/application_1525607376030_0045), /proxy/application_1525607376030_0045
+18/06/02 07:49:35 INFO ui.JettyUtils: Adding filter: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+18/06/02 07:49:35 INFO yarn.Client: Application report for application_1525607376030_0045 (state: ACCEPTED)
+18/06/02 07:49:36 INFO yarn.Client: Application report for application_1525607376030_0045 (state: RUNNING)
+18/06/02 07:49:36 INFO yarn.Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: 192.168.211.142
+	 ApplicationMaster RPC port: 0
+	 queue: root.cloudera
+	 start time: 1527950970567
+	 final status: UNDEFINED
+	 tracking URL: http://quickstart.cloudera:8088/proxy/application_1525607376030_0045/
+	 user: cloudera
+18/06/02 07:49:36 INFO cluster.YarnClientSchedulerBackend: Application application_1525607376030_0045 has started running.
+18/06/02 07:49:36 INFO util.Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 47762.
+18/06/02 07:49:36 INFO netty.NettyBlockTransferService: Server created on 47762
+18/06/02 07:49:36 INFO storage.BlockManagerMaster: Trying to register BlockManager
+18/06/02 07:49:36 INFO storage.BlockManagerMasterEndpoint: Registering block manager 192.168.211.142:47762 with 534.5 MB RAM, BlockManagerId(driver, 192.168.211.142, 47762)
+18/06/02 07:49:36 INFO storage.BlockManagerMaster: Registered BlockManager
+18/06/02 07:49:50 INFO cluster.YarnScheduler: Adding task set 6.0 with 1 tasks
+18/06/02 07:49:50 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 6.0 (TID 72, 192.168.211.142, executor 1, partition 1, PROCESS_LOCAL, 1974 bytes)
+18/06/02 07:49:50 INFO storage.BlockManagerInfo: Added broadcast_4_piece0 in memory on 192.168.211.142:55818 (size: 1612.0 B, free: 534.5 MB)
+18/06/02 07:49:50 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 6.0 (TID 72) in 29 ms on 192.168.211.142 (executor 1) (1/1)
+18/06/02 07:49:50 INFO cluster.YarnScheduler: Removed TaskSet 6.0, whose tasks have all completed, from pool 
+18/06/02 07:49:50 INFO scheduler.DAGScheduler: ResultStage 6 (print at NetcatWordCount.scala:30) finished in 0.020 s
+18/06/02 07:49:50 INFO scheduler.DAGScheduler: Job 3 finished: print at NetcatWordCount.scala:30, took 0.044851 s
+-------------------------------------------
+Time: 1527950990000 ms
+-------------------------------------------
+
+18/06/02 07:49:50 INFO scheduler.JobScheduler: Finished job streaming job 1527950990000 ms.0 from job set of time 1527950990000 ms
+18/06/02 07:49:50 INFO scheduler.JobScheduler: Total delay: 0.209 s for time 1527950990000 ms (execution: 0.119 s)
+18/06/02 07:49:50 INFO scheduler.ReceivedBlockTracker: Deleting batches ArrayBuffer()
+18/06/02 07:49:50 INFO scheduler.InputInfoTracker: remove old batch metadata: 
+18/06/02 07:49:55 INFO scheduler.JobScheduler: Starting job streaming job 1527950995000 ms.0 from job set of time 1527950995000 ms
+18/06/02 07:49:55 INFO scheduler.JobScheduler: Added jobs for time 1527950995000 ms
+18/06/02 07:49:55 INFO spark.SparkContext: Starting job: print at NetcatWordCount.scala:30
+
+~~~
+
+* Add lines on `netcat` terminal
+~~~
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+this is a first line
+this is another line
+this is one another line
+~~~
+
+* Verify terminal to see the result
+~~~
+-------------------------------------------
+Time: 1527951010000 ms
+-------------------------------------------
+(this,24)
+(is,24)
+(line,24)
+(one,8)
+(first,8)
+(another,16)
+(a,8)
+
+18/06/02 07:50:10 INFO scheduler.JobScheduler: Finished job streaming job 1527951010000 ms.0 from job set of time 1527951010000 ms
+18/06/02 07:50:10 INFO scheduler.JobScheduler: Total delay: 0.247 s for time 1527951010000 ms (execution: 0.204 s)
+18/06/02 07:50:10 INFO rdd.ShuffledRDD: Removing RDD 19 from persistence list
+18/06/02 07:50:10 INFO storage.BlockManager: Removing RDD 19
+18/06/02 07:50:10 INFO rdd.MapPartitionsRDD: Removing RDD 18 from persistence list
+18/06/02 07:50:10 INFO storage.BlockManager: Removing RDD 18
+18/06/02 07:50:10 INFO rdd.MapPartitionsRDD: Removing RDD 17 from persistence list
+18/06/02 07:50:10 INFO storage.BlockManager: Removing RDD 17
+18/06/02 07:50:10 INFO rdd.BlockRDD: Removing RDD 16 from persistence list
+18/06/02 07:50:10 INFO dstream.SocketInputDStream: Removing blocks of RDD BlockRDD[16] at socketTextStream at NetcatWordCount.scala:24 of time 1527951010000 ms
+18/06/02 07:50:10 INFO scheduler.ReceivedBlockTracker: Deleting batches ArrayBuffer(1527951000000 ms)
+18/06/02 07:50:10 INFO scheduler.InputInfoTracker: remove old batch metadata: 1527951000000 ms
+18/06/02 07:50:10 INFO storage.BlockManager: Removing RDD 16
+18/06/02 07:50:15 INFO scheduler.JobScheduler: Starting job streaming job 1527951015000 ms.0 from job set of time 1527951015000 ms
+18/06/02 07:50:15 INFO scheduler.JobScheduler: Added jobs for time 1527951015000 ms
+18/06/02 07:50:15 INFO spark.SparkContext: Starting job: print at NetcatWordCount.scala:30
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Registering RDD 26 (map at NetcatWordCount.scala:26)
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Got job 12 (print at NetcatWordCount.scala:30) with 1 output partitions
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Final stage: ResultStage 24 (print at NetcatWordCount.scala:30)
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Parents of final stage: List(ShuffleMapStage 23)
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Missing parents: List()
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Submitting ResultStage 24 (ShuffledRDD[27] at reduceByKey at NetcatWordCount.scala:27), which has no missing parents
+18/06/02 07:50:15 INFO storage.MemoryStore: Block broadcast_14 stored as values in memory (estimated size 2.6 KB, free 534.4 MB)
+18/06/02 07:50:15 INFO storage.MemoryStore: Block broadcast_14_piece0 stored as bytes in memory (estimated size 1616.0 B, free 534.4 MB)
+18/06/02 07:50:15 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on 192.168.211.142:47762 (size: 1616.0 B, free: 534.5 MB)
+18/06/02 07:50:15 INFO spark.SparkContext: Created broadcast 14 from broadcast at DAGScheduler.scala:1004
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 24 (ShuffledRDD[27] at reduceByKey at NetcatWordCount.scala:27) (first 15 tasks are for partitions Vector(0))
+18/06/02 07:50:15 INFO cluster.YarnScheduler: Adding task set 24.0 with 1 tasks
+18/06/02 07:50:15 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 24.0 (TID 82, 192.168.211.142, executor 1, partition 0, PROCESS_LOCAL, 1974 bytes)
+18/06/02 07:50:15 INFO storage.BlockManagerInfo: Added broadcast_14_piece0 in memory on 192.168.211.142:55818 (size: 1616.0 B, free: 534.5 MB)
+18/06/02 07:50:15 INFO spark.MapOutputTrackerMasterEndpoint: Asked to send map output locations for shuffle 6 to 192.168.211.142:37174
+18/06/02 07:50:15 INFO spark.MapOutputTrackerMaster: Size of output statuses for shuffle 6 is 83 bytes
+18/06/02 07:50:15 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 24.0 (TID 82) in 28 ms on 192.168.211.142 (executor 1) (1/1)
+18/06/02 07:50:15 INFO cluster.YarnScheduler: Removed TaskSet 24.0, whose tasks have all completed, from pool 
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: ResultStage 24 (print at NetcatWordCount.scala:30) finished in 0.017 s
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Job 12 finished: print at NetcatWordCount.scala:30, took 0.047274 s
+18/06/02 07:50:15 INFO spark.SparkContext: Starting job: print at NetcatWordCount.scala:30
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Got job 13 (print at NetcatWordCount.scala:30) with 1 output partitions
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Final stage: ResultStage 26 (print at NetcatWordCount.scala:30)
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Parents of final stage: List(ShuffleMapStage 25)
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Missing parents: List()
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Submitting ResultStage 26 (ShuffledRDD[27] at reduceByKey at NetcatWordCount.scala:27), which has no missing parents
+18/06/02 07:50:15 INFO storage.MemoryStore: Block broadcast_15 stored as values in memory (estimated size 2.6 KB, free 534.4 MB)
+18/06/02 07:50:15 INFO storage.MemoryStore: Block broadcast_15_piece0 stored as bytes in memory (estimated size 1616.0 B, free 534.4 MB)
+18/06/02 07:50:15 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on 192.168.211.142:47762 (size: 1616.0 B, free: 534.5 MB)
+18/06/02 07:50:15 INFO spark.SparkContext: Created broadcast 15 from broadcast at DAGScheduler.scala:1004
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Submitting 1 missing tasks from ResultStage 26 (ShuffledRDD[27] at reduceByKey at NetcatWordCount.scala:27) (first 15 tasks are for partitions Vector(1))
+18/06/02 07:50:15 INFO cluster.YarnScheduler: Adding task set 26.0 with 1 tasks
+18/06/02 07:50:15 INFO scheduler.TaskSetManager: Starting task 0.0 in stage 26.0 (TID 83, 192.168.211.142, executor 1, partition 1, PROCESS_LOCAL, 1974 bytes)
+18/06/02 07:50:15 INFO storage.BlockManagerInfo: Added broadcast_15_piece0 in memory on 192.168.211.142:55818 (size: 1616.0 B, free: 534.5 MB)
+18/06/02 07:50:15 INFO scheduler.TaskSetManager: Finished task 0.0 in stage 26.0 (TID 83) in 20 ms on 192.168.211.142 (executor 1) (1/1)
+18/06/02 07:50:15 INFO cluster.YarnScheduler: Removed TaskSet 26.0, whose tasks have all completed, from pool 
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: ResultStage 26 (print at NetcatWordCount.scala:30) finished in 0.010 s
+18/06/02 07:50:15 INFO scheduler.DAGScheduler: Job 13 finished: print at NetcatWordCount.scala:30, took 0.031542 s
 ~~~
 
 ## Spark - Understanding of different context
