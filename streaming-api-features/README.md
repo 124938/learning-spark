@@ -771,5 +771,5 @@ Time: 1527951010000 ms
 |--------|---------------------------------|-----------------------------------|-----------------------------------------------|
 | Responsibility | Primary responsibility of SparkContext is to execute batch job at less frequent interval (i.e. hourly/daily/weekly job) | Primary responsibility of SQLContext is to provide environment for executing SQL query | Primary responsibility of StreamingContext is process live streaming data at high frequently (i.e. 10 seconds, 1/5/10/30 min etc.) |
 | Usage | Typical usage of SparkContext is to read, process & store processed data into file system | Usage of SQLContext is same as SparkContext but in SQL way | Typical usage of SparkStreaming is to process/analyze nearly real time data |
-| Creation | In context of `spark-shell`, SparkContext will get automatically created, which can be monitored using exposed web service on specific port number | SQLContext can be created with help of SparkContext as input | Don't know |
+| Creation | In context of `spark-shell`, SparkContext will get automatically created, which can be monitored using exposed web service on specific port number | SQLContext can be created with help of SparkContext as input | StreamingContext can be created with/without SparkContext |
 
