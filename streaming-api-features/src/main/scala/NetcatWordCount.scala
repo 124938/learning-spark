@@ -15,10 +15,10 @@ object NetcatWordCount {
       setAppName("Network word count")
 
     // Create Spark Context
-    val sc = new SparkContext(conf)
+    //val sc = new SparkContext(conf)
 
     // Create Spark Streaming Context
-    val ssc = new StreamingContext(sc, Seconds(5))
+    val ssc = new StreamingContext(conf, Seconds(5))
 
     // Create word count program
     val lines = ssc.socketTextStream(host, port)
