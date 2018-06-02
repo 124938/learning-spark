@@ -761,6 +761,10 @@ Time: 1527951010000 ms
 18/06/02 07:50:15 INFO scheduler.DAGScheduler: Job 13 finished: print at NetcatWordCount.scala:30, took 0.031542 s
 ~~~
 
+### _Important Notes:_
+
+* Make sure to pass `--conf spark.rpc.netty.dispatcher.numThreads=2` while executing `spark-submit` command else program will always run in waiting mode
+
 ## Spark - Understanding of different context
 
 | Metrics| `org.apache.spark.SparkContext` | `org.apache.spark.sql.SQLContext` | `org.apache.spark.streaming.StreamingContext` |
