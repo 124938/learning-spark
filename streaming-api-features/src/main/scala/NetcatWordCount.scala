@@ -32,6 +32,8 @@ object NetcatWordCount {
     // Start spark streaming
     ssc.start
     ssc.awaitTermination
+
+    // Testing
   }
 
 }
