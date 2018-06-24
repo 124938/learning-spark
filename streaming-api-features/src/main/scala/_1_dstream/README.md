@@ -15,4 +15,71 @@
 
   ![Alt text](_images/streaming-dstream-ops.png?raw=true "DStream Example - Netcat Word Count")
   
-## DStream - API
+## DStream - Transformations
+
+### Common Operations:
+  
+* DStreams support many of the transformations available on normal Spark RDD’s & few of the common ones are as follows:
+
+| Transformation | Meaning |
+| ----------- | ----------- |
+| map(func) | Return a new DStream by passing each element of the source DStream through a function func |
+| flatMap(func) | Similar to map, but each input item can be mapped to 0 or more output items |
+| filter(func) | Return a new DStream by selecting only the records of the source DStream on which func returns true |
+| repartition(numPartitions) | Changes the level of parallelism in this DStream by creating more or fewer partitions |
+| union(otherStream) | Return a new DStream that contains the union of the elements in the source DStream and otherDStream |
+| count() | Return a new DStream of single-element RDDs by counting the number of elements in each RDD of the source DStream |
+| reduce(func) | Return a new DStream of single-element RDDs by aggregating the elements in each RDD of the source DStream using a function func (which takes two arguments and returns one). The function should be associative so that it can be computed in parallel |
+| countByValue() | When called on a DStream of elements of type K, return a new DStream of (K, Long) pairs where the value of each key is its frequency in each RDD of the source DStream |
+| reduceByKey(func, [numTasks])	| When called on a DStream of (K, V) pairs, return a new DStream of (K, V) pairs where the values for each key are aggregated using the given reduce function. Note: By default, this uses Spark's default number of parallel tasks (2 for local mode, and in cluster mode the number is determined by the config property spark.default.parallelism) to do the grouping. You can pass an optional numTasks argument to set a different number of tasks |
+| join(otherStream, [numTasks])	| When called on two DStreams of (K, V) and (K, W) pairs, return a new DStream of (K, (V, W)) pairs with all pairs of elements for each key |
+| cogroup(otherStream, [numTasks]) | When called on a DStream of (K, V) and (K, W) pairs, return a new DStream of (K, Seq[V], Seq[W]) tuples |
+| transform(func) | Return a new DStream by applying a RDD-to-RDD function to every RDD of the source DStream. This can be used to do arbitrary RDD operations on the DStream |
+| updateStateByKey(func) | Return a new "state" DStream where the state for each key is updated by applying the given function on the previous state of the key and the new values for the key. This can be used to maintain arbitrary state data for each key |
+
+### `transform` Operation:
+
+* The `transform` operation allows arbitrary RDD-to-RDD functions to be applied on a DStream
+* It can be used to apply any RDD operation that is not exposed in the DStream API
+* For example, the functionality of joining every batch in a data stream with another dataset is not directly exposed in the DStream API. However, you can easily use transform to do this, which enables very powerful possibilities.
+* For example, one can do real-time data cleaning by joining the input data stream with precomputed spam information (maybe generated with Spark as well) and then filtering based on it
+
+~~~
+val spamInfoRDD = ssc.sparkContext.newAPIHadoopRDD(...) // RDD containing spam information
+
+val cleanedDStream = wordCounts.transform(rdd => {
+rdd.join(spamInfoRDD).filter(...) // join data stream with spam information to do data cleaning
+...
+})
+~~~
+
+### `updateStateByKey` Operation:
+
+* The `updateStateByKey` operation allows to maintain arbitrary state while continuously updating it with new information
+* To use this, you will have to do two steps:
+  * Define the state - The state can be an arbitrary data type
+  * Define the state update function - Specify with a function how to update the state using the previous state and the new values from an input stream
+* In every batch, Spark will apply the state update function for all existing keys, regardless of whether they have new data in a batch or not. If the update function returns None then the key-value pair will be eliminated.
+
+### Window Operations
+
+* TO-DO
+
+### Join Operations
+
+* TO-DO
+
+## DStream - Output Operations
+
+* Output operations allow DStream’s data to be pushed out to external systems like a database or a file systems
+* Since the output operations actually allow the transformed data to be consumed by external systems, they trigger the actual execution of all the DStream transformations (similar to actions for RDDs). 
+* Followings are few known output operations:
+
+  | Output Operation | Meaning |
+  | ----------- | ----------- |
+  | print() | Prints the first ten elements of every batch of data in a DStream on the driver node running the streaming application. This is useful for development and debugging |
+  | saveAsTextFiles(prefix, [suffix]) | Save this DStream's contents as text files. The file name at each batch interval is generated based on prefix and suffix: "prefix-TIME_IN_MS[.suffix]" |
+  | saveAsObjectFiles(prefix, [suffix]) | Save this DStream's contents as SequenceFiles of serialized Java objects. The file name at each batch interval is generated based on prefix and suffix: "prefix-TIME_IN_MS[.suffix]" |
+  | saveAsHadoopFiles(prefix, [suffix])	| Save this DStream's contents as Hadoop files. The file name at each batch interval is generated based on prefix and suffix: "prefix-TIME_IN_MS[.suffix]" |
+  | foreachRDD(func) | The most generic output operator that applies a function, func, to each RDD generated from the stream. This function should push the data in each RDD to an external system, such as saving the RDD to files, or writing it over the network to a database. Note that the function func is executed in the driver process running the streaming application, and will usually have RDD actions in it that will force the computation of the streaming RDDs |
+  
